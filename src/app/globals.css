@@ -1,0 +1,199 @@
+@import "tailwindcss";
+
+/*
+ * DESIGNSYSTEM
+ *
+ * Färgerna kommer från src/konfig/sajt.ts och sätts som CSS-variabler på
+ * <html> i layout.tsx. Värdena nedan är reservvärden om något saknas.
+ * Alla nyanser (linjer, mjuk accent, skuggor) räknas fram ur grundfärgerna,
+ * så det räcker att ändra konfigurationen.
+ */
+:root {
+  --farg-bakgrund: #faf8f5;
+  --farg-yta: #ffffff;
+  --farg-sand: #f2ede7;
+  --farg-text: #292522;
+  --farg-text-sekundar: #6b625c;
+  --farg-accent: #a98463;
+  --farg-accent-mork: #86603f;
+}
+
+@theme inline {
+  /* Ytor */
+  --color-bg: var(--farg-bakgrund);
+  --color-surface: var(--farg-yta);
+  --color-sand: var(--farg-sand);
+  --color-sand-deep: color-mix(in oklab, var(--farg-sand) 90%, var(--farg-text));
+  --color-line: color-mix(in oklab, var(--farg-text) 9%, transparent);
+  --color-line-strong: color-mix(in oklab, var(--farg-text) 16%, transparent);
+
+  /* Text. ink-faint är bara till ikoner och dekor – för svag för läsbar text. */
+  --color-ink: var(--farg-text);
+  --color-ink-soft: var(--farg-text-sekundar);
+  --color-ink-faint: color-mix(in oklab, var(--farg-text-sekundar) 55%, var(--farg-bakgrund));
+
+  /* Accent. accent-strong bär text och knappar, accent är dekor och stora ytor. */
+  --color-accent: var(--farg-accent);
+  --color-accent-strong: var(--farg-accent-mork);
+  /* 18 % så att den syns mot sand även med den beige-bruna accenten (accentMork klarar 4,6:1 på den) */
+  --color-accent-soft: color-mix(in oklab, var(--farg-accent) 18%, var(--farg-yta));
+  --color-accent-wash: color-mix(in oklab, var(--farg-accent) 6%, var(--farg-yta));
+  /* Ljus accent för text på mörka ytor (klarar kontrastkraven mot textfärgen) */
+  --color-accent-light: color-mix(in oklab, var(--farg-accent) 62%, white);
+  /* Mörkare accent för hover på primärknappar */
+  --color-accent-djup: color-mix(in oklab, var(--farg-accent-mork) 80%, black);
+
+  /* Typsnitt (laddas med next/font i layout.tsx) */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-manrope), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* Typografisk skala – flytande mellan mobil och desktop */
+  --text-display: clamp(2.4rem, 1.65rem + 2.4vw, 3.5rem);
+  --text-display--line-height: 1.03;
+  --text-display--letter-spacing: -0.04em;
+  --text-h2: clamp(1.8rem, 1.4rem + 1.4vw, 2.5rem);
+  --text-h2--line-height: 1.08;
+  --text-h2--letter-spacing: -0.035em;
+  --text-h3: clamp(1.15rem, 1.07rem + 0.3vw, 1.3rem);
+  --text-h3--line-height: 1.3;
+  --text-h3--letter-spacing: -0.02em;
+  --text-lead: clamp(1.03rem, 0.98rem + 0.2vw, 1.13rem);
+  --text-lead--line-height: 1.6;
+
+  /* Skuggor – varma, mjuka, i textfärgen */
+  --shadow-kort: 0 1px 2px color-mix(in oklab, var(--farg-text) 5%, transparent),
+    0 6px 20px -8px color-mix(in oklab, var(--farg-text) 12%, transparent);
+  --shadow-lyft: 0 2px 6px color-mix(in oklab, var(--farg-text) 5%, transparent),
+    0 22px 44px -16px color-mix(in oklab, var(--farg-text) 22%, transparent);
+  --shadow-telefon: 0 36px 70px -24px color-mix(in oklab, var(--farg-text) 40%, transparent),
+    0 14px 28px -14px color-mix(in oklab, var(--farg-text) 24%, transparent);
+  --shadow-knapp: inset 0 1px 0 rgb(255 255 255 / 0.16),
+    0 10px 22px -10px color-mix(in oklab, var(--farg-accent-mork) 75%, transparent);
+  /* Djup skugga för större ytor som ska lyfta från sidan */
+  --shadow-djup: 0 1px 2px color-mix(in oklab, var(--farg-text) 6%, transparent),
+    0 30px 60px -28px color-mix(in oklab, var(--farg-text) 30%, transparent);
+
+  /* Rörelse */
+  --ease-mjuk: cubic-bezier(0.22, 1, 0.36, 1);
+  --animate-intro: intro 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-skriver: skriver 1.2s ease-in-out infinite;
+  --animate-rita: rita 1.1s 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes intro {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Prickarna i "skriver …"-bubblan */
+@keyframes skriver {
+  0%,
+  70%,
+  100% {
+    opacity: 0.3;
+    transform: translateY(0);
+  }
+  35% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+
+/* Understrykningen under "tillbaka" i rubriken (pathLength="1") */
+@keyframes rita {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Ankarlänkar landar under den fasta menyn */
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--farg-bakgrund);
+    color: var(--farg-text);
+    font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-manrope), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: color-mix(in oklab, var(--farg-accent) 18%, var(--farg-yta));
+    color: var(--farg-text);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--farg-accent-mork);
+    outline-offset: 3px;
+  }
+}
+
+/*
+ * DJUP UTAN NYA FÄRGER
+ * Ytorna nedan håller sig till paletten (off-white, beige, mörkbrunt) –
+ * accenten blandas medvetet inte in i stora ytor (med den tidigare
+ * terrakottan blev det rosa). Djupet kommer från tonskillnad, korn och skugga.
+ */
+
+/* Beige yta som mörknar svagt nedåt – bakom produktbilderna */
+@utility yta-beige {
+  background:
+    radial-gradient(90% 60% at 20% 0%, rgb(255 255 255 / 0.55) 0%, transparent 60%),
+    linear-gradient(170deg, var(--farg-sand) 0%, color-mix(in oklab, var(--farg-sand) 93%, var(--farg-text)) 100%);
+}
+
+/* Fint korn som ger ytorna textur (lägg som overlay med låg opacitet) */
+@utility korn {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='k'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23k)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  pointer-events: none;
+}
+
+/* Diskret punktmönster på illustrationernas bakgrund */
+@utility prickmonster {
+  background-image: radial-gradient(
+    color-mix(in oklab, var(--farg-text) 9%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 18px 18px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
