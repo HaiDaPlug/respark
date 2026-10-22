@@ -43,7 +43,7 @@ Demoförbundet fungerar bara med `npm run dev`, aldrig på den publicerade sidan
 | Produktillustrationerna (exempelvyer) och före/efter-scenerna (`ForeEfter.tsx`) | `src/komponenter/illustrationer/` |
 | Knappar, behållare, rubriker, platshållare | `src/komponenter/ui/` |
 | **Loggan**: `Logga` (gnista + ord), `Gnista` (bara märket), `Ordmarke` (menystorlek). Konturerna ligger i `gnistaData.ts` och `loggaOrdData.ts` (genererade). SVG-text till delningsbild och hemskärmsikon: `loggaSvg.ts` | `src/komponenter/ui/` |
-| Favicon (gnistan) och hemskärmsikon | `src/app/icon.svg`, `src/app/apple-icon.tsx` |
+| Favicon (gnistan) och hemskärmsikon. `favicon.ico` (16/32/48 px, renderad från `icon.svg`) behövs för Safari och äldre webbläsare | `src/app/icon.svg`, `src/app/favicon.ico`, `src/app/apple-icon.tsx` |
 | Logik med tester: förbund och pris. Vart "Kom igång" leder: `lankar.ts` | `src/lib/` |
 | Utkast till integritetspolicy och villkor | `src/app/integritetspolicy/`, `src/app/villkor/` |
 | Delningsbild, robots, sitemap | `src/app/opengraph-image.tsx`, `robots.ts`, `sitemap.ts` |
