@@ -34,7 +34,7 @@ export default function OgBild() {
             {`${texter.hero.rubrik.fore} ${texter.hero.rubrik.markerad} ${texter.hero.rubrik.efter}`}
           </div>
           <div style={{ fontSize: 26, color: f.textSekundar, lineHeight: 1.4 }}>
-            {`${texter.hero.etikett}.`}
+            {`${texter.meta.undertitel}.`}
           </div>
         </div>
 

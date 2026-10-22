@@ -14,7 +14,7 @@ export function Pris() {
   return (
     <section id={ankare.pris} aria-labelledby="pris-rubrik" className="py-16 sm:py-20">
       <Behallare>
-        <Sektionsrubrik id="pris-rubrik" etikett={t.etikett} rubrik={t.rubrik} text={t.text} centrerad />
+        <Sektionsrubrik id="pris-rubrik" rubrik={t.rubrik} text={t.text} centrerad />
         <Avsloja className="mx-auto mt-10 w-full max-w-[54rem] lg:mt-12">
           <PrisKort />
         </Avsloja>

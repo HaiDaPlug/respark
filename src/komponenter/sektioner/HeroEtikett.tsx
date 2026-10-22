@@ -5,8 +5,9 @@ import { ankare, texter } from "@/innehall/texter";
 import { usePartner } from "@/komponenter/usePartner";
 
 /**
- * Överrubriken i heron. Kommer besökaren via en förbundslänk (?partner=…)
- * byts den mot förbundets erbjudande med en länk till priset.
+ * Förbundsbrickan i heron: visas bara när besökaren kommer via en
+ * förbundslänk (?partner=…), med erbjudandet och en länk till priset.
+ * Utan förbund visas ingenting (den vanliga överrubriken togs bort 2026-10-21).
  */
 export function HeroEtikett() {
   const t = texter.hero;
@@ -16,7 +17,7 @@ export function HeroEtikett() {
     return (
       <a
         href={`/#${ankare.pris}`}
-        className="group inline-flex max-w-full items-start gap-3 rounded-2xl bg-ink py-2.5 pr-4 pl-2.5 text-bg shadow-kort"
+        className="group mb-5 inline-flex max-w-full items-start gap-3 rounded-2xl bg-ink py-2.5 pr-4 pl-2.5 text-bg shadow-kort"
       >
         <span className="mt-px shrink-0 rounded-full bg-accent-light px-2 py-0.5 text-[0.72rem] font-semibold text-ink">
           Medlem
@@ -33,12 +34,5 @@ export function HeroEtikett() {
     );
   }
 
-  return (
-    <p className="inline-flex items-center gap-2 rounded-full bg-surface/80 py-1.5 pr-3.5 pl-2 text-[0.84rem] font-medium text-ink-soft ring-1 ring-line">
-      <span aria-hidden className="grid size-5 place-items-center rounded-full bg-accent-soft">
-        <span className="size-1.5 rounded-full bg-accent" />
-      </span>
-      {t.etikett}
-    </p>
-  );
+  return null;
 }

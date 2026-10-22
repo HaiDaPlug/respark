@@ -5,7 +5,6 @@ import { sajt } from "@/konfig/sajt";
 import { Avsloja } from "@/komponenter/ui/Avsloja";
 import { Behallare } from "@/komponenter/ui/Behallare";
 import { Platshallare } from "@/komponenter/ui/Platshallare";
-import { Etikett } from "@/komponenter/ui/Sektionsrubrik";
 
 /**
  * Berättelsen om hur produkten började hos en riktig kund. Citat, logga,
@@ -35,8 +34,7 @@ export function Kundcase() {
           <div className="yta-beige relative grid gap-8 overflow-hidden rounded-[2rem] p-6 shadow-djup ring-1 ring-line sm:p-10 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-12 lg:p-12">
             <div aria-hidden className="korn absolute inset-0 opacity-[0.06] mix-blend-multiply" />
             <div className="relative">
-              <Etikett>{t.etikett}</Etikett>
-              <h2 id="kundcase-rubrik" className="mt-3 text-h2 font-bold text-ink">
+              <h2 id="kundcase-rubrik" className="text-h2 font-bold text-ink">
                 {t.rubrik}
               </h2>
               <p className="mt-4 text-lead text-ink-soft">{t.text}</p>

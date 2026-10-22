@@ -14,7 +14,6 @@ export function VanligaFragor() {
         <div className="lg:sticky lg:top-28 lg:self-start">
           <Sektionsrubrik
             id="fragor-rubrik"
-            etikett={t.etikett}
             rubrik={t.rubrik}
             text={sajt.kontaktEpost ? t.kontakt(sajt.kontaktEpost) : undefined}
           />

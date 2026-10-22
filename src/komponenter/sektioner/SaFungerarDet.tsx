@@ -21,7 +21,7 @@ export function SaFungerarDet() {
       className="border-y border-line bg-surface py-16 sm:py-20 lg:pb-8"
     >
       <Behallare>
-        <Sektionsrubrik id="sa-fungerar-rubrik" etikett={t.etikett} rubrik={t.rubrik} />
+        <Sektionsrubrik id="sa-fungerar-rubrik" rubrik={t.rubrik} />
 
         <div className="lg:hidden">
           <StegTidslinje />

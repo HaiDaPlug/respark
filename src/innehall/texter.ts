@@ -24,6 +24,8 @@ export const ankare = {
 
 export const texter = {
   meta: {
+    /** Undertext i delningsbilden. */
+    undertitel: "Fler återbesök för behandlare och salonger",
     titel: `${p} – Få tillbaka kunder som inte bokat på länge`,
     beskrivning:
       "Fler återbesök för behandlare, kliniker och salonger. Tidigare kunder får en personlig påminnelse när det gått ett tag, och du ser vilka som kommer tillbaka. Fungerar med ditt nuvarande bokningssystem.",
@@ -42,7 +44,6 @@ export const texter = {
   },
 
   hero: {
-    etikett: "Fler återbesök för behandlare och salonger",
     /** Rubriken delas upp så att ordet "tillbaka" kan få sin understrykning. */
     rubrik: { fore: "Få", markerad: "tillbaka", efter: "kunder som inte bokat på länge." },
     ingress: "Tidigare kunder får en personlig påminnelse när det gått ett tag – helt automatiskt. Du ser vilka som kommer tillbaka.",
@@ -72,7 +73,6 @@ export const texter = {
   },
 
   problem: {
-    etikett: "Känner du igen dig?",
     rubrik: "Du har redan kunderna. Men alla kommer inte tillbaka av sig själva.",
     text: "Många vill komma tillbaka. Det som saknas är en påminnelse i rätt tid.",
     /**
@@ -100,7 +100,6 @@ export const texter = {
   },
 
   saFungerarDet: {
-    etikett: "Så fungerar det",
     rubrik: "Tre steg till fler återbesök.",
     /** Samma ordning som vyerna i illustrationer/StegVyer.tsx (STEGVYER). */
     steg: [
@@ -123,13 +122,11 @@ export const texter = {
 
   /** Visas bara när sajt.video.url är ifylld. */
   video: {
-    etikett: "Kort genomgång",
     rubrik: "Hellre se än läsa?",
     text: `En kort film om hur ${p} fungerar.`,
   },
 
   kundcase: {
-    etikett: "Kundcase",
     rubrik: "Byggt utifrån ett verkligt behov.",
     text: `Allt började hos ${kund}. Systemet vi byggde åt dem är grunden till ${p}.`,
     /** Fakta som redan finns i Khytes publicerade case. */
@@ -150,7 +147,6 @@ export const texter = {
   },
 
   pris: {
-    etikett: "Pris",
     rubrik: "Ett enkelt pris.",
     text: "Allt du behöver för fler återbesök – i ett paket.",
     /** Kort rad under planens namn. */
@@ -184,7 +180,6 @@ export const texter = {
   },
 
   fragor: {
-    etikett: "Vanliga frågor",
     rubrik: "Bra att veta innan du börjar.",
     /** Visas under rubriken bara när sajt.kontaktEpost är ifylld. */
     kontakt: (epost: string) => `Hittar du inte svaret? Mejla oss på ${epost}.`,
@@ -224,7 +219,6 @@ export const texter = {
   },
 
   komIgang: {
-    etikett: "Kom igång",
     rubrik: "Dina kunder har redan hittat dig. Hjälp dem att hitta tillbaka.",
     text: "Börja med kundlistan du redan har.",
     cta: "Kom igång",

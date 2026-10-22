@@ -32,7 +32,7 @@ export function Hero() {
 
           <h1
             id="hero-rubrik"
-            className="mt-5 text-display font-extrabold text-ink"
+            className="text-display font-extrabold text-ink"
           >
             {t.rubrik.fore}{" "}
             <span className="relative inline-block text-accent-strong">

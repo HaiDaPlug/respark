@@ -1,6 +1,6 @@
 # Respark – landningssida: nuläge
 
-Senast uppdaterad: 2026-10-21
+Senast uppdaterad: 2026-10-22
 
 One-page-landningssida för Respark: tidigare kunder får automatiska
 påminnelser, och verksamheten ser vilka som kommer tillbaka. Den här
@@ -52,7 +52,8 @@ Demoförbundet fungerar bara med `npm run dev`, aldrig på den publicerade sidan
 
 Varje sektion har ett eget jobb och förklarar inte flödet igen: vad du får →
 känner du igen problemet → hur det fungerar → finns det på riktigt → vad det
-kostar → frågor → kom igång. Budskapet är återbesök, inte SMS.
+kostar → frågor → kom igång. Budskapet är återbesök, inte SMS. Sektionerna
+börjar direkt med sin rubrik, utan överrubriker (borttagna 2026-10-21).
 
 1. **Meny**: fast, genomskinlig överst. Under 1024 px blir länkarna en meny bakom en knapp (Escape stänger, sidan bakom scrollar inte).
 2. **Hero**: rubrik "Få tillbaka kunder som inte bokat på länge." och en loopande illustration: Anna markeras i kundlistan, ett SMS går till hennes telefon, "Ny bokning" dyker upp och statusen blir "Bokat igen". Den pausar när den inte syns och står i slutläget vid reducerad rörelse.

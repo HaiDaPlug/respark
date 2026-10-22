@@ -22,7 +22,7 @@ export function KomIgang() {
           />
 
           <div className="relative">
-            <Sektionsrubrik id="kom-igang-rubrik" etikett={t.etikett} rubrik={t.rubrik} text={t.text} centrerad mork />
+            <Sektionsrubrik id="kom-igang-rubrik" rubrik={t.rubrik} text={t.text} centrerad mork />
             <div className="mt-9 flex justify-center">
               <KnappLank href={komIgangHref()} variant="ljus" storlek="lg" pil>
                 {t.cta}

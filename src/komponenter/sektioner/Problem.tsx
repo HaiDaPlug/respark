@@ -19,7 +19,7 @@ export function Problem() {
   return (
     <section aria-labelledby="problem-rubrik" className="py-16 sm:py-20">
       <Behallare>
-        <Sektionsrubrik id="problem-rubrik" etikett={t.etikett} rubrik={t.rubrik} text={t.text} />
+        <Sektionsrubrik id="problem-rubrik" rubrik={t.rubrik} text={t.text} />
 
         <div className="mt-10 grid gap-3 lg:mt-12 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:gap-4">
           <Avsloja className="h-full">

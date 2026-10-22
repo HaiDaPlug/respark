@@ -27,7 +27,7 @@ export function Demovideo() {
   return (
     <section aria-labelledby="video-rubrik" className="pt-16 sm:pt-20">
       <Behallare>
-        <Sektionsrubrik id="video-rubrik" etikett={t.etikett} rubrik={t.rubrik} text={t.text} centrerad />
+        <Sektionsrubrik id="video-rubrik" rubrik={t.rubrik} text={t.text} centrerad />
 
         <div className="mx-auto mt-10 max-w-4xl overflow-hidden rounded-3xl bg-ink ring-1 ring-line">
           {inbaddad ? (
