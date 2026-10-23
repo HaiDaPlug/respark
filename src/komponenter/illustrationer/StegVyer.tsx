@@ -34,7 +34,7 @@ export function ImportVy() {
           <div className="flex items-baseline justify-between gap-2">
             <p className="truncate text-[0.74rem] font-semibold text-ink">kundlista.csv</p>
             <m.span
-              className="inline-flex items-center gap-1 text-[0.64rem] font-semibold text-accent-strong"
+              className="inline-flex items-center gap-1 text-[0.64rem] font-semibold text-framgang"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={enGang}
@@ -67,7 +67,7 @@ export function ImportVy() {
             transition={{ delay: 1.55 + i * 0.12, duration: 0.35, ease: mjuk }}
             className="inline-flex items-center gap-1 rounded-full bg-surface px-2.5 py-1 text-[0.68rem] font-medium text-ink ring-1 ring-line"
           >
-            <Check aria-hidden className="size-3 text-accent-strong" strokeWidth={3} />
+            <Check aria-hidden className="size-3 text-framgang" strokeWidth={3} />
             {kolumn}
           </m.span>
         ))}
@@ -185,8 +185,8 @@ export function ResultatVy() {
               <p className="truncate text-[0.74rem] font-semibold text-ink">{b.namn}</p>
               <p className="truncate text-[0.64rem] text-ink-soft">{b.bokade}</p>
             </div>
-            <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-ink px-2.5 py-1 text-[0.62rem] font-semibold whitespace-nowrap text-bg">
-              <Check aria-hidden className="size-3 text-accent-light" strokeWidth={3} />
+            <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-framgang px-2.5 py-1 text-[0.62rem] font-semibold whitespace-nowrap text-white">
+              <Check aria-hidden className="size-3 text-white/85" strokeWidth={3} />
               {b.efter}
             </span>
           </m.li>

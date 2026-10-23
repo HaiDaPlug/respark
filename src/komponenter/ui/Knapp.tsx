@@ -10,7 +10,8 @@ type Storlek = "md" | "lg";
  * Klasserna för sidans knappar. Används av länkar (KnappLank) och kan även
  * ges till riktiga <button>-element.
  *
- * primar   – accentfärgen (beige-brun), för huvudhandlingen ("Kom igång")
+ * primar   – nästan svart, för huvudhandlingen ("Kom igång"). Var beige-brun
+ *            till 2026-10-23, men smälte då in i sidans beige.
  * sekundar – ljus med kant, för "Se hur det fungerar"
  * ljus     – för mörka ytor
  */
@@ -19,8 +20,7 @@ export function knappKlasser(variant: Variant = "primar", storlek: Storlek = "md
     "group inline-flex select-none items-center justify-center gap-2 whitespace-nowrap rounded-full font-semibold",
     "transition-[background-color,box-shadow,transform,color] duration-200 ease-out active:scale-[0.98]",
     storlek === "lg" ? "h-[3.25rem] px-7 text-[1rem]" : "h-11 px-5 text-[0.94rem]",
-    variant === "primar" &&
-      "bg-accent-strong text-white shadow-knapp hover:-translate-y-px hover:bg-accent-djup",
+    variant === "primar" && "bg-knapp text-bg shadow-knapp hover:-translate-y-px hover:bg-knapp-hover",
     variant === "sekundar" && "bg-surface/70 text-ink ring-1 ring-line-strong hover:bg-surface hover:ring-ink/25",
     variant === "ljus" && "bg-bg text-ink hover:-translate-y-px hover:bg-surface",
     extra,

@@ -4,6 +4,7 @@ import type { CSSProperties } from "react";
 import { texter } from "@/innehall/texter";
 import { sajt } from "@/konfig/sajt";
 import { RorelseProvider } from "@/komponenter/RorelseProvider";
+import { INTRO_SKRIPT } from "@/lib/intro";
 import "./globals.css";
 
 // Brödtext: Inter, mycket lättläst. Rubriker: Manrope, rundare och varmare.
@@ -47,11 +48,17 @@ const farger = {
   "--farg-text-sekundar": sajt.farger.textSekundar,
   "--farg-accent": sajt.farger.accent,
   "--farg-accent-mork": sajt.farger.accentMork,
+  "--farg-framgang": sajt.farger.framgang,
 } as CSSProperties;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="sv" className={`${inter.variable} ${manrope.variable}`} style={farger}>
+    // suppressHydrationWarning: introskriptet sätter data-intro på <html> innan React tar över.
+    <html lang="sv" className={`${inter.variable} ${manrope.variable}`} style={farger} suppressHydrationWarning>
+      <head>
+        {/* Bestämmer om startsidans intro ska spelas, innan något ritas (se src/lib/intro.ts) */}
+        <script dangerouslySetInnerHTML={{ __html: INTRO_SKRIPT }} />
+      </head>
       <body>
         {/* Utan JavaScript körs inga animationer – visa då allt direkt. */}
         <noscript>

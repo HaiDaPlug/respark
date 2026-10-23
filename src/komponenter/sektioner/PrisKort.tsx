@@ -20,10 +20,16 @@
  * Knappen går till betalningen (bekräftat pris + betallänk) eller till
  * registreringen. Finns ingen av dem visas en platshållare i stället för en
  * knapp som inte leder någonstans.
+ *
+ * Under priset står det som sänker tröskeln (provperiod, ingen bindningstid),
+ * och när beloppen syns kan besökaren räkna på priset mot sitt eget pris per
+ * besök ("Räkna själv") – ren räkning, inget löfte om antal bokningar.
  */
 import { Check, Info } from "lucide-react";
+import { useId, useState } from "react";
 import { texter } from "@/innehall/texter";
 import { sajt } from "@/konfig/sajt";
+import { komIgangEtikett } from "@/lib/lankar";
 import { kronor, medlemspris } from "@/lib/pris";
 import { KnappLank } from "@/komponenter/ui/Knapp";
 import { Platshallare } from "@/komponenter/ui/Platshallare";
@@ -61,7 +67,6 @@ export function PrisKort() {
             </p>
           )}
         </div>
-        <p className="mt-1.5 text-[0.95rem] text-ink-soft">{t.beskrivning}</p>
 
         {/* Priset */}
         <div className="mt-7">
@@ -94,16 +99,29 @@ export function PrisKort() {
               <p className="font-display text-[2.1rem] leading-tight font-extrabold tracking-[-0.035em] text-ink">
                 {t.dold.rubrik}
               </p>
-              <p className="mt-2 text-[0.92rem] text-ink-soft">{t.dold.text}</p>
             </>
           )}
         </div>
+
+        {/* Det som sänker tröskeln */}
+        <ul className="mt-6 space-y-2.5">
+          {pris.provperiodDagar ? (
+            <Trygghet>{t.trygghet.provperiod(pris.provperiodDagar)}</Trygghet>
+          ) : (
+            sajt.visaPlatshallare && (
+              <li>
+                <Platshallare text={t.trygghet.provperiodSaknas} />
+              </li>
+            )
+          )}
+          {pris.ingenBindningstid && <Trygghet>{t.trygghet.bindning}</Trygghet>}
+        </ul>
 
         {/* Knappen – längst ner i spalten, i linje med listans slut */}
         <div className="mt-auto pt-7">
           {ctaHref ? (
             <KnappLank href={ctaHref} storlek="lg" pil className="w-full">
-              {t.cta}
+              {komIgangEtikett()}
             </KnappLank>
           ) : (
             sajt.visaPlatshallare && <Platshallare text={t.saknarLank} />
@@ -117,12 +135,75 @@ export function PrisKort() {
         <ul className="mt-4 space-y-3">
           {t.ingar.map((rad) => (
             <li key={rad} className="flex items-start gap-3 text-[0.95rem] text-ink">
-              <Check aria-hidden className="mt-0.5 size-4 shrink-0 text-accent-strong" strokeWidth={2.6} />
+              <Check aria-hidden className="mt-0.5 size-4 shrink-0 text-framgang" strokeWidth={2.6} />
               {rad}
             </li>
           ))}
         </ul>
-        {visaBelopp && <p className="mt-7 text-[0.78rem] leading-relaxed text-ink-soft">{t.smsNotis}</p>}
+        {visaBelopp && <p className="mt-7 text-[0.85rem] leading-relaxed text-ink-soft">{t.smsNotis}</p>}
+      </div>
+
+      {/* Räkna själv – över hela kortets bredd */}
+      {visaBelopp ? (
+        <Raknare manadspris={visatPris} />
+      ) : (
+        sajt.visaPlatshallare && (
+          <div className="border-t border-line p-7 sm:px-9 md:col-span-2">
+            <Platshallare text={t.rakna.platshallare} />
+          </div>
+        )
+      )}
+    </div>
+  );
+}
+
+/** En rad med bock under priset, t.ex. "Ingen bindningstid – avsluta när du vill". */
+function Trygghet({ children }: { children: string }) {
+  return (
+    <li className="flex items-start gap-2.5 text-[0.95rem] font-semibold text-ink">
+      <Check aria-hidden className="mt-0.5 size-4 shrink-0 text-framgang" strokeWidth={2.8} />
+      {children}
+    </li>
+  );
+}
+
+/**
+ * Hur många kunder i månaden som behöver komma tillbaka för att priset ska gå
+ * jämnt ut, räknat på besökarens eget pris per besök. Startvärdet är bara ett
+ * exempel som besökaren skriver över.
+ */
+function Raknare({ manadspris }: { manadspris: number }) {
+  const t = texter.pris.rakna;
+  const id = useId();
+  const [besok, setBesok] = useState(800);
+  const antal = besok > 0 && manadspris > 0 ? Math.max(1, Math.ceil(manadspris / besok)) : null;
+
+  return (
+    <div className="grid gap-4 border-t border-line bg-bg/60 p-7 sm:px-9 md:col-span-2 md:grid-cols-[auto_minmax(0,1fr)] md:items-center md:gap-x-10">
+      <div>
+        <p className="text-[0.86rem] font-semibold text-ink">{t.rubrik}</p>
+        <label htmlFor={id} className="mt-2 block text-ink">
+          {t.fraga}
+        </label>
+        <span className="mt-2 inline-flex items-center gap-2 rounded-xl bg-surface px-3.5 ring-1 ring-line-strong focus-within:ring-2 focus-within:ring-accent-strong">
+          <input
+            id={id}
+            type="number"
+            inputMode="numeric"
+            min={1}
+            step={50}
+            value={besok || ""}
+            onChange={(e) => setBesok(Number(e.target.value))}
+            className="w-24 bg-transparent py-2.5 font-display text-[1.15rem] font-bold text-ink outline-none"
+          />
+          <span className="text-ink-soft">{t.enhet}</span>
+        </span>
+      </div>
+      <div>
+        <p aria-live="polite" className="font-display text-[1.25rem] leading-snug font-bold tracking-[-0.02em] text-ink">
+          {antal ? t.resultat(antal) : "\u00a0"}
+        </p>
+        <p className="mt-2 text-[0.85rem] text-ink-soft">{t.fotnot}</p>
       </div>
     </div>
   );

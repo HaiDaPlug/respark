@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { texter } from "@/innehall/texter";
+import { ankare, texter } from "@/innehall/texter";
 import { sajt } from "@/konfig/sajt";
+import { kontaktTelefon, telefonHref, visaKontakt } from "@/lib/lankar";
 import { Behallare } from "@/komponenter/ui/Behallare";
 import { Logga } from "@/komponenter/ui/Logga";
 
@@ -20,19 +21,21 @@ export async function Sidfot() {
   const ar = await aktuelltAr();
   const rubrikKlass = "text-[0.82rem] font-semibold text-ink";
   const lankKlass = "inline-block py-1 text-ink-soft transition-colors hover:text-ink";
+  const telefon = kontaktTelefon();
+  const lankar = texter.meny.lankar.filter((l) => visaKontakt() || l.href !== `/#${ankare.kontakt}`);
+  const foretag = [sajt.foretag.namn, sajt.foretag.orgnr && t.orgnr(sajt.foretag.orgnr)].filter(Boolean);
 
   return (
     <footer className="bg-sand">
       <Behallare className="grid grid-cols-2 gap-x-6 gap-y-10 pt-14 pb-10 lg:grid-cols-[1.6fr_1fr_1fr] lg:pt-20 lg:pb-12">
         <div className="col-span-2 max-w-sm lg:col-span-1">
           <p className="font-display text-h3 font-bold text-ink">{t.rubrik}</p>
-          <p className="mt-3 text-[0.95rem] text-ink-soft">{t.beskrivning}</p>
         </div>
 
         <nav aria-label={t.rubrikProdukt}>
           <p className={rubrikKlass}>{t.rubrikProdukt}</p>
           <ul className="mt-3 space-y-1 text-[0.92rem]">
-            {texter.meny.lankar.map((lank) => (
+            {lankar.map((lank) => (
               <li key={lank.href}>
                 <a href={lank.href} className={lankKlass}>
                   {lank.etikett}
@@ -59,12 +62,25 @@ export async function Sidfot() {
             </ul>
           </nav>
 
-          {sajt.kontaktEpost && (
+          {(sajt.kontaktEpost || telefon) && (
             <div>
               <p className={rubrikKlass}>{t.rubrikKontakt}</p>
-              <a href={`mailto:${sajt.kontaktEpost}`} className={`${lankKlass} mt-3 text-[0.92rem]`}>
-                {sajt.kontaktEpost}
-              </a>
+              <ul className="mt-3 space-y-1 text-[0.92rem]">
+                {telefon && (
+                  <li>
+                    <a href={telefonHref(telefon)} className={lankKlass}>
+                      {telefon}
+                    </a>
+                  </li>
+                )}
+                {sajt.kontaktEpost && (
+                  <li>
+                    <a href={`mailto:${sajt.kontaktEpost}`} className={lankKlass}>
+                      {sajt.kontaktEpost}
+                    </a>
+                  </li>
+                )}
+              </ul>
             </div>
           )}
         </div>
@@ -73,6 +89,7 @@ export async function Sidfot() {
       <Behallare className="border-t border-ink/10 py-5 text-[0.84rem] text-ink-soft">
         <p>
           © {ar} {sajt.produktnamn}
+          {foretag.length > 0 && <> · {foretag.join(" · ")}</>}
         </p>
       </Behallare>
 

@@ -15,7 +15,7 @@ export function Dragspel({ fragor, utkastEtikett }: { fragor: Fraga[]; utkastEti
   const [oppen, setOppen] = useState<number | null>(0);
 
   return (
-    <div className="divide-y divide-line border-y border-line">
+    <div className="divide-y divide-line-strong border-y border-line-strong">
       {fragor.map((f, i) => {
         const arOppen = oppen === i;
         const id = `fraga-${i}`;
@@ -28,9 +28,9 @@ export function Dragspel({ fragor, utkastEtikett }: { fragor: Fraga[]; utkastEti
                 aria-expanded={arOppen}
                 aria-controls={`${id}-svar`}
                 onClick={() => setOppen(arOppen ? null : i)}
-                className="group flex w-full items-center justify-between gap-6 py-5 text-left sm:py-6"
+                className="group flex w-full items-center justify-between gap-6 py-5 text-left sm:py-7"
               >
-                <span className="font-display text-[1.06rem] font-semibold text-ink sm:text-[1.12rem]">
+                <span className="font-display text-[1.15rem] leading-snug font-semibold tracking-[-0.02em] text-ink sm:text-[1.45rem]">
                   {f.fraga}
                   {f.utkast && (
                     <span className="ml-2 inline-block rounded-full bg-accent-soft px-2 py-0.5 align-middle text-[0.68rem] font-semibold text-accent-strong">
@@ -62,7 +62,7 @@ export function Dragspel({ fragor, utkastEtikett }: { fragor: Fraga[]; utkastEti
               )}
             >
               <div className="overflow-hidden">
-                <p className="max-w-[40rem] pr-12 pb-6 text-ink-soft">{f.svar}</p>
+                <p className="max-w-[40rem] pr-12 pb-7 text-lead text-ink-soft">{f.svar}</p>
               </div>
             </div>
           </div>

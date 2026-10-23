@@ -12,9 +12,10 @@ import { PrisKort } from "./PrisKort";
 export function Pris() {
   const t = texter.pris;
   return (
-    <section id={ankare.pris} aria-labelledby="pris-rubrik" className="py-16 sm:py-20">
+    // Sandfärgat band (2026-10-23): det vita priskortet lyfter mot det
+    <section id={ankare.pris} aria-labelledby="pris-rubrik" className="bg-sand py-16 sm:py-24">
       <Behallare>
-        <Sektionsrubrik id="pris-rubrik" rubrik={t.rubrik} text={t.text} centrerad />
+        <Sektionsrubrik id="pris-rubrik" rubrik={t.rubrik} centrerad />
         <Avsloja className="mx-auto mt-10 w-full max-w-[54rem] lg:mt-12">
           <PrisKort />
         </Avsloja>

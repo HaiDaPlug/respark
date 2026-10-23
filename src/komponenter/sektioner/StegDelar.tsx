@@ -1,16 +1,16 @@
 import type { ReactNode } from "react";
 import { klass } from "@/lib/klass";
 
-/** Siffran framför varje steg. I accentfärgen när steget är aktivt. */
+/** Siffran framför varje steg, editorialt som "01". I accentfärgen när steget är aktivt. */
 export function Stegnummer({ nr, aktiv = true }: { nr: number; aktiv?: boolean }) {
   return (
     <span
       className={klass(
-        "grid size-9 shrink-0 place-items-center rounded-full font-display text-[0.9rem] font-bold transition-colors duration-300",
-        aktiv ? "bg-accent-strong text-white shadow-knapp" : "bg-sand text-ink-soft",
+        "shrink-0 font-display text-[0.95rem] font-bold tabular-nums transition-colors duration-300",
+        aktiv ? "text-accent-strong" : "text-ink-soft",
       )}
     >
-      {nr}
+      {String(nr).padStart(2, "0")}
     </span>
   );
 }

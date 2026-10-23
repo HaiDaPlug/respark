@@ -3,12 +3,13 @@
 /**
  * "Så fungerar det" på desktop: stegen styrs av scrollen. Innehållet fastnar
  * under menyn (sticky) medan besökaren scrollar, och efter en bit scroll
- * byts steget. Linjen mellan stegnumren fylls på i takt med scrollen, och
- * produktvyn till höger byts. Ett klick på ett steg scrollar dit.
+ * byts steget. Linjen ovanför det aktiva steget fylls på i takt med scrollen,
+ * och produktvyn till höger byts. Ett klick på ett steg scrollar dit.
  *
  * Ingen höjd ändras när stegen byts – all text syns hela tiden och det
- * aktiva steget markeras bara med bakgrund och färg – så sidan hoppar inte
- * medan man scrollar.
+ * aktiva steget markeras bara med färg – så sidan hoppar inte medan man
+ * scrollar. Editorial stil sedan 2026-10-22: siffror och tunna linjer i
+ * stället för rutor.
  */
 import { AnimatePresence, m, useMotionValueEvent, useScroll, useTransform, type MotionValue } from "motion/react";
 import { useRef, useState } from "react";
@@ -52,34 +53,29 @@ export function StegScroll() {
     <div ref={spar} className="relative" style={{ height: `calc(100vh - ${STICKY_TOPP_PX}px + ${antal * SCROLL_PER_STEG_VH}vh)` }}>
       <div ref={fast} className="sticky top-24 flex h-[calc(100vh-6rem)] items-center">
         <div className="grid w-full grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] items-center gap-12">
-          <ol className="flex flex-col gap-2">
+          <ol className="flex flex-col border-b border-line-strong">
             {steg.map((s, i) => {
               const arAktiv = i === aktiv;
               return (
-                <li key={s.titel} className="relative">
-                  {i < antal - 1 && <Koppling framsteg={scrollYProgress} index={i} antal={antal} />}
+                <li key={s.titel} className="relative border-t border-line-strong">
+                  <Framstegslinje framsteg={scrollYProgress} index={i} antal={antal} />
                   <button
                     type="button"
                     onClick={() => ga(i)}
                     aria-current={arAktiv ? "step" : undefined}
-                    className={klass(
-                      "flex w-full items-start gap-4 rounded-2xl p-5 text-left transition-[background-color,box-shadow] duration-300",
-                      arAktiv ? "bg-bg shadow-kort ring-1 ring-line" : "hover:bg-bg/60",
-                    )}
+                    className="group flex w-full items-baseline gap-6 py-7 text-left"
                   >
-                    <span className="relative z-20">
-                      <Stegnummer nr={i + 1} aktiv={i <= aktiv} />
-                    </span>
-                    <span className="block pt-1">
+                    <Stegnummer nr={i + 1} aktiv={i <= aktiv} />
+                    <span className="block">
                       <span
                         className={klass(
-                          "block font-display text-h3 font-bold transition-colors duration-300",
-                          arAktiv ? "text-ink" : "text-ink-soft",
+                          "block font-display text-[1.6rem] leading-tight font-bold tracking-[-0.03em] transition-colors duration-300",
+                          arAktiv ? "text-ink" : "text-ink-soft group-hover:text-ink",
                         )}
                       >
                         {s.titel}
                       </span>
-                      <span className="mt-1 block text-ink-soft">{s.text}</span>
+                      <span className="mt-2 block max-w-[26rem] text-lead text-ink-soft">{s.text}</span>
                     </span>
                   </button>
                 </li>
@@ -112,18 +108,17 @@ export function StegScroll() {
 }
 
 /**
- * Linjen från ett stegnummer till nästa (mitt till mitt, över gapet mellan
- * stegen). Fylls med accentfärg under stegets del av scrollen, så att den
- * når nästa nummer precis när nästa steg blir aktivt.
+ * Den tunna linjen ovanför ett steg. Fylls från vänster med accentfärg under
+ * stegets del av scrollen och är full precis när nästa steg blir aktivt –
+ * som en förloppsindikator per steg.
  */
-function Koppling({ framsteg, index, antal }: { framsteg: MotionValue<number>; index: number; antal: number }) {
+function Framstegslinje({ framsteg, index, antal }: { framsteg: MotionValue<number>; index: number; antal: number }) {
   const fyllnad = useTransform(framsteg, [index / antal, (index + 1) / antal], [0, 1]);
   return (
-    <span
+    <m.span
       aria-hidden
-      className="absolute top-[2.375rem] -bottom-[2.875rem] left-[2.375rem] z-10 w-0.5 -translate-x-1/2 rounded-full bg-line-strong"
-    >
-      <m.span className="absolute inset-0 origin-top rounded-full bg-accent" style={{ scaleY: fyllnad }} />
-    </span>
+      className="absolute inset-x-0 -top-px h-0.5 origin-left bg-accent-strong"
+      style={{ scaleX: fyllnad }}
+    />
   );
 }

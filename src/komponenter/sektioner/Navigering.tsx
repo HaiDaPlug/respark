@@ -8,10 +8,10 @@ import Link from "next/link";
 import { AnimatePresence, m } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { useEffect, useRef, useState, useSyncExternalStore, type MouseEvent, type ReactNode } from "react";
-import { texter } from "@/innehall/texter";
+import { ankare, texter } from "@/innehall/texter";
 import { sajt } from "@/konfig/sajt";
 import { klass } from "@/lib/klass";
-import { komIgangHref } from "@/lib/lankar";
+import { komIgangHref, visaKontakt } from "@/lib/lankar";
 import { Behallare } from "@/komponenter/ui/Behallare";
 import { KnappLank } from "@/komponenter/ui/Knapp";
 
@@ -26,6 +26,8 @@ function lyssnaPaScroll(andrad: () => void) {
  */
 export function Navigering({ logga }: { logga: ReactNode }) {
   const t = texter.meny;
+  // "Kontakt" pekar på sektionen Team, som döljs när det inte finns några kontaktuppgifter.
+  const lankar = t.lankar.filter((l) => visaKontakt() || l.href !== `/#${ankare.kontakt}`);
   const [oppen, setOppen] = useState(false);
   const menyknapp = useRef<HTMLButtonElement>(null);
   const scrollad = useSyncExternalStore(
@@ -86,7 +88,8 @@ export function Navigering({ logga }: { logga: ReactNode }) {
           : "bg-transparent",
       )}
     >
-      <Behallare className="grid h-16 grid-cols-[1fr_auto] items-center lg:h-[4.5rem] lg:grid-cols-[1fr_auto_1fr]">
+      {/* intro-sist: på startsidan tonas menyn in sist, efter introt (src/lib/intro.ts) */}
+      <Behallare className="intro-sist grid h-16 grid-cols-[1fr_auto] items-center lg:h-[4.5rem] lg:grid-cols-[1fr_auto_1fr]">
         <Link href="/" className="-my-2 justify-self-start rounded-lg py-2" onClick={stang}>
           {logga}
           <span className="sr-only"> – till startsidan</span>
@@ -94,7 +97,7 @@ export function Navigering({ logga }: { logga: ReactNode }) {
 
         <nav aria-label="Huvudmeny" className="hidden lg:block">
           <ul className="flex items-center gap-1">
-            {t.lankar.map((lank) => (
+            {lankar.map((lank) => (
               <li key={lank.href}>
                 <a
                   href={lank.href}
@@ -159,7 +162,7 @@ export function Navigering({ logga }: { logga: ReactNode }) {
                 <div className="rounded-3xl bg-surface p-3 shadow-lyft ring-1 ring-line">
                   <nav aria-label="Mobilmeny">
                     <ul>
-                      {t.lankar.map((lank) => (
+                      {lankar.map((lank) => (
                         <li key={lank.href}>
                           <a
                             href={lank.href}

@@ -1,5 +1,7 @@
 import { ankare, texter } from "@/innehall/texter";
+import { sajt } from "@/konfig/sajt";
 import { Behallare } from "@/komponenter/ui/Behallare";
+import { Platshallare } from "@/komponenter/ui/Platshallare";
 import { Sektionsrubrik } from "@/komponenter/ui/Sektionsrubrik";
 import { StegScroll } from "./StegScroll";
 import { StegTidslinje } from "./StegTidslinje";
@@ -18,10 +20,16 @@ export function SaFungerarDet() {
     <section
       id={ankare.saFungerarDet}
       aria-labelledby="sa-fungerar-rubrik"
-      className="border-y border-line bg-surface py-16 sm:py-20 lg:pb-8"
+      className="py-16 sm:py-24 lg:pb-8"
     >
       <Behallare>
-        <Sektionsrubrik id="sa-fungerar-rubrik" rubrik={t.rubrik} />
+        {/* Rubriken med skillnaden mot bokningssystemet. Löftet om hjälp att komma igång står under när det är bestämt (sajt.uppstartshjalp). */}
+        <Sektionsrubrik id="sa-fungerar-rubrik" rubrik={t.rubrik} text={t.text} delad />
+        {sajt.uppstartshjalp ? (
+          <p className="mt-5 text-lead font-semibold text-ink">{sajt.uppstartshjalp}</p>
+        ) : (
+          sajt.visaPlatshallare && <Platshallare text={t.uppstartSaknas} className="mt-5 max-w-[40rem]" />
+        )}
 
         <div className="lg:hidden">
           <StegTidslinje />

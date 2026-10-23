@@ -49,7 +49,7 @@ export function StegTidslinje() {
   return (
     <div className="mt-10">
       {/* Stegraden – fastnar under menyn (h-16) */}
-      <div aria-hidden className="sticky top-16 z-20 -mx-5 border-b border-line bg-surface/90 px-5 py-3 backdrop-blur-md sm:-mx-8 sm:px-8">
+      <div aria-hidden className="sticky top-16 z-20 -mx-5 border-b border-line bg-bg/90 px-5 py-3 backdrop-blur-md sm:-mx-8 sm:px-8">
         <div className="flex items-center justify-between gap-3 text-[0.78rem] font-semibold">
           <span className="text-accent-strong">{t.stegAv(aktiv + 1, antal)}</span>
           <span className="truncate text-ink-soft">{t.steg[aktiv].titel}</span>
@@ -72,11 +72,11 @@ export function StegTidslinje() {
               }}
             >
               <Avsloja>
-                <div className="flex items-start gap-4">
+                <div className="flex items-baseline gap-4 border-t border-line-strong pt-5">
                   <Stegnummer nr={i + 1} aktiv={i <= aktiv} />
                   <div>
-                    <h3 className="text-h3 font-bold text-ink">{steg.titel}</h3>
-                    <p className="mt-1.5 text-ink-soft">{steg.text}</p>
+                    <h3 className="font-display text-[1.4rem] leading-tight font-bold tracking-[-0.03em] text-ink">{steg.titel}</h3>
+                    <p className="mt-1.5 text-lead text-ink-soft">{steg.text}</p>
                   </div>
                 </div>
                 <div className="mt-6">

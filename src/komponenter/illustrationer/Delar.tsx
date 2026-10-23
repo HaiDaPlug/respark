@@ -85,11 +85,11 @@ export function Statuschip({ status, className }: { status: Kundstatus; classNam
             "inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-1 text-[0.68rem] font-semibold",
             status === "inaktiv" && "bg-sand text-ink-soft",
             status === "skickat" && "bg-accent-wash text-accent-strong ring-1 ring-accent/25",
-            status === "bokat" && "bg-ink text-bg",
+            status === "bokat" && "bg-framgang text-white",
           )}
         >
           {status === "bokat" ? (
-            <Check aria-hidden className="size-3 text-accent-light" strokeWidth={3} />
+            <Check aria-hidden className="size-3 text-white/85" strokeWidth={3} />
           ) : (
             <span
               aria-hidden
