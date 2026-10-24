@@ -1,6 +1,6 @@
 # Respark – landningssida: nuläge
 
-Senast uppdaterad: 2026-10-23
+Senast uppdaterad: 2026-10-24
 
 One-page-landningssida för Respark: tidigare kunder får automatiska
 påminnelser, och verksamheten ser vilka som kommer tillbaka. Den här
@@ -14,9 +14,9 @@ statisk.
 platshållare och indexeras inte förrän punkterna i
 [Före publicering](#före-publicering) är klara.
 
-**Gren `hero-editorial` (2026-10-22–23, pushad till GitHub, ej sammanslagen med `main`):** en ny hero över
-hela skärmen och en editorial stil på resten av sidan. Grenen är ett test
-att jämföra mot `main`, som är oförändrad. Se
+**Nya sidan (gjord 2026-10-22–23 på grenen `hero-editorial`) ligger i `main` sedan 2026-10-24:** en ny hero över
+hela skärmen, en berättelse som börjar med besökarens problem och en
+editorial stil på resten av sidan. Se
 [Editorial omgörning](#editorial-omgörning-gren-hero-editorial).
 
 > **Repot är publikt.** Interna anteckningar (beslut, siffror som inte är
