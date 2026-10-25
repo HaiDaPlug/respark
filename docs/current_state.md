@@ -47,7 +47,8 @@ Demoförbundet fungerar bara med `npm run dev`, aldrig på den publicerade sidan
 | Sektionerna, i sidordning | `src/komponenter/sektioner/` (ordningen styrs i `src/app/page.tsx`) |
 | Heronas scen (`HeroScen.tsx`), kundens SMS i telefonen (`KundSms.tsx`) och produktillustrationerna (exempelvyer) | `src/komponenter/illustrationer/` |
 | Knappar, behållare, rubriker, platshållare | `src/komponenter/ui/` |
-| **Loggan**: `Logga` (gnista + ord), `Gnista` (bara märket), `Ordmarke` (menystorlek). Konturerna ligger i `gnistaData.ts` och `loggaOrdData.ts` (genererade). SVG-text till delningsbild och hemskärmsikon: `loggaSvg.ts` | `src/komponenter/ui/` |
+| **Loggan** (gnista + svart ord): `Logga` (gnista + ord), `Gnista` (bara märket), `Ordmarke` (menystorlek). Konturerna ligger i `gnistaData.ts` och `loggaOrdData.ts` (genererade från `public/logos/respark-logga-svart.png`). SVG-text till delningsbild och hemskärmsikon: `loggaSvg.ts` | `src/komponenter/ui/` |
+| Loggans originalfiler (PNG): `respark-logga-svart.png` (gnista + svart ord, den som används), `respark-logga-vit.png` (gnista + vitt ord), `respark-ord-svart.png` och `respark-ord-vit.png` (bara ordet), `respark-gnista.png` (bara märket) | `public/logos/` |
 | Favicon (gnistan) och hemskärmsikon. `favicon.ico` (16/32/48 px, renderad från `icon.svg`) behövs för Safari och äldre webbläsare | `src/app/icon.svg`, `src/app/favicon.ico`, `src/app/apple-icon.tsx` |
 | Logik med tester: förbund och pris. Vart "Kom igång" leder: `lankar.ts`. Startsidans intro: `intro.ts` | `src/lib/` |
 | Kundcasets bilder (Osteopaticentrums logga, Mattias Hietalas porträtt) | `public/kundcase/` |
@@ -141,12 +142,14 @@ vanliga SaaS-sidor, och sidan behöver inga miljövariabler.
 
 **Verifierat 2026-10-22 (gren `hero-editorial`):** `npm test` (8 gröna), `npm run lint`, `tsc` och `npm run build` utan fel. axe-core: 0 fel i desktop, mobil och desktop med reducerad rörelse. Heron fotad i 1440×900, 1280×720, 1024×768, 820×1180, 390×844 och 360×740 utan sidledsscroll eller konsolfel. Animationen är fotad i sju lägen på desktop och mobil, och övergången hero → nästa sektion i båda. Introt är fotat i åtta lägen (desktop och mobil) utan konsolfel. När det spelas och när det hoppas över (vanligt besök, omladdning, `/#pris` i ny flik, scroll under introt, navigering från `/villkor`, reducerad rörelse) är provat i Playwright. Inline-skriptet ligger i `<head>` i produktionsbygget. 2026-10-23, efter konverteringsförbättringarna: `npm test` (11 gröna, nya tester för `telefonHref`), lint och bygget gröna, axe 0 fel (desktop, mobil, reducerad rörelse), ingen sidledsscroll i 360–1440 px. Räknaren provad med ett tillfälligt låtsaspris (ett högre pris per besök ger färre kunder, avrundat uppåt), konfigurationen återställd till dolt pris. Mobilens knapprad är dold i heron, synlig mitt på sidan och dold vid avslutningen. Efter tidslinjen, Vad Respark gör och kundcaset (samma dag): `npm test`, lint och bygget gröna, axe 0 fel, ingen sidledsscroll och inga konsolfel i 360, 390, 820, 1024, 1280 och 1440 px. Hela sidan fotad i 1440 och 390 px. Hela sidan är fotad i 1440 och 390 px.
 
+**Verifierat 2026-10-24 (ny logga):** `npm test` (11 gröna), `npm run lint` (0 fel) och `npm run build` utan fel. Menyn, sidfoten, delningsbilden, hemskärmsikonen och favicon visar den nya loggan. Uppmätt i 390×844 och 1440×900 (Chrome, riktig skärmstorlek): ingen sidledsscroll, menyloggan 157×30 px och 189×36 px, sidfotens logga ryms inom sidomarginalerna. Obs: Chrome utan fönster (`--headless --window-size=390,…`) på Windows lägger ut sidan bredare än 390 px. Använd riktig skärmemulering för mobilbilder.
+
 **Inte testat:** riktig iPhone/Android, Safari och Firefox (särskilt sticky och scrollstyrningen) och publicering på Vercel.
 
 ## Före publicering
 
 - [ ] Slutligt produktnamn och varumärkeskontroll
-- [x] Riktig logotyp (spårad från PNG). Byt gärna till formgivarens original-SVG om den finns.
+- [x] Riktig logotyp (gnista + svart ord, spårad från `public/logos/respark-logga-svart.png` 2026-10-24). Byt gärna till formgivarens original-SVG om den finns.
 - [ ] Domän i `doman`
 - [ ] Pris, betalningsperiod och moms beslutade → `pris.visning: "bekraftad"`
 - [ ] Antal SMS som ingår och pris för påfyllning (verifiera operatörens kostnad och hur SMS-delar räknas)
@@ -176,7 +179,7 @@ vanliga SaaS-sidor, och sidan behöver inga miljövariabler.
 - **Scrollstyrda steg (desktop):** `SCROLL_PER_STEG_VH` (38) i `StegScroll.tsx` styr hur långt man scrollar per steg. Lägre värde betyder snabbare byten. Spåret är skärmhöjden plus antal steg × 38vh, och innehållet fastnar vid `top-24`. Ändras det, ändra också `STICKY_TOPP_PX` (96). All text syns hela tiden och bara bakgrund och färg byts, så ingen höjd ändras medan man scrollar.
 - **Före/efter-scenerna** (`ForeEfter.tsx`) är borttagna sedan 2026-10-22 och ersatta av tidslinjen. De finns i git-historiken.
 - **SMS-tecken:** ett tankstreck (–), typografiska citattecken eller emoji gör hela SMS:et till UCS-2 (70 tecken per del i stället för 160) och kan nästan fördubbla kostnaden. Bra att veta för produktens SMS-editor.
-- **Loggan är spårad från en PNG** (potrace på en 4× förstorad bild, med bildens genomskinlighet som täckning). Bladens färgövergångar är uppmätta i originalet. Konturerna ligger i `gnistaData.ts` (märket) och `loggaOrdData.ts` (ordet). De är uppdelade så att klientkomponenter som bara visar gnistan inte drar med sig ordets ~10 kB. Kommer en ny logga är det enklast att få den som SVG och ersätta konturerna. **Färgövergångarna behöver unika id:n** (`useOvergangsId`), eftersom loggan finns flera gånger på sidan.
+- **Loggan är spårad från en PNG**, sedan 2026-10-24 från `public/logos/respark-logga-svart.png` (gnista + svart ord). Den ersatte den första loggan, som hade ett tjockare brunt ord och en större gnista. Spårningen: potrace på en 4× förstorad bild med bildens genomskinlighet som täckning, lätt utjämnad (blur 2,5 px, `optTolerance` 0,4) så att kanterna inte blir vågiga när loggan är stor i sidfoten. Avvikelsen mot originalet är under 2 %. Ordet är rent svart (`#000000`), uppmätt i originalet. Bladens färgövergångar är uppmätta i originalet. Favicon (`icon.svg`, `favicon.ico`) är omgjorda från den nya gnistan. Konturerna ligger i `gnistaData.ts` (märket) och `loggaOrdData.ts` (ordet). De är uppdelade så att klientkomponenter som bara visar gnistan inte drar med sig ordets ~10 kB. Kommer en ny logga är det enklast att få den som SVG och ersätta konturerna. **Färgövergångarna behöver unika id:n** (`useOvergangsId`), eftersom loggan finns flera gånger på sidan.
 - **Menyn får loggan som prop** (`<Navigering logga={<Ordmarke />} />`). Menyn är en klientkomponent, och så hamnar inte loggans konturer i dess JavaScript.
 - **Cache Components** är på (Next 16-standard). Aktuell tid får inte läsas vid förrendering, så årtalet i sidfoten hämtas med `"use cache"`.
 

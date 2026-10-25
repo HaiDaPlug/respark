@@ -14,7 +14,7 @@ export function Logga({
   className?: string;
   /** Tillgängligt namn. Utan titel är loggan dekor (aria-hidden), t.ex. när namnet redan står i närheten. */
   titel?: string;
-  /** Ordets färg. Standard är originalets bruna. */
+  /** Ordets färg. Standard är originalets svarta. */
   ordFarg?: string;
 }) {
   const prefix = useOvergangsId("logga");
