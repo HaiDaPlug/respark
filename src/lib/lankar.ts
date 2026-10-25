@@ -36,7 +36,7 @@ export function telefonHref(nummer: string) {
 /**
  * Om sektionen "Vi som står bakom" visas: när någon i teamet har bild,
  * telefon eller mejl, eller när platshållare är på. Annars döljs den, och
- * länkarna dit ("Kontakt", "Prata med oss") döljs också.
+ * länkarna dit ("Kontakt") döljs också.
  */
 export function visaKontakt() {
   const harUppgifter = sajt.team.some((m) => m.bild || m.telefon || m.epost) || Boolean(sajt.kontaktEpost);

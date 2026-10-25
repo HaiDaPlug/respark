@@ -1,10 +1,8 @@
 import Image from "next/image";
-import { ankare, texter } from "@/innehall/texter";
+import { texter } from "@/innehall/texter";
 import { sajt } from "@/konfig/sajt";
-import { komIgangEtikett, komIgangHref, visaKontakt } from "@/lib/lankar";
 import { Avsloja } from "@/komponenter/ui/Avsloja";
 import { Behallare } from "@/komponenter/ui/Behallare";
-import { KnappLank } from "@/komponenter/ui/Knapp";
 import { Platshallare } from "@/komponenter/ui/Platshallare";
 import { Bokningsrutor } from "./Bokningsrutor";
 
@@ -12,8 +10,7 @@ import { Bokningsrutor } from "./Bokningsrutor";
  * Kundcaset: hur det gick hos Osteopaticentrum, direkt efter historien om
  * varför Respark finns (Berattelse). Rubrik och kundens logga, resultaten som
  * stora siffror (en ruta per bokning under den första) och kundens citat med
- * bild. Sist en rad med knappen, eftersom beviset är där besökaren är som mest
- * övertygad. Allt hämtas från sajt.kundcase och visas bara när det finns där –
+ * bild. Allt hämtas från sajt.kundcase och visas bara när det finns där –
  * fyll bara i material som kunden har godkänt. Saknat material räknas upp i
  * en enda platshållare (när visaPlatshallare är på).
  *
@@ -119,24 +116,6 @@ export function Kundcase() {
             </figure>
           </Avsloja>
         )}
-
-        {/* Från bevis till handling */}
-        <div className="mt-14 flex flex-col gap-5 border-t border-white/20 pt-8 sm:flex-row sm:items-center sm:justify-between lg:mt-20">
-          <p className="font-display text-h3 font-bold text-white">{t.cta.text}</p>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-            <KnappLank href={komIgangHref()} variant="ljus" storlek="lg" pil>
-              {komIgangEtikett()}
-            </KnappLank>
-            {visaKontakt() && (
-              <a
-                href={`/#${ankare.kontakt}`}
-                className="py-2 font-semibold text-white underline decoration-white/35 underline-offset-[6px] transition-colors hover:decoration-white"
-              >
-                {t.cta.kontakt}
-              </a>
-            )}
-          </div>
-        </div>
 
         {kc.skarmbild && (
           <Image

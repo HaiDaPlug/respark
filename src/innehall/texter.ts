@@ -199,8 +199,6 @@ export const texter = {
     rubrik: { fore: "Så gick det för", efter: "Osteopaticentrum." },
     /** Under rutorna (en per bokning). */
     rutorFotnot: "Varje ruta är en bokning.",
-    /** Raden efter citatet: från bevis till handling. */
-    cta: { text: "Vill du ha det här hos dig?", kontakt: "Prata med oss" },
     /** En samlad platshållare som räknar upp det som saknas. */
     platshallare: {
       inledning: "Fylls i före lansering, med kundens godkännande:",

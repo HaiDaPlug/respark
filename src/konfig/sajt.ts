@@ -205,7 +205,7 @@ export const sajt = {
     kund: "Osteopaticentrum",
     /** Godkänt citat: { text, namn, roll, bild }. null tills kunden har godkänt texten. Ändra aldrig orden i ett citat. */
     citat: {
-      text: "Som terapeut är det viktigt att hålla regelbunden kontakt med sina kunder, exempelvis genom sms som påminner dem om att boka en ny behandling. Det handlar inte bara om att fylla kalendern, utan också om att skapa kontinuitet, bygga förtroende och hjälpa kunden att prioritera sitt välmående.",
+      text: "Det handlar inte bara om att fylla kalendern, utan också om att skapa kontinuitet, bygga förtroende och hjälpa kunden att prioritera sitt välmående.",
       namn: "Mattias Hietala",
       roll: "Grundare, Osteopaticentrum",
       bild: { src: "/kundcase/mattias-hietala.png", alt: "Mattias Hietala" },
