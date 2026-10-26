@@ -166,16 +166,19 @@ export const sajt = {
     betalning: null as string | null,
   },
 
+  /** Priset sedan 2026-10-24: 695 kr per månad exkl. moms, 100 sms, upp till 25 sparas till nästa månad. */
   pris: {
-    visning: "dold" as Prisvisning,
+    visning: "bekraftad" as Prisvisning,
     /** Ordinarie pris i kronor. 0 = inte beslutat (syns bara när visning inte är "dold"). */
-    ordinarie: 0,
-    /** Betalningsperiod. Ej beslutad. */
+    ordinarie: 695,
+    /** Betalningsperiod. */
     period: "månad",
-    /** Visas efter priset. Ej beslutad. */
+    /** Visas efter priset. */
     momstext: "exkl. moms",
-    /** Antal SMS som ingår. 0 = inte beslutat. */
-    inkluderadeSms: 0,
+    /** Antal sms som ingår per period. 0 = inte beslutat. */
+    inkluderadeSms: 100,
+    /** Hur många oanvända sms som högst följer med till nästa period. 0 = inga. */
+    sparadeSms: 25,
     /** true = "N SMS ingår per månad", false = "N SMS ingår". */
     smsPerPeriod: true,
     /** Pris per extra SMS-del i kronor. null = visas inte. Kostnaden är inte verifierad. */

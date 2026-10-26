@@ -226,6 +226,8 @@ export const texter = {
     smsIngar: (antal: number, period: string | null) =>
       period ? `${antal} sms ingår per ${period}` : `${antal} sms ingår`,
     pafyllning: (pris: string) => `Fler sms: ${pris} styck`,
+    /** Under antalet sms: hur många oanvända som följer med till nästa månad. */
+    sparade: (antal: number, period: string) => `Blir det sms över sparas upp till ${antal} till nästa ${period}.`,
     smsNotis: "Ett långt sms kan räknas som flera.",
     ingarRubrik: "Det här ingår",
     ingar: [
@@ -243,21 +245,6 @@ export const texter = {
       bindning: "Ingen bindningstid – avsluta när du vill",
       provperiod: (dagar: number) => `Gratis i ${dagar} dagar`,
       provperiodSaknas: "Provperioden visas här när den är bestämd (sajt.pris.provperiodDagar).",
-    },
-    /**
-     * "Räkna själv": besökarens eget pris per besök mot månadspriset. Ren
-     * räkning – inget löfte om hur många som bokar. Visas bara när beloppen syns.
-     */
-    rakna: {
-      rubrik: "Räkna själv",
-      fraga: "Vad kostar ett besök hos dig?",
-      enhet: "kr",
-      resultat: (antal: number) =>
-        antal === 1
-          ? "Om en kund i månaden kommer tillbaka har Respark betalat sig."
-          : `Om ${antal} kunder i månaden kommer tillbaka har Respark betalat sig.`,
-      fotnot: "Ett räkneexempel med ditt eget pris, inget löfte om antal bokningar.",
-      platshallare: "Här kan besökaren räkna på priset mot sitt eget pris per besök, när priset visas.",
     },
   },
 
@@ -311,7 +298,7 @@ export const texter = {
         : []),
       {
         fraga: "Vad händer om sms:en tar slut?",
-        svar: "Sms ingår, och du kan köpa fler när du vill. Hur många som ingår står här när priset är klart.",
+        svar: `${sajt.pris.inkluderadeSms} sms ingår varje ${sajt.pris.period}. Blir det sms över sparas upp till ${sajt.pris.sparadeSms} till nästa ${sajt.pris.period}, och du kan köpa fler när du vill.`,
       },
       {
         fraga: "Vad händer om en kund svarar på sms:et?",
