@@ -29,7 +29,7 @@ export function Problem() {
     // Sandfärgat band med vita kort (2026-10-23), för rytm mot den ljusa heron
     <section id={ankare.varfor} aria-labelledby="problem-rubrik" className="bg-sand py-16 sm:py-24">
       <Behallare>
-        <Sektionsrubrik id="problem-rubrik" rubrik={t.rubrik} />
+        <Sektionsrubrik id="problem-rubrik" rubrik={t.rubrik} text={t.text} delad />
 
         <ol aria-label={t.beskrivning} className="mt-10 grid gap-3 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4">
           {t.tidslinje.map((vecka, i) => (

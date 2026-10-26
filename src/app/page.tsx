@@ -10,18 +10,21 @@ import { Problem } from "@/komponenter/sektioner/Problem";
 import { SaFungerarDet } from "@/komponenter/sektioner/SaFungerarDet";
 import { Sidfot } from "@/komponenter/sektioner/Sidfot";
 import { Team } from "@/komponenter/sektioner/Team";
-import { Vardag } from "@/komponenter/sektioner/Vardag";
 import { VanligaFragor } from "@/komponenter/sektioner/VanligaFragor";
 import { Ordmarke } from "@/komponenter/ui/Ordmarke";
 
 /**
- * Landningssidan som en problempitch, inte en produktpitch: dina kunder har
- * inte glömt dig (Hero) → men de glömmer att boka (Problem, kundens tidslinje)
- * → och du hinner inte påminna dem (Vardag, din dag) → vi har sett det här
- * förut, hos Mattias, och därför byggde vi Respark (Berattelse) → så gick det
- * (Kundcase) → så fungerar det, i tre steg (SaFungerarDet) → vad kostar det →
- * vilka är ni (Team) → frågor → kom igång. ("Det här gör Respark åt dig" togs
- * bort 2026-10-23: den upprepade tidslinjen, berättelsen och stegen.)
+ * Landningssidan som en problempitch, med kort väg till erbjudandet: dina
+ * kunder har inte glömt dig (Hero) → men de glömmer att boka, och du hinner
+ * inte påminna alla (Problem) → vi har sett det här förut, hos Mattias, och
+ * därför byggde vi Respark (Berattelse) → så fungerar det: lätt att komma
+ * igång, och uppföljningen blir gjord (SaFungerarDet) → så gick det, beviset
+ * precis före priset (Kundcase) → vad kostar det → vilka är ni (Team) →
+ * frågor → kom igång.
+ *
+ * 2026-10-26: "Och du hinner inte påminna dem" (Vardag) togs bort och "Så
+ * fungerar det" flyttades före kundcaset – tre inledande delar sa nästan samma
+ * sak, och vägen till erbjudandet var för lång.
  * På mobil finns dessutom en knapprad längst ner (MobilKnappar).
  *
  * Varje sektion har ett eget jobb och förklarar inte flödet igen. Funktioner
@@ -34,11 +37,10 @@ export default function Startsida() {
       <main id="innehall">
         <Hero />
         <Problem />
-        <Vardag />
         <Berattelse />
-        <Kundcase />
         <SaFungerarDet />
         <Demovideo />
+        <Kundcase />
         <Pris />
         <Team />
         <VanligaFragor />

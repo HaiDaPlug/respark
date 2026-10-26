@@ -91,8 +91,12 @@ export const texter = {
    */
   problem: {
     /** Fortsättningen på heronas rubrik ("Dina kunder har inte glömt dig."). */
-    /** Ingen ingress: tidslinjen berättar det (ingressen togs bort 2026-10-23, mindre text). */
     rubrik: "De vill komma tillbaka. Men de glömmer att boka.",
+    /**
+     * Ägarens sida och luckan i en rad. Ersatte 2026-10-26 sektionen "Och du
+     * hinner inte påminna dem" (Vardag), som sa samma sak en gång till.
+     */
+    text: "Och du hinner inte påminna alla. Bokningssystemet påminner bara om tider som redan är bokade.",
     tidslinje: [
       { vecka: "Vecka 1", handelser: [{ ikon: "nojd", text: "Nöjd efter besöket" }], bokning: "tanker" },
       { vecka: "Vecka 3", handelser: [{ ikon: "jobb", text: "Full fart på jobbet" }], bokning: "skjutsUpp" },
@@ -128,24 +132,6 @@ export const texter = {
    * vad Respark gör. Produkten pratar inte om sig själv.
    */
 
-  /** Problemet från ägarens håll: dagarna är fulla, så sms:en blir inte av (sektioner/Vardag.tsx). */
-  vardag: {
-    rubrik: "Och du hinner inte påminna dem.",
-    text: "Dagarna är fulla av kunder. Sms:en till dem som inte har bokat blir sällan av.",
-    dag: "Din tisdag",
-    rader: [
-      { tid: "08.00", text: "Kunder hela förmiddagen" },
-      { tid: "12.00", text: "Lunch i farten" },
-      { tid: "13.00", text: "Kunder hela eftermiddagen" },
-      { tid: "17.30", text: "Städa, beställa, svara på mejl" },
-      { tid: "19.00", text: "Skriva till gamla kunder", blevInteAv: true },
-    ],
-    blevInteAv: "Blev inte av",
-    igen: "Och samma sak nästa dag.",
-    beskrivning:
-      "Exempel på en arbetsdag: kunder hela förmiddagen och eftermiddagen, lunch i farten, städning och mejl. Sist på dagen: skriva till gamla kunder. Det blev inte av.",
-  },
-
   /** Varför Respark finns: Mattias historia, med hans riktiga sms (sektioner/Berattelse.tsx). */
   berattelse: {
     rubrik: "Vi har sett det här förut.",
@@ -162,11 +148,11 @@ export const texter = {
   saFungerarDet: {
     rubrik: "Så fungerar det.",
     /**
-     * Skillnaden mot bokningssystemet, i en rad under rubriken. Stod förut i en
-     * egen sektion ("Det här gör Respark åt dig"), som togs bort 2026-10-23
-     * eftersom den upprepade tidslinjen, berättelsen och stegen.
+     * Fördelen, i en rad under rubriken: lätt att komma igång, och sedan blir
+     * uppföljningen gjord (2026-10-26). Skillnaden mot bokningssystemet står nu
+     * under tidslinjens rubrik i stället.
      */
-    text: "Ditt bokningssystem påminner om tider som redan är bokade. Respark påminner dem som inte har bokat.",
+    text: "Lätt att komma igång. Sedan blir uppföljningen gjord, utan att du behöver komma ihåg den.",
     /** Samma ordning som vyerna i illustrationer/StegVyer.tsx (STEGVYER). */
     steg: [
       {
