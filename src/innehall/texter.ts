@@ -66,6 +66,7 @@ export const texter = {
      * förstår det inom de första sekunderna. Berättelsen lever kvar i rubriken.
      */
     kategori: "Respark skickar ett sms till kunder som inte har varit hos dig på ett tag.",
+    /** Namnet på pilen nedåt i heron, för skärmläsare (pilen har ingen synlig text). */
     lasVidare: "Läs vidare",
     partner: (forbund: string) => `Särskilt erbjudande för medlemmar i ${forbund}`,
     partnerLank: "Se medlemspriset",
@@ -127,23 +128,10 @@ export const texter = {
 
   /**
    * PROBLEMPITCH, INTE PRODUKTPITCH (2026-10-23): sidan målar upp besökarens
-   * problem så att de känner igen sig, berättar att vi har sett samma sak hos
-   * Mattias och att det är därför Respark finns – och först sedan, konkret,
-   * vad Respark gör. Produkten pratar inte om sig själv.
+   * problem så att de känner igen sig – och först sedan, konkret, vad Respark
+   * gör och hur det har gått för kunderna (kundcasen). Produkten pratar inte
+   * om sig själv.
    */
-
-  /** Varför Respark finns: Mattias historia, med hans riktiga sms (sektioner/Berattelse.tsx). */
-  berattelse: {
-    rubrik: "Vi har sett det här förut.",
-    stycken: [
-      `Mattias är osteopat i Borås. Hans patienter mådde bättre och tänkte boka igen. Men vardagen kom emellan, och alla bokade inte igen.`,
-      "Så vi byggde ett sätt att påminna dem. Ett sms några dagar efter besöket, med Mattias egna ord och en länk för att boka.",
-      `Det blev början på ${p}.`,
-    ],
-    /** Under kundens riktiga SMS. */
-    fotnot: (kund: string) => `Riktigt meddelande från ${kund}, fiktivt patientnamn.`,
-    beskrivning: (avsandare: string, nar: string) => `Sms från ${avsandare}, ${nar}:`,
-  },
 
   saFungerarDet: {
     rubrik: "Så fungerar det.",
@@ -181,10 +169,10 @@ export const texter = {
   },
 
   kundcase: {
-    /** Rubriken i två delar; den andra får accentfärg. Från kundens eget case. */
-    rubrik: { fore: "Så gick det för", efter: "Osteopaticentrum." },
-    /** Under rutorna (en per bokning). */
-    rutorFotnot: "Varje ruta är en bokning.",
+    /** Rubriken i två delar; den andra får accentfärg. Gäller alla kundcase, inte en enskild kund. */
+    rubrik: { fore: "Så gick det för", efter: "våra kunder." },
+    /** Rubrikerna i kortet: hur vi hjälpte kunden, och panelen med siffrorna. */
+    ramar: { problem: "Problemet", losning: "Det vi gjorde", siffror: "I siffror" },
     /** En samlad platshållare som räknar upp det som saknas. */
     platshallare: {
       inledning: "Fylls i före lansering, med kundens godkännande:",

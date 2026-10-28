@@ -52,8 +52,6 @@
   --color-framgang: var(--farg-framgang);
   --color-framgang-soft: color-mix(in oklab, var(--farg-framgang) 13%, var(--farg-yta));
   --color-framgang-ljus: color-mix(in oklab, var(--farg-framgang) 40%, white);
-  /* Djup skogsgrön för kundcasets band – sidans enda mörkgröna yta */
-  --color-framgang-djup: color-mix(in oklab, var(--farg-framgang) 70%, black);
 
   /* Primärknappen: nästan svart (textfärgen), lite ljusare vid hover */
   --color-knapp: var(--farg-text);

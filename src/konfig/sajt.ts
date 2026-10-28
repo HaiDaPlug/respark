@@ -44,8 +44,25 @@ export type Kundresultat = {
   etikett: string;
   /** Vilken period siffran gäller, t.ex. "mars–maj 2026". */
   period: string;
-  /** Visa en ruta per enhet under siffran (t.ex. en ruta per bokning). Bara för heltal. */
-  rutor?: boolean;
+};
+
+/**
+ * Ett kundcase i sektionen Kundcase. Det första i listan visas stort, resten
+ * som mindre kort under. Fyll bara i material som kunden har godkänt.
+ */
+export type Kundcase = {
+  kund: string;
+  /** Vad de gör och var, t.ex. "Osteopati i Borås". Står överst på kortet. */
+  verksamhet: string;
+  /** Hur vi hjälpte dem, i en kort mening var (ELI5): problemet de hade och det vi gjorde. Bara det som är sant. */
+  problem: string;
+  losning: string;
+  /** Logotyp i public/. Bara med tillåtelse. */
+  logotyp: { src: string; alt: string; bredd: number; hojd: number } | null;
+  /** Godkänt citat. null tills kunden har godkänt texten. Ändra aldrig orden i ett citat. */
+  citat: { text: string; namn: string; roll: string; bild?: { src: string; alt: string } } | null;
+  /** Verifierade resultat. Tom lista = inga siffror visas. */
+  resultat: Kundresultat[];
 };
 
 /**
@@ -61,17 +78,6 @@ export type Teammedlem = {
   /** Telefonnummer som det skrivs, t.ex. "070-123 45 67". Blir en ring-länk. */
   telefon: string | null;
   epost: string | null;
-};
-
-/** Kundens riktiga SMS, som visas i "Vad Respark gör". Patientnamnet är påhittat. */
-export type KundSms = {
-  avsandare: string;
-  /** När SMS:et går ut, t.ex. "dag 5 efter besöket". */
-  nar: string;
-  /** Meddelandet i stycken, i den ordning de står i SMS:et. */
-  stycken: string[];
-  lankText: string;
-  lank: string;
 };
 
 export const sajt = {
@@ -134,8 +140,8 @@ export const sajt = {
    * mot bakgrunden), eftersom målgruppen ofta är 50+ och läser mycket grå text.
    *
    * framgang (djup skogsgrön, 2026-10-23) är sidans enda markeringsfärg och
-   * betyder alltid "det blev bra": bokat, bockar för det som ingår och
-   * resultaten i kundcaset. Den används aldrig på stora ytor eller knappar.
+   * betyder alltid "det blev bra": bokat och bockar för det som ingår. Den
+   * används aldrig på stora ytor eller knappar.
    * Kontrast 5,9:1 mot bakgrunden. Knapparna är nästan svarta (textfärgen).
    */
   farger: {
@@ -204,51 +210,34 @@ export const sajt = {
     },
   ] as Partner[],
 
-  kundcase: {
-    kund: "Osteopaticentrum",
-    /** Godkänt citat: { text, namn, roll, bild }. null tills kunden har godkänt texten. Ändra aldrig orden i ett citat. */
-    citat: {
-      text: "Det handlar inte bara om att fylla kalendern, utan också om att skapa kontinuitet, bygga förtroende och hjälpa kunden att prioritera sitt välmående.",
-      namn: "Mattias Hietala",
-      roll: "Grundare, Osteopaticentrum",
-      bild: { src: "/kundcase/mattias-hietala.png", alt: "Mattias Hietala" },
-    } as { text: string; namn: string; roll: string; bild?: { src: string; alt: string } } | null,
-    /** Logotyp i public/. Bara med tillåtelse. */
-    logotyp: { src: "/kundcase/osteopaticentrum-logga.png", alt: "Osteopaticentrum", bredd: 696, hojd: 283 } as {
-      src: string;
-      alt: string;
-      bredd: number;
-      hojd: number;
-    } | null,
-    /** Riktig skärmbild från produkten i public/. */
-    skarmbild: null as { src: string; alt: string } | null,
-    /** Verifierade resultat. Tom lista = inga siffror visas. */
-    resultat: [
-      {
-        varde: "36",
-        etikett: "bokningar inom 30 dagar efter att patienten fått ett SMS",
-        period: "Mätt under 30 dagar.",
-        rutor: true,
+  /** Kundcasen, i den ordning de visas. Det första visas stort. Tom lista = sektionen visas inte. */
+  kundcase: [
+    {
+      kund: "Osteopaticentrum",
+      verksamhet: "Osteopati i Borås",
+      problem: "Patienterna mådde bättre och tänkte boka igen. Men alla bokade inte en ny tid.",
+      losning: "Ett sms med Mattias egna ord några dagar efter besöket, med en länk för att boka.",
+      logotyp: { src: "/kundcase/osteopaticentrum-logga.png", alt: "Osteopaticentrum", bredd: 696, hojd: 283 },
+      citat: {
+        text: "Det handlar inte bara om att fylla kalendern, utan också om att skapa kontinuitet, bygga förtroende och hjälpa kunden att prioritera sitt välmående.",
+        namn: "Mattias Hietala",
+        roll: "Grundare, Osteopaticentrum",
+        bild: { src: "/kundcase/mattias-hietala.png", alt: "Mattias Hietala" },
       },
-      {
-        varde: "358",
-        etikett: "patienter fick en uppföljning under samma 30 dagar",
-        period: "Mätt under 30 dagar.",
-      },
-    ] as Kundresultat[],
-    /** Kundens riktiga SMS (fiktivt patientnamn). null = sektionen visar sidans eget exempel. */
-    sms: {
-      avsandare: "Osteopaticentrum",
-      nar: "dag 5 efter besöket",
-      stycken: [
-        "Hej Anna!",
-        "Tack för ditt besök. Ofta behövs några behandlingar för att kroppen ska få möjlighet att anpassa sig och för att skapa ett mer hållbart resultat. Vanligtvis handlar det om 3 till 4 behandlingar, men det kan variera från person till person.",
-        "Mvh Mattias Hietala Osteopat",
+      resultat: [
+        {
+          varde: "36",
+          etikett: "bokningar inom 30 dagar efter att patienten fått ett SMS",
+          period: "Mätt under 30 dagar.",
+        },
+        {
+          varde: "358",
+          etikett: "patienter fick en uppföljning under samma 30 dagar",
+          period: "Mätt under 30 dagar.",
+        },
       ],
-      lankText: "Boka tid här:",
-      lank: "https://bokadirekt.se/osteopaticentrum",
-    } as KundSms | null,
-  },
+    },
+  ] as Kundcase[],
 
   video: {
     /** YouTube-, Vimeo- eller mp4-länk till förklaringsvideon. null = sektionen visas inte. */

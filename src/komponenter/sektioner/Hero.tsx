@@ -1,16 +1,18 @@
-import { ArrowDown } from "lucide-react";
 import { Fragment, type CSSProperties } from "react";
-import { ankare, texter } from "@/innehall/texter";
+import { texter } from "@/innehall/texter";
 import { HeroScen } from "@/komponenter/illustrationer/HeroScen";
 import { Behallare } from "@/komponenter/ui/Behallare";
 import { HeroEtikett } from "./HeroEtikett";
+import { LasVidarePil } from "./LasVidarePil";
 
 /**
  * Första skärmen, över hela fönstret. Början på en berättelse: den stora
- * rubriken nere till vänster, en rad som säger vad tjänsten är och "Läs
- * vidare". Inga knappar – fortsättningen står i nästa sektion (Problem), och
- * "Kom igång" finns i menyn (och i knappraden på mobil). Till höger plingar en påminnelse in i en
- * telefon, en gång (HeroScen).
+ * rubriken till vänster (på desktop mitt i höjd, i linje med telefonen), en
+ * rad som säger vad tjänsten är och en stor pil nedåt som fylls med
+ * märkesfärgen när man scrollar (LasVidarePil). Inga knappar – fortsättningen
+ * står i nästa sektion (Problem), och "Kom igång" finns i menyn (och i
+ * knappraden på mobil). Till höger plingar en påminnelse in i en telefon, en
+ * gång (HeroScen).
  *
  * Bakgrunden (yta-hero) tonar över i sidans bakgrund nedtill, så att det inte
  * blir någon skarv mot nästa sektion.
@@ -22,7 +24,7 @@ import { HeroEtikett } from "./HeroEtikett";
  *
  * Intro (src/lib/intro.ts): när någon kommer till sidan syns först bara
  * telefonen mitt på skärmen. Sedan glider den hit, rubriken kommer in ord för
- * ord (.intro-ord) och sist menyn och "Läs vidare" (.intro-sist). Hoppas
+ * ord (.intro-ord) och sist menyn och pilen (.intro-sist). Hoppas
  * introt över syns allt direkt.
  */
 export function Hero() {
@@ -30,7 +32,7 @@ export function Hero() {
   return (
     <section
       aria-labelledby="hero-rubrik"
-      className="yta-hero relative isolate flex min-h-svh flex-col overflow-hidden [--telefon:min(16rem,60vw,calc((100svh-23rem)/2.2))] sm:[--telefon:min(18rem,calc((100svh-23rem)/2.2))] lg:min-h-[max(40rem,100svh)] lg:justify-end lg:[--telefon:min(20rem,38svh)]"
+      className="yta-hero relative isolate flex min-h-svh flex-col overflow-hidden [--telefon:min(16rem,60vw,calc((100svh-23rem)/2.2))] sm:[--telefon:min(18rem,calc((100svh-23rem)/2.2))] lg:min-h-[max(40rem,100svh)] lg:justify-center lg:[--telefon:min(20rem,38svh)]"
     >
       {/*
         Scenen. På mobil ovanför rubriken, på desktop till höger om den.
@@ -47,7 +49,7 @@ export function Hero() {
         </Behallare>
       </div>
 
-      <Behallare className="relative pt-4 pb-10 sm:pb-14 lg:pb-16">
+      <Behallare className="relative pt-4 pb-4 sm:pb-6 lg:py-20">
         <div className="lg:max-w-[calc(100%-var(--telefon)-2rem)]">
           <div className="intro-sist">
             <HeroEtikett />
@@ -83,22 +85,13 @@ export function Hero() {
           >
             {t.kategori}
           </p>
-
-          <div className="intro-sist mt-6 lg:mt-8">
-            <a
-              href={`/#${ankare.varfor}`}
-              className="group inline-flex items-center gap-2 py-2 font-semibold text-ink-soft transition-colors hover:text-ink"
-            >
-              {t.lasVidare}
-              <ArrowDown
-                aria-hidden
-                className="size-4 transition-transform duration-200 group-hover:translate-y-0.5"
-                strokeWidth={2.25}
-              />
-            </a>
-          </div>
         </div>
       </Behallare>
+
+      {/* "Läs vidare": på mobil under texten, på desktop längst ner i mitten */}
+      <div className="intro-sist relative flex justify-center pb-4 sm:pb-6 lg:absolute lg:inset-x-0 lg:bottom-6 lg:pb-0">
+        <LasVidarePil />
+      </div>
     </section>
   );
 }
