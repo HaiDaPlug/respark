@@ -225,15 +225,15 @@ export const sajt = {
     /** Verifierade resultat. Tom lista = inga siffror visas. */
     resultat: [
       {
-        varde: "22",
+        varde: "36",
         etikett: "bokningar inom 30 dagar efter att patienten fått ett SMS",
-        period: "Mätt under 30 dagar t.o.m. 21 oktober 2026.",
+        period: "Mätt under 30 dagar.",
         rutor: true,
       },
       {
-        varde: "297",
+        varde: "358",
         etikett: "patienter fick en uppföljning under samma 30 dagar",
-        period: "Mätt under 30 dagar t.o.m. 21 oktober 2026.",
+        period: "Mätt under 30 dagar.",
       },
     ] as Kundresultat[],
     /** Kundens riktiga SMS (fiktivt patientnamn). null = sektionen visar sidans eget exempel. */
