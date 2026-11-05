@@ -73,7 +73,7 @@ export type Teammedlem = {
   namn: string;
   /** T.ex. "Kundkontakt". null = inte ifyllt. */
   roll: string | null;
-  /** Porträtt i public/, t.ex. { src: "/team/erik.jpg", alt: "Erik" }. */
+  /** Porträtt i public/, beskuret till 4:5 (t.ex. 960 × 1200) med ansiktet i mitten. T.ex. { src: "/team/erik.jpg", alt: "Erik" }. */
   bild: { src: string; alt: string } | null;
   /** Telefonnummer som det skrivs, t.ex. "070-123 45 67". Blir en ring-länk. */
   telefon: string | null;
@@ -109,8 +109,8 @@ export const sajt = {
 
   /** Vi som står bakom tjänsten (sektionen Team). Namn, roll, bild och telefon fylls i när de finns. */
   team: [
-    { namn: "Erik", roll: null, bild: null, telefon: null, epost: null },
-    { namn: "Hai", roll: null, bild: null, telefon: null, epost: null },
+    { namn: "Erik", roll: "Grundare", bild: { src: "/team/erik.jpg", alt: "Erik" }, telefon: "070-932 07 12", epost: "erik@khyte.se" },
+    { namn: "Hai", roll: "Grundare", bild: { src: "/team/hai.jpg", alt: "Hai" }, telefon: "070-099 68 38", epost: "hai@khyte.se" },
   ] as Teammedlem[],
 
   /** Bolaget som säljer tjänsten, i sidfoten. null = visas inte. */
