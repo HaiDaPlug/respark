@@ -3,6 +3,7 @@ import { ankare, texter } from "@/innehall/texter";
 import { sajt } from "@/konfig/sajt";
 import { komIgangEtikett, komIgangHref, kontaktTelefon, telefonHref } from "@/lib/lankar";
 import { Behallare } from "@/komponenter/ui/Behallare";
+import { Gnista3D } from "@/komponenter/ui/Gnista3D";
 import { KnappLank } from "@/komponenter/ui/Knapp";
 
 /**
@@ -14,6 +15,11 @@ import { KnappLank } from "@/komponenter/ui/Knapp";
  *
  * Under texten står det som sänker tröskeln (provperiod, ingen bindningstid),
  * och finns ett nummer kan besökaren ringa i stället.
+ *
+ * Till höger om rubrikens nedre rader svävar loggans gnista i 3D (Gnista3D,
+ * 2026-11-10), i det varma skenet – samma gnista som flyger in i telefonen i
+ * heron. Från md, där den får plats bredvid rubriken. Den sitter nedtill
+ * eftersom rubrikens första rad är längst och når nästan hela vägen ut.
  */
 export function KomIgang() {
   const t = texter.komIgang;
@@ -31,9 +37,12 @@ export function KomIgang() {
       />
 
       <Behallare>
-        <h2 id="kom-igang-rubrik" className="max-w-[15ch] text-hero font-extrabold text-bg">
-          {t.rubrik}
-        </h2>
+        <div className="relative">
+          <h2 id="kom-igang-rubrik" className="max-w-[15ch] text-hero font-extrabold text-bg">
+            {t.rubrik}
+          </h2>
+          <Gnista3D className="absolute right-0 -bottom-3 hidden size-36 md:block lg:size-48 xl:size-52" />
+        </div>
         <div className="mt-10 flex flex-col gap-6 border-t border-bg/15 pt-8 sm:flex-row sm:items-end sm:justify-between lg:mt-14">
           <div>
             <p className="text-lead text-bg/75">{t.text}</p>

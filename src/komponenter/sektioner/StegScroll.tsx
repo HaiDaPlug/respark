@@ -10,12 +10,16 @@
  * aktiva steget markeras bara med färg – så sidan hoppar inte medan man
  * scrollar. Editorial stil sedan 2026-10-22: siffror och tunna linjer i
  * stället för rutor.
+ *
+ * 3D sedan 2026-11-10: fönstret till höger vrider sig sakta genom hela
+ * scrollen och vänds runt när steget byts, med stegets saker svävande framför
+ * (Stegscen). Den beige ytan under står still.
  */
-import { AnimatePresence, m, useMotionValueEvent, useScroll, useTransform, type MotionValue } from "motion/react";
+import { m, useMotionValueEvent, useScroll, useTransform, type MotionValue } from "motion/react";
 import { useRef, useState } from "react";
 import { texter } from "@/innehall/texter";
 import { klass } from "@/lib/klass";
-import { STEGVYER } from "@/komponenter/illustrationer/StegVyer";
+import { Stegscen, useScrollLutning } from "@/komponenter/illustrationer/Stegscen";
 import { useReduceradRorelse } from "@/komponenter/illustrationer/useKoppling";
 import { Stegnummer, Stegpanel } from "./StegDelar";
 
@@ -37,6 +41,8 @@ export function StegScroll() {
   useMotionValueEvent(scrollYProgress, "change", (v) => {
     setAktiv(Math.min(antal - 1, Math.floor(v * antal)));
   });
+  // Fönstrets vinklar följer samma scroll, genom alla stegen.
+  const lutning = useScrollLutning(scrollYProgress);
   /** Scrollar så att steg i blir aktivt (en bit in i dess del av scrollen). */
   function ga(i: number) {
     const sparEl = spar.current;
@@ -46,8 +52,6 @@ export function StegScroll() {
     const perSteg = (sparEl.offsetHeight - fastEl.offsetHeight) / antal;
     window.scrollTo({ top: start + (i + 0.3) * perSteg, behavior: reducerad ? "auto" : "smooth" });
   }
-
-  const Vy = STEGVYER[aktiv];
 
   return (
     <div ref={spar} className="relative" style={{ height: `calc(100vh - ${STICKY_TOPP_PX}px + ${antal * SCROLL_PER_STEG_VH}vh)` }}>
@@ -83,23 +87,12 @@ export function StegScroll() {
             })}
           </ol>
 
-          {/* Produktvyn för det aktiva steget. Vyerna ligger ovanpå varandra och tonar över. */}
+          {/* Produktvyn för det aktiva steget: fönstret lutar i 3D och vänds runt när steget byts */}
           <div className="relative h-[min(31rem,calc(100vh-10rem))]">
             <p className="sr-only">{`Exempelbild: ${steg[aktiv].titel}`}</p>
-            <AnimatePresence initial={false}>
-              <m.div
-                key={aktiv}
-                className="absolute inset-0"
-                initial={{ opacity: 0, y: 18, scale: 0.985 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -14, scale: 0.985 }}
-                transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <Stegpanel fast>
-                  <Vy />
-                </Stegpanel>
-              </m.div>
-            </AnimatePresence>
+            <Stegpanel fast>
+              <Stegscen steg={aktiv} lutning={lutning} byte />
+            </Stegpanel>
           </div>
         </div>
       </div>

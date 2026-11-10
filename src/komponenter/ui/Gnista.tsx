@@ -1,4 +1,4 @@
-import { useId } from "react";
+import { useId, type CSSProperties } from "react";
 import { klass } from "@/lib/klass";
 import { BLAD, GNISTA_VIEWBOX } from "./gnistaData";
 
@@ -43,10 +43,10 @@ export function GnistaBlad({ prefix }: { prefix: string }) {
   );
 }
 
-export function Gnista({ className }: { className?: string }) {
+export function Gnista({ className, style }: { className?: string; style?: CSSProperties }) {
   const prefix = useOvergangsId("gnista");
   return (
-    <svg viewBox={GNISTA_VIEWBOX} aria-hidden className={klass("shrink-0", className)}>
+    <svg viewBox={GNISTA_VIEWBOX} aria-hidden className={klass("shrink-0", className)} style={style}>
       <GnistaBlad prefix={prefix} />
     </svg>
   );

@@ -6,10 +6,13 @@
  * med jobb, familj och vardag, "Boka ny tid" skjuts upp och är till slut
  * bortglömd (vecka 10). Bygger på kundcaset från Osteopaticentrum.
  *
- * Korten kommer in ett i taget när de scrollas fram, och strecket över
- * "Boka ny tid" ritas (scaleX, ingen höjd ändras). Rubriken fortsätter
- * heronas ("Dina kunder har inte glömt dig."). Ersatte 2026-10-22 före/efter-
- * scenerna (ForeEfter.tsx, finns i git-historiken).
+ * Korten kommer in ett i taget när de scrollas fram – de reser sig i 3D från
+ * underkanten, som kort som ställs upp på bordet (2026-11-10) – och strecket
+ * över "Boka ny tid" ritas (scaleX, ingen höjd ändras). Innehållet i korten
+ * rörs inte (en mer animerad tidslinje med mätare provades 2026-11-09 och
+ * togs bort). Rubriken fortsätter heronas ("Dina kunder har inte glömt
+ * dig."). Ersatte 2026-10-22 före/efter-scenerna (ForeEfter.tsx, finns i
+ * git-historiken).
  */
 import { m } from "motion/react";
 import { BriefcaseBusiness, Check, Repeat, Users } from "lucide-react";
@@ -35,10 +38,11 @@ export function Problem() {
           {t.tidslinje.map((vecka, i) => (
             <m.li
               key={vecka.vecka}
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 26, rotateX: 38 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
               viewport={{ once: true, margin: "0px 0px -12% 0px" }}
-              transition={{ duration: 0.6, delay: i * 0.14, ease: mjuk }}
+              transition={{ duration: 0.85, delay: i * 0.14, ease: mjuk }}
+              style={{ transformPerspective: 900, transformOrigin: "50% 100%" }}
               data-avsloja
               className="flex flex-col rounded-3xl bg-surface p-4 shadow-kort ring-1 ring-line sm:p-5"
             >

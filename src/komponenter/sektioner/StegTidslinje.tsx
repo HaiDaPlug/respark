@@ -5,11 +5,14 @@
  * med sin vy – ingenting gömt bakom tryck. En stegrad fastnar under menyn
  * medan besökaren scrollar genom stegen: den fylls på i takt med scrollen och
  * visar vilket steg man är på. Stegnumren tänds när man når dem.
+ *
+ * 3D sedan 2026-11-10: varje stegs fönster vrider sig sakta medan det
+ * passerar skärmen, med stegets saker svävande framför (Stegscen).
  */
 import { m, useMotionValue, useMotionValueEvent, useScroll, useTransform, type MotionValue } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { texter } from "@/innehall/texter";
-import { STEGVYER } from "@/komponenter/illustrationer/StegVyer";
+import { Stegscen } from "@/komponenter/illustrationer/Stegscen";
 import { Avsloja } from "@/komponenter/ui/Avsloja";
 import { Stegnummer, Stegpanel } from "./StegDelar";
 
@@ -63,7 +66,6 @@ export function StegTidslinje() {
 
       <ol className="mt-8 space-y-14">
         {t.steg.map((steg, i) => {
-          const Vy = STEGVYER[i];
           return (
             <li
               key={steg.titel}
@@ -81,7 +83,7 @@ export function StegTidslinje() {
                 </div>
                 <div className="mt-6">
                   <Stegpanel>
-                    <Vy />
+                    <Stegscen steg={i} />
                   </Stegpanel>
                 </div>
               </Avsloja>

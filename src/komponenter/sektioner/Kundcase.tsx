@@ -5,6 +5,7 @@ import { sajt, type Kundcase as Case } from "@/konfig/sajt";
 import { Avsloja } from "@/komponenter/ui/Avsloja";
 import { Behallare } from "@/komponenter/ui/Behallare";
 import { Platshallare } from "@/komponenter/ui/Platshallare";
+import { Raknare } from "@/komponenter/ui/Raknare";
 
 /**
  * Kundcasen: hur det har gått för kunderna, beviset precis före priset. Varje
@@ -15,7 +16,8 @@ import { Platshallare } from "@/komponenter/ui/Platshallare";
  * första resultatet och citatet.
  *
  * Sidans egna färger: vita kort på den ljusa bakgrunden (priset under ligger på
- * ett sandband), stora siffror i kaffebrunt.
+ * ett sandband), stora siffror i kaffebrunt. Siffrorna räknas upp från noll
+ * när de kommer fram (Raknare, 2026-11-10) – samma siffror, bara levande.
  * Allt hämtas från sajt.kundcase – fyll bara i material som kunden har
  * godkänt. Det som saknas i ett case räknas upp i en platshållare på kortet
  * (när visaPlatshallare är på).
@@ -88,7 +90,9 @@ function StortKort({ kc }: { kc: Case }) {
               // dt måste stå före dd i koden; siffran flyttas upp visuellt med order.
               <div key={r.etikett} className="flex flex-col py-6 first:pt-0 last:pb-0">
                 <dt className="order-2 mt-3 max-w-[22rem] text-ink">{r.etikett}</dt>
-                <dd className={`order-1 text-[clamp(3.5rem,2.6rem+3vw,5.5rem)] ${SIFFRA}`}>{r.varde}</dd>
+                <dd className={`order-1 text-[clamp(3.5rem,2.6rem+3vw,5.5rem)] ${SIFFRA}`}>
+                  <Raknare varde={r.varde} />
+                </dd>
                 {!gemensamPeriod && <dd className="order-3 mt-2 text-[0.85rem] text-ink-soft">{r.period}</dd>}
               </div>
             ))}
@@ -121,7 +125,9 @@ function LitetKort({ kc }: { kc: Case }) {
       {forsta && (
         <dl className="mt-5 flex flex-col border-t border-line pt-5">
           <dt className="order-2 mt-2 text-ink">{forsta.etikett}</dt>
-          <dd className={`order-1 text-[clamp(2.75rem,2.2rem+1.6vw,3.5rem)] ${SIFFRA}`}>{forsta.varde}</dd>
+          <dd className={`order-1 text-[clamp(2.75rem,2.2rem+1.6vw,3.5rem)] ${SIFFRA}`}>
+            <Raknare varde={forsta.varde} />
+          </dd>
           <dd className="order-3 mt-2 text-[0.85rem] text-ink-soft">{forsta.period}</dd>
         </dl>
       )}

@@ -16,7 +16,8 @@ export function Stegnummer({ nr, aktiv = true }: { nr: number; aktiv?: boolean }
 }
 
 /**
- * Den beige ytan som stegvyerna visas på.
+ * Den beige ytan som stegvyerna visas på. Den står still och ger perspektivet
+ * åt fönstret, som lutar och vänds i 3D ovanför den (Stegscen).
  *
  * fast – fyller förälderns höjd (den fasta ytan på desktop), så att alla
  *        steg är lika höga och sidan inte hoppar när de byts.
@@ -31,7 +32,8 @@ export function Stegpanel({ children, fast = false }: { children: ReactNode; fas
       )}
     >
       <div className="korn absolute inset-0 opacity-[0.06] mix-blend-multiply" />
-      <div className="relative flex w-full justify-center">{children}</div>
+      {/* Perspektivet ligger på fönstrets närmaste förälder – längre upp verkar det inte */}
+      <div className="relative flex w-full justify-center perspective-[1100px] lg:perspective-[1400px]">{children}</div>
     </div>
   );
 }

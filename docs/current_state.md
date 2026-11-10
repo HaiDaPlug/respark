@@ -1,6 +1,6 @@
 # Respark – landningssida: nuläge
 
-Senast uppdaterad: 2026-10-24
+Senast uppdaterad: 2026-11-10
 
 One-page-landningssida för Respark: tidigare kunder får automatiska
 påminnelser, och verksamheten ser vilka som kommer tillbaka. Den här
@@ -18,6 +18,12 @@ platshållare och indexeras inte förrän punkterna i
 hela skärmen, en berättelse som börjar med besökarens problem och en
 editorial stil på resten av sidan. Se
 [Editorial omgörning](#editorial-omgörning-gren-hero-editorial).
+
+**Test 2026-11-10 på grenen `respark-3d` (inte i `main`):** mer djup och
+rörelse på samma sida – telefonen i heron står i 3D, ett kundkort svävar
+bredvid den, fönstret i "Så fungerar det" vrids och vänds i 3D, kundcasets
+siffror räknas upp och gnistan svävar i 3D i avslutningen. Texter, färger
+och ordning är desamma. Se [3D och rörelse](#3d-och-rörelse-gren-respark-3d).
 
 > **Repot är publikt.** Interna anteckningar (beslut, siffror som inte är
 > verifierade, prisresonemang, kundkontakter, godkännanden och
@@ -111,6 +117,24 @@ Gjord 2026-10-22 som ett test att jämföra mot `main`.
 - **Efter heron (2026-10-22, utifrån kundcaset från Osteopaticentrum):** tidslinjen (Problem), den nya sektionen Vad Respark gör (Losning) och ett ifyllt kundcase. Steg 2 i Så fungerar det nämner nu både uppföljning några dagar efter besöket och påminnelse efter tre månader. Exempelkunderna (`texter.exempel.kunder`) är borttagna med före/efter-scenerna.
 - **Verifierat:** se Verifierat nedan.
 
+## 3D och rörelse (gren `respark-3d`)
+
+Gjord 2026-11-10 som ett test: samma sida, samma texter och färger, men med
+djup och mer liv. Allt är byggt med det som redan fanns (Motion och CSS-3D),
+inga nya bibliotek. Bara `transform` och `opacity` animeras.
+
+- **Telefonen i heron** (`HeroScen.tsx`) står i en scen med perspektiv (i telefonbredder, `calc(var(--telefon) * 5)`). Den har en vilovinkel (ovankanten lite bakåt, skärmen vriden mot rubriken: `VILA_X`, `VILA_Y`), lutar några grader åt muspekaren över hela heron (`useLutning.ts`, bara med mus, via en fjäder) och svävar sakta upp och ned (`SVAV_S`). En mjuk skugga på "golvet" krymper när den svävar uppåt (bara från lg). Under introt står telefonen rakt framifrån och vrider sig till vilovinkeln när den glider till sin plats – oavsett om introt går vidare av sig självt, av en scroll eller av skyddstimern (en `MutationObserver` på `data-intro`).
+- **Telefonens tjocklek** (`Telefon.tsx`): tre mörka kopior av ramen ligger en bit bakom (`translateZ`, i andelar av `--telefon`) och syns som kanten när telefonen lutar. Sidoknappar sticker ut i kanten. Står telefonen platt syns inget av det.
+- **Kundkortet** i heron (`Kundkort` i `HeroScen.tsx`): Annas kort svävar framför telefonen (z 70) nere till vänster och byter status i takt med berättelsen: "Inte bokat på ett tag" när gnistorna flyger → "Sms skickat" när notisen kommer → "Bokat igen", och då tänds loggans gnista i kortets hörn. Statuschippen (`Statuschip` i `Delar.tsx`) och texterna (`texter.exempel.status`, `texter.exempel.kund`) fanns redan. Vid reducerad rörelse visas "Bokat igen" direkt.
+- **Tidslinjens kort** (`Problem.tsx`) reser sig i 3D från underkanten, ett i taget, när de kommer fram. Innehållet i korten är oförändrat.
+- **Så fungerar det** (`Stegscen.tsx`, `Svavare.tsx`): appfönstret står snett på den beige ytan, som står still och ger perspektivet (`Stegpanel`). På desktop vrider sig fönstret sakta genom hela den fasta scrollen (`useScrollLutning`) och vänds runt i 3D när steget byts. Framför det svävar stegets saker på olika djup: tre kunder som svävar in (steg 1), två sms-bubblor utan text (steg 2) och "Bokat igen" med gnistan och en kund med bock (steg 3). De är placerade så att inget täcker "Exempelvy", knappar eller text. På mobil (under sm) visas de svävande sakerna inte – fönstret fyller ytan där – men fönstret vrids medan steget passerar skärmen. De svävande sakerna startar när hela scenen syns, inte var och en för sig: en sak utanför ytans kant räknas annars aldrig som synlig.
+- **Kundcasets siffror** räknas upp från noll när de kommer fram (`Raknare.tsx`, logiken i `src/lib/raknare.ts` med tester). Servern skriver ut det riktiga talet, skärmläsare får värdet en gång, och syns talet redan när sidan laddas står det kvar. Värden som inte är ett heltal visas som de är.
+- **Gnistan i avslutningen** (`Gnista3D.tsx`): loggans gnista med tjocklek (nio kopior bakom varandra, de bakre mörkare) vaggar sakta och svävar till höger om rubrikens nedre rader. Från md. Orange finns fortfarande bara i loggan.
+- **Intoningarna** (`Avsloja.tsx`, används av kundcaset, priset, teamet och mobilens steg) lutar bakåt från underkanten och reser sig när de kommer in.
+- **Batteri:** allt som loopar (telefonen och skuggan, de svävande sakerna, gnistan) går bara medan det syns och står still annars.
+- **Reducerad rörelse:** inget intro, ingen lutning efter musen, inget svävande och ingen vändning. Telefonen står i vilovinkeln och allt visar slutläget.
+- **Fallgropar:** `opacity` under 1, `overflow: hidden` och `filter` plattar till 3D för elementets barn – därför tonar fönstret själv och inte behållaren runt det, och de svävande sakerna ligger bredvid fönstret. Perspektivet måste ligga på närmaste förälder till det som vrids (eller hela vägen med `transform-3d`). Motion skriver över `transform` på elementet den animerar, så djup och skalning ligger på egna element.
+
 ## Så styr du sidan
 
 Allt nedan görs i `src/konfig/sajt.ts`.
@@ -156,7 +180,9 @@ vanliga SaaS-sidor, och sidan behöver inga miljövariabler.
 
 **Verifierat 2026-10-28 ("Vi har sett det här förut" borttagen, ihop med den kortare vägen och de nya siffrorna):** `npm test` (11 gröna), `npm run lint` (0 fel) och `npm run build` utan fel. Fotat i 1440×900 och 390×844 (Playwright): ordningen Problem → Så fungerar det → Kundcase → Pris, kundcasen på ljus bakgrund före prisets sandband, siffrorna 36 och 358. Ingen sidledsscroll och inga konsolfel.
 
-**Inte testat:** riktig iPhone/Android, Safari och Firefox (särskilt sticky och scrollstyrningen) och publicering på Vercel.
+**Verifierat 2026-11-10 (3D och rörelse, gren `respark-3d`):** `npm test` (17 gröna, nya tester för räknaren), `npm run lint` (0 fel), `tsc` och `npm run build` utan fel. axe-core: 0 fel i desktop, mobil och desktop med reducerad rörelse. Fotat i 1440×900, 1280×800, 1024×768, 768×1024 och 390×844 (Playwright, Chromium): introt i två lägen, heron med och utan mus, alla tre stegen på desktop, surfplatta och mobil, tidslinjen mitt i animationen, kundcaset (räknaren uppmätt: 0 → 23 → 33 → 36 och 0 → 224 → 331 → 358) och avslutningen. Heron, stegen och avslutningen också fotade i WebKit (Safaris motor). Ingen sidledsscroll och inga konsolfel.
+
+**Inte testat:** riktig iPhone/Android, Safari på riktigt (bara WebKit i Playwright) och Firefox (särskilt sticky, scrollstyrningen och 3D-scenerna) och publicering på Vercel.
 
 ## Före publicering
 

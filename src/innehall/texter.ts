@@ -81,8 +81,16 @@ export const texter = {
     status: { inaktiv: "Inte bokat på ett tag", skickat: "Sms skickat", bokat: "Bokat igen" },
     /** Låsskärmen i heron. */
     lasskarm: { klocka: "9:41", datum: "tisdag 10 juni", app: "Meddelanden", nar: "nu" },
+    /** Kundkortet som svävar bredvid telefonen i heron. Det byter status när sms:et kommer. */
+    kund: { namn: "Anna Lindqvist", initialer: "AL" },
+    /** Kunderna som svävar in i steget "Lägg in dina kunder" (illustrationer/Svavare.tsx). */
+    kunder: [
+      { initialer: "AL", namn: "Anna" },
+      { initialer: "JB", namn: "Johan" },
+      { initialer: "SK", namn: "Sara" },
+    ],
     heroBeskrivning:
-      "Exempel: en påminnelse från verksamheten plingar in på Annas telefon: Hej Anna! Det var ett tag sedan vi sågs. Välkommen att boka en ny tid hos oss.",
+      "Exempel: en påminnelse från verksamheten plingar in på Annas telefon: Hej Anna! Det var ett tag sedan vi sågs. Välkommen att boka en ny tid hos oss. Efter sms:et står det Bokat igen vid Anna.",
   },
 
   /**
