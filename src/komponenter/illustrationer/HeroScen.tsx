@@ -26,6 +26,9 @@
  * Vid reducerad rörelse visas slutläget direkt, utan spår, lutning eller
  * svävande.
  *
+ * Ingen backdrop-blur i telefonen: inuti en 3D-scen kan element med suddig
+ * bakgrund försvinna helt i Safari. Notisen är i stället nästan helt vit.
+ *
  * Styr också startsidans intro (src/lib/intro.ts): telefonen centreras på
  * skärmen medan bara den syns – rakt framifrån – och när notisen har kommit
  * släpps rubriken in medan telefonen glider till sin plats och vrider sig
@@ -307,7 +310,7 @@ export function HeroScen() {
                   variants={notis}
                   initial="vila"
                   animate={pling}
-                  className="mt-[9cqw] w-full rounded-[5cqw] bg-white/90 p-[3.2cqw] text-ink shadow-[0_8px_30px_-8px_rgb(0_0_0/0.5)] backdrop-blur-md"
+                  className="mt-[9cqw] w-full rounded-[5cqw] bg-white/95 p-[3.2cqw] text-ink shadow-[0_8px_30px_-8px_rgb(0_0_0/0.5)]"
                 >
                   <div className="flex items-center gap-[2.4cqw]">
                     <span className="grid size-[7.5cqw] shrink-0 place-items-center rounded-[1.8cqw] bg-ink text-white">
@@ -330,11 +333,11 @@ export function HeroScen() {
 
                 {/* Låsskärmens knappar och hemindikatorn, bara som bild */}
                 <div aria-hidden className="mt-auto flex w-full items-center justify-between px-[4cqw] pb-[4cqw]">
-                  <span className="grid size-[11cqw] place-items-center rounded-full bg-white/15 backdrop-blur-md">
+                  <span className="grid size-[11cqw] place-items-center rounded-full bg-white/15">
                     <Flashlight className="size-[5cqw]" />
                   </span>
                   <span className="h-[1.2cqw] w-[34cqw] self-end rounded-full bg-white/70" />
-                  <span className="grid size-[11cqw] place-items-center rounded-full bg-white/15 backdrop-blur-md">
+                  <span className="grid size-[11cqw] place-items-center rounded-full bg-white/15">
                     <Camera className="size-[5cqw]" />
                   </span>
                 </div>

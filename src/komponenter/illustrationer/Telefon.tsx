@@ -13,6 +13,10 @@ import { klass } from "@/lib/klass";
  * platt syns ingen av delarna. Tjockleken räknas i telefonbredder (--telefon)
  * när variabeln finns, så att den följer med storleken.
  *
+ * Skärmen ligger en pixel framför ramen (translateZ). Ligger de på exakt samma
+ * djup kan Safari rita ramens svarta bakgrund ovanpå skärmen, och då syns
+ * varken klockan eller notisen.
+ *
  * mork – låsskärm: mörk bakgrundsbild och ljus statusrad utan klocka (klockan
  *        står stor på själva låsskärmen).
  */
@@ -54,7 +58,7 @@ export function Telefon({
 
       <div
         className={klass(
-          "@container relative flex aspect-[9/19] flex-col overflow-hidden rounded-[2rem]",
+          "@container relative flex aspect-[9/19] flex-col overflow-hidden rounded-[2rem] [transform:translateZ(1px)]",
           mork ? "lasskarm text-white" : "bg-surface text-ink",
         )}
       >
