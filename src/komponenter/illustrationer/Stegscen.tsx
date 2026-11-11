@@ -70,9 +70,9 @@ export function Stegscen({
   return (
     <m.div
       ref={scen}
-      // --ut: hur långt utanför fönstret de svävande sakerna får sitta (Svavare).
-      // Lite mindre på surfplatta, där ytan bredvid fönstret är smalare.
-      className="relative w-full max-w-[25rem] transform-3d [--ut:0.6] lg:[--ut:1]"
+      // --ut: hur långt utanför fönstret de svävande sakerna får sitta (Svavare),
+      // som en faktor. De visas bara från md, där det finns plats bredvid fönstret.
+      className="relative w-full max-w-[25rem] transform-3d [--ut:1]"
       style={reducerad ? undefined : { rotateX, rotateY }}
     >
       {byte ? (

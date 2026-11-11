@@ -1,8 +1,8 @@
 "use client";
 
 /**
- * Byggstenar för produktillustrationerna: appfönster, statuschip, avatar och
- * en av/på-knapp. Allt här är bilder av gränssnittet – inget är klickbart,
+ * Byggstenar för produktillustrationerna: appfönster, exempeletikett, avatar
+ * och statuschip. Allt här är bilder av gränssnittet – inget är klickbart,
  * och hela illustrationen döljs för skärmläsare (den beskrivs med aria-label
  * på det yttre elementet i stället).
  */
@@ -29,9 +29,9 @@ export function Fonster({
 }) {
   return (
     <div className={klass("overflow-hidden rounded-2xl bg-surface shadow-lyft ring-1 ring-line", className)}>
-      <div className="flex items-center gap-2.5 border-b border-line px-4 py-3">
+      <div className="flex items-center gap-2.5 border-b border-line px-4 py-3.5">
         <Gnista className="size-5" />
-        <span className="text-[0.78rem] font-semibold text-ink">{titel}</span>
+        <span className="text-[0.95rem] font-bold tracking-[-0.01em] text-ink">{titel}</span>
         {hoger && <div className="ml-auto">{hoger}</div>}
       </div>
       <div className={klass("p-4", innerKlass)}>{children}</div>
@@ -53,12 +53,24 @@ export function Exempeletikett({ className }: { className?: string }) {
   );
 }
 
-/** Rund avatar med initialer. `framhavd` ger accentfärg (kunden berättelsen handlar om). */
-export function Avatar({ initialer, framhavd = false }: { initialer: string; framhavd?: boolean }) {
+/**
+ * Rund avatar med initialer. `framhavd` ger accentfärg (kunden berättelsen
+ * handlar om). `stor` för produktbilderna, där texten ska vara lätt att läsa.
+ */
+export function Avatar({
+  initialer,
+  framhavd = false,
+  stor = false,
+}: {
+  initialer: string;
+  framhavd?: boolean;
+  stor?: boolean;
+}) {
   return (
     <span
       className={klass(
-        "grid size-7 shrink-0 place-items-center rounded-full text-[0.64rem] font-bold",
+        "grid shrink-0 place-items-center rounded-full font-bold",
+        stor ? "size-10 text-[0.8rem]" : "size-7 text-[0.64rem]",
         framhavd ? "bg-accent-soft text-accent-strong" : "bg-sand text-ink-soft",
       )}
     >
@@ -99,39 +111,6 @@ export function Statuschip({ status, className }: { status: Kundstatus; classNam
           {text}
         </m.span>
       </AnimatePresence>
-    </span>
-  );
-}
-
-/** En av/på-knapp som bild. */
-export function Vaxel({ pa = true }: { pa?: boolean }) {
-  return (
-    <span
-      className={klass(
-        "relative inline-flex h-5 w-9 shrink-0 items-center rounded-full p-0.5 transition-colors",
-        pa ? "bg-accent" : "bg-ink/15",
-      )}
-    >
-      <span
-        className={klass(
-          "size-4 rounded-full bg-surface shadow-sm transition-transform",
-          pa ? "translate-x-4" : "translate-x-0",
-        )}
-      />
-    </span>
-  );
-}
-
-/** En knapp som bild (inte klickbar). */
-export function Bildknapp({ children, ljus = false }: { children: ReactNode; ljus?: boolean }) {
-  return (
-    <span
-      className={klass(
-        "inline-flex h-8 items-center gap-1.5 rounded-full px-3.5 text-[0.72rem] font-semibold",
-        ljus ? "bg-surface text-ink ring-1 ring-line-strong" : "bg-ink text-bg",
-      )}
-    >
-      {children}
     </span>
   );
 }

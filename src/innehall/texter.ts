@@ -83,11 +83,14 @@ export const texter = {
     lasskarm: { klocka: "9:41", datum: "tisdag 10 juni", app: "Meddelanden", nar: "nu" },
     /** Kundkortet som svävar bredvid telefonen i heron. Det byter status när sms:et kommer. */
     kund: { namn: "Anna Lindqvist", initialer: "AL" },
-    /** Kunderna som svävar in i steget "Lägg in dina kunder" (illustrationer/Svavare.tsx). */
+    /**
+     * Kunderna i produktbilderna i "Så fungerar det" (illustrationer/StegVyer.tsx):
+     * när de var hos dig senast och när de bokade igen efter sms:et.
+     */
     kunder: [
-      { initialer: "AL", namn: "Anna" },
-      { initialer: "JB", namn: "Johan" },
-      { initialer: "SK", namn: "Sara" },
+      { initialer: "AL", namn: "Anna Lindqvist", senast: "december", bokade: "14 mars" },
+      { initialer: "JB", namn: "Johan Berg", senast: "november", bokade: "17 mars" },
+      { initialer: "SK", namn: "Sara Karlsson", senast: "oktober", bokade: "21 mars" },
     ],
     heroBeskrivning:
       "Exempel: en påminnelse från verksamheten plingar in på Annas telefon: Hej Anna! Det var ett tag sedan vi sågs. Välkommen att boka en ny tid hos oss. Efter sms:et står det Bokat igen vid Anna.",
@@ -164,6 +167,29 @@ export const texter = {
         text: "Du ser vilka som bokade efter sms:et.",
       },
     ],
+    /**
+     * Produktbilderna, ett per steg (illustrationer/StegVyer.tsx). Vardagsord
+     * och få, stora saker sedan 2026-11-11 – inga produktord som "importera",
+     * "kolumner", "utskick" eller "uppföljning". Ska stämmas av mot produkten.
+     */
+    vyer: {
+      kunder: {
+        titel: "Dina kunder",
+        lista: "Listan från ditt bokningssystem",
+        klar: "Klar",
+        senast: (manad: string) => `Senast här i ${manad}`,
+      },
+      nar: {
+        titel: "När ska sms:et gå ut?",
+        val: ["Några dagar efter besöket", "När det har gått 3 månader"],
+        sjalv: "Sms:en går ut av sig själva",
+      },
+      bokade: {
+        titel: "Bokade igen",
+        text: "De här bokade efter sms:et",
+        bokade: (datum: string) => `Bokade ${datum}`,
+      },
+    },
     /** Platshållare under rubriken tills det är bestämt vilken hjälp nya kunder får. */
     uppstartSaknas: "Här står löftet om hjälp att komma igång, t.ex. \"Vi lägger in kundlistan åt dig\", när det är bestämt (sajt.uppstartshjalp).",
     /** Stegraden överst på mobil: "Steg 2 av 3". */
