@@ -1,8 +1,10 @@
 "use client";
 
 /**
- * Knappraden längst ner på mobil och surfplatta: "Kom igång" och, när det
- * finns ett nummer, "Ring oss". Den syns när heron har scrollats förbi och
+ * Knappraden längst ner på mobil och surfplatta: "Ring oss" (när det finns ett
+ * nummer), "Boka möte" (när det finns en bokningslänk, Bokning.tsx) och "Kom
+ * igång". Med tre knappar är "Ring oss" en rund telefonikon, så att allt
+ * ryms på en smal telefon; namnet finns kvar för skärmläsare. Den syns när heron har scrollats förbi och
  * försvinner när avslutningen "Kom igång" kommer fram, så att den aldrig står
  * i vägen för samma knapp. Från lg finns knappen redan i menyn.
  *
@@ -15,6 +17,8 @@ import { useSyncExternalStore } from "react";
 import { ankare, texter } from "@/innehall/texter";
 import { klass } from "@/lib/klass";
 import { komIgangEtikett, komIgangHref, kontaktTelefon, telefonHref } from "@/lib/lankar";
+import { sajt } from "@/konfig/sajt";
+import { BokaMoteKnapp } from "@/komponenter/Bokning";
 import { KnappLank, knappKlasser } from "@/komponenter/ui/Knapp";
 
 function lyssna(andrad: () => void) {
@@ -38,6 +42,7 @@ export function MobilKnappar() {
   const t = texter.mobilKnappar;
   const synlig = useSyncExternalStore(lyssna, borSynas, () => false);
   const telefon = kontaktTelefon();
+  const bokning = Boolean(sajt.uppstartsmote.url);
 
   return (
     <div
@@ -48,14 +53,22 @@ export function MobilKnappar() {
       )}
     >
       <div className="mx-auto flex max-w-md gap-2 rounded-full bg-bg/90 p-1.5 shadow-lyft ring-1 ring-line backdrop-blur-md">
-        {telefon && (
-          <a href={telefonHref(telefon)} className={knappKlasser("sekundar", "md", "flex-1")}>
-            <Phone aria-hidden className="size-4" />
-            {t.ring}
-          </a>
-        )}
-        <KnappLank href={komIgangHref()} pil className="flex-1">
-          {telefon ? t.komIgang : komIgangEtikett()}
+        {telefon &&
+          (bokning ? (
+            <a href={telefonHref(telefon)} aria-label={t.ring} className={knappKlasser("sekundar", "md", "w-11 shrink-0 px-0")}>
+              <Phone aria-hidden className="size-4 shrink-0" />
+            </a>
+          ) : (
+            <a href={telefonHref(telefon)} className={knappKlasser("sekundar", "md", "flex-1")}>
+              <Phone aria-hidden className="size-4" />
+              {t.ring}
+            </a>
+          ))}
+        <BokaMoteKnapp variant="sekundar" className="min-w-0 flex-1 px-3">
+          {texter.bokning.kort}
+        </BokaMoteKnapp>
+        <KnappLank href={komIgangHref()} pil className="min-w-0 flex-1 px-3">
+          {telefon || bokning ? t.komIgang : komIgangEtikett()}
         </KnappLank>
       </div>
     </div>

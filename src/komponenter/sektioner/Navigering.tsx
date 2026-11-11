@@ -3,6 +3,9 @@
 /**
  * Fast meny överst. Genomskinlig högst upp på sidan, får bakgrund och kant så
  * fort besökaren scrollar. Under lg blir länkarna en meny bakom en knapp.
+ *
+ * "Boka möte" (2026-11-11) står bredvid "Kom igång" och öppnar kalendern
+ * (Bokning.tsx). I mobilmenyn stängs menyn först, sedan öppnas panelen.
  */
 import Link from "next/link";
 import { AnimatePresence, m } from "motion/react";
@@ -13,6 +16,7 @@ import { sajt } from "@/konfig/sajt";
 import { klass } from "@/lib/klass";
 import { komIgangHref, visaKontakt } from "@/lib/lankar";
 import { Behallare } from "@/komponenter/ui/Behallare";
+import { BokaMoteKnapp } from "@/komponenter/Bokning";
 import { KnappLank } from "@/komponenter/ui/Knapp";
 
 function lyssnaPaScroll(andrad: () => void) {
@@ -119,8 +123,12 @@ export function Navigering({ logga }: { logga: ReactNode }) {
               {t.loggaIn}
             </a>
           )}
-          {/* Omslutande div: knappens egen display-klass skulle annars slå ut "hidden". */}
-          <div className="hidden lg:block">
+          {/* Omslutande div: knappens egen display-klass skulle annars slå ut "hidden".
+              "Boka möte" är bara en ikon mellan lg och xl, där texten inte får plats. */}
+          <div className="hidden items-center gap-2 lg:flex">
+            <BokaMoteKnapp variant="sekundar" className="max-xl:w-11 max-xl:px-0">
+              <span className="max-xl:sr-only">{texter.bokning.kort}</span>
+            </BokaMoteKnapp>
             <KnappLank href={komIgangHref()}>{t.cta}</KnappLank>
           </div>
 
@@ -188,6 +196,13 @@ export function Navigering({ logga }: { logga: ReactNode }) {
                   <KnappLank href={komIgangHref()} storlek="lg" pil className="mt-2 w-full" onClick={ga}>
                     {t.cta}
                   </KnappLank>
+                  <BokaMoteKnapp
+                    variant="sekundar"
+                    storlek="lg"
+                    className="mt-2 w-full"
+                    vidOppning={stang}
+                    aterfokus={menyknapp}
+                  />
                 </div>
               </Behallare>
             </m.div>

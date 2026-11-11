@@ -354,6 +354,8 @@ export const texter = {
    */
   bokning: {
     knapp: "Boka uppstartsmöte",
+    /** Kortare, där platsen är liten (menyn och mobilens knapprad). */
+    kort: "Boka möte",
     rubrik: "Boka ett uppstartsmöte",
     undertext: (minuter: number) => `${minuter} minuter. Välj en tid som passar dig.`,
     stang: "Stäng",

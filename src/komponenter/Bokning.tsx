@@ -34,6 +34,7 @@ import {
   useState,
   type MouseEvent,
   type ReactNode,
+  type RefObject,
 } from "react";
 import { texter } from "@/innehall/texter";
 import { sajt } from "@/konfig/sajt";
@@ -76,7 +77,8 @@ export function BokningProvider({ children }: { children: ReactNode }) {
   // inte få fokus – alltså i en effekt efter att ändringen har ritats.
   const varOppen = useRef(false);
   useEffect(() => {
-    if (varOppen.current && !oppen) knapp.current?.focus();
+    // Knappen i mobilmenyn finns inte kvar när menyn har stängts – då hoppas det över.
+    if (varOppen.current && !oppen && knapp.current?.isConnected) knapp.current.focus();
     varOppen.current = oppen;
   }, [oppen]);
 
@@ -225,17 +227,25 @@ function Panel({ url, oppen, startad, stang }: { url: string; oppen: boolean; st
  * "Boka uppstartsmöte". En vanlig länk till kalendern som öppnar panelen när
  * JavaScript finns. Cmd/Ctrl/Skift-klick och mittenklick öppnar länken som
  * vanligt. Visas inte alls om sajt.uppstartsmote.url saknas.
+ *
+ * vidOppning – körs när panelen öppnas, t.ex. för att stänga mobilmenyn.
+ * aterfokus  – dit fokus går när panelen stängs, om inte till knappen själv
+ *              (knappen i mobilmenyn finns inte kvar – då menyknappen).
  */
 export function BokaMoteKnapp({
   variant = "primar",
   storlek = "md",
   className,
   children,
+  vidOppning,
+  aterfokus,
 }: {
   variant?: Knappvariant;
   storlek?: "md" | "lg";
   className?: string;
   children?: ReactNode;
+  vidOppning?: () => void;
+  aterfokus?: RefObject<HTMLElement | null>;
 }) {
   const bokning = useContext(BokningContext);
   const url = sajt.uppstartsmote.url;
@@ -244,7 +254,8 @@ export function BokaMoteKnapp({
   function klick(e: MouseEvent<HTMLAnchorElement>) {
     if (!bokning || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
     e.preventDefault();
-    bokning.oppna(e.currentTarget);
+    vidOppning?.();
+    bokning.oppna(aterfokus?.current ?? e.currentTarget);
   }
 
   return (
@@ -256,7 +267,7 @@ export function BokaMoteKnapp({
       aria-haspopup="dialog"
       className={knappKlasser(variant, storlek, className)}
     >
-      <CalendarDays aria-hidden className="size-4" strokeWidth={2.25} />
+      <CalendarDays aria-hidden className="size-4 shrink-0" strokeWidth={2.25} />
       {children ?? texter.bokning.knapp}
     </a>
   );

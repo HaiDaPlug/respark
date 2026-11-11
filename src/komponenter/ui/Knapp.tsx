@@ -55,7 +55,7 @@ export function KnappLank({ href, children, variant, storlek, pil, className, on
       {pil && (
         <ArrowRight
           aria-hidden
-          className="size-4 transition-transform duration-200 group-hover:translate-x-0.5"
+          className="size-4 shrink-0 transition-transform duration-200 group-hover:translate-x-0.5"
           strokeWidth={2.25}
         />
       )}
