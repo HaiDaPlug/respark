@@ -3,6 +3,7 @@ import { Mail, Phone } from "lucide-react";
 import { ankare, texter } from "@/innehall/texter";
 import { sajt } from "@/konfig/sajt";
 import { telefonHref, visaKontakt } from "@/lib/lankar";
+import { BokaMoteKnapp } from "@/komponenter/Bokning";
 import { Avsloja } from "@/komponenter/ui/Avsloja";
 import { Behallare } from "@/komponenter/ui/Behallare";
 import { Platshallare } from "@/komponenter/ui/Platshallare";
@@ -19,10 +20,13 @@ import { Sektionsrubrik } from "@/komponenter/ui/Sektionsrubrik";
  * saknas räknas upp i en platshållare. Sektionen döljs helt om ingen har
  * kontaktuppgifter och platshållare är av (se visaKontakt).
  *
- * Korten reser sig i 3D när de kommer fram, ett i taget (Avsloja).
+ * Korten reser sig i 3D när de kommer fram, ett i taget (Avsloja). Under
+ * korten kan besökaren boka ett uppstartsmöte (2026-11-11) – visas bara när
+ * sajt.uppstartsmote.url finns.
  */
 export function Team() {
   const t = texter.team;
+  const t2 = texter.bokning;
   if (!visaKontakt()) return null;
 
   return (
@@ -100,6 +104,14 @@ export function Team() {
             );
           })}
         </ul>
+
+        {/* Hellre ses än ringa: boka ett uppstartsmöte */}
+        {sajt.uppstartsmote.url && (
+          <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between lg:mt-10">
+            <p className="text-lead text-ink-soft">{t2.teamRad}</p>
+            <BokaMoteKnapp storlek="lg" />
+          </div>
+        )}
       </Behallare>
     </section>
   );

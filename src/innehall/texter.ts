@@ -348,6 +348,22 @@ export const texter = {
     cta: "Kom igång",
   },
 
+  /**
+   * Bokningen av ett uppstartsmöte (komponenter/Bokning.tsx): knappen, och
+   * panelen med kalendern som glider in från höger.
+   */
+  bokning: {
+    knapp: "Boka uppstartsmöte",
+    rubrik: "Boka ett uppstartsmöte",
+    undertext: (minuter: number) => `${minuter} minuter. Välj en tid som passar dig.`,
+    stang: "Stäng",
+    laddar: "Kalendern laddas …",
+    /** Om kalendern inte går att visa i panelen. */
+    nyFlik: "Öppna kalendern i en ny flik",
+    /** Över knappen under teamkorten. */
+    teamRad: "Hellre ses? Boka en tid, så går vi igenom allt tillsammans.",
+  },
+
   /** Knappraden längst ner på mobilen (sektioner/MobilKnappar.tsx). */
   mobilKnappar: { komIgang: "Kom igång", ring: "Ring oss" },
 

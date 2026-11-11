@@ -12,7 +12,8 @@ export const metadata: Metadata = {
  * flöden ska beskrivas: verksamheter som skapar ett konto i tjänsten, och de
  * kunduppgifter som verksamheter importerar (där vi troligen är
  * personuppgiftsbiträde och behöver ett biträdesavtal). Landningssidan
- * samlar inte in några uppgifter sedan intresseanmälan togs bort.
+ * samlar inte in några egna uppgifter sedan intresseanmälan togs bort, men
+ * bokningen av uppstartsmöten går via Calendly (2026-11-11) och ska beskrivas.
  */
 export default function Integritetspolicy() {
   return (
@@ -41,7 +42,8 @@ export default function Integritetspolicy() {
         },
         {
           rubrik: "Underleverantörer",
-          innehall: "[T.ex. SMS-leverantör, drift och databas – vilka de är och var uppgifterna lagras.]",
+          innehall:
+            "[T.ex. SMS-leverantör, drift och databas – vilka de är och var uppgifterna lagras. Bokning av uppstartsmöten: Calendly (namn, e-post och det du skriver när du bokar; Calendly laddas först när du öppnar bokningen och kan sätta egna kakor).]",
         },
         {
           rubrik: "Dina rättigheter",

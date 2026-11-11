@@ -155,6 +155,18 @@ export const sajt = {
     framgang: "#2F6B4F",
   },
 
+  /**
+   * Uppstartsmötet som besökaren kan boka, i en panel med Calendly (samma
+   * upplägg och samma Calendly-möte som "Boka samtal" på khyte.se). Byt gärna
+   * till ett eget Calendly-möte för Respark, så att bekräftelsen i mejlet
+   * nämner Respark. url null = inga bokningsknappar visas.
+   */
+  uppstartsmote: {
+    url: "https://calendly.com/hai-khyteteam/30min" as string | null,
+    /** Mötets längd i minuter, som det står i Calendly. */
+    minuter: 30,
+  },
+
   lankar: {
     /**
      * Registreringen i produkten – dit alla "Kom igång"-knappar leder.

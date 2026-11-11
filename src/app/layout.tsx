@@ -3,6 +3,7 @@ import { Inter, Manrope } from "next/font/google";
 import type { CSSProperties } from "react";
 import { texter } from "@/innehall/texter";
 import { sajt } from "@/konfig/sajt";
+import { BokningProvider } from "@/komponenter/Bokning";
 import { RorelseProvider } from "@/komponenter/RorelseProvider";
 import { INTRO_SKRIPT } from "@/lib/intro";
 import "./globals.css";
@@ -70,7 +71,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Hoppa till innehållet
         </a>
-        <RorelseProvider>{children}</RorelseProvider>
+        <RorelseProvider>
+          {/* Panelen för att boka ett uppstartsmöte (Calendly), som knapparna öppnar */}
+          <BokningProvider>{children}</BokningProvider>
+        </RorelseProvider>
       </body>
     </html>
   );

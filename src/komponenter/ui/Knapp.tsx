@@ -3,7 +3,8 @@ import { ArrowRight } from "lucide-react";
 import type { MouseEventHandler, ReactNode } from "react";
 import { klass } from "@/lib/klass";
 
-type Variant = "primar" | "sekundar" | "ljus";
+export type Knappvariant = "primar" | "sekundar" | "ljus" | "kontur";
+type Variant = Knappvariant;
 type Storlek = "md" | "lg";
 
 /**
@@ -14,6 +15,8 @@ type Storlek = "md" | "lg";
  *            till 2026-10-23, men smälte då in i sidans beige.
  * sekundar – ljus med kant, för "Se hur det fungerar"
  * ljus     – för mörka ytor
+ * kontur   – genomskinlig med ljus kant, för en andra knapp på mörka ytor
+ *            ("Boka uppstartsmöte" i avslutningen)
  */
 export function knappKlasser(variant: Variant = "primar", storlek: Storlek = "md", extra?: string) {
   return klass(
@@ -23,6 +26,7 @@ export function knappKlasser(variant: Variant = "primar", storlek: Storlek = "md
     variant === "primar" && "bg-knapp text-bg shadow-knapp hover:-translate-y-px hover:bg-knapp-hover",
     variant === "sekundar" && "bg-surface/70 text-ink ring-1 ring-line-strong hover:bg-surface hover:ring-ink/25",
     variant === "ljus" && "bg-bg text-ink hover:-translate-y-px hover:bg-surface",
+    variant === "kontur" && "bg-transparent text-bg ring-1 ring-bg/35 hover:bg-bg/10 hover:ring-bg/60",
     extra,
   );
 }

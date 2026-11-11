@@ -2,6 +2,7 @@ import { Check } from "lucide-react";
 import { ankare, texter } from "@/innehall/texter";
 import { sajt } from "@/konfig/sajt";
 import { komIgangEtikett, komIgangHref, kontaktTelefon, telefonHref } from "@/lib/lankar";
+import { BokaMoteKnapp } from "@/komponenter/Bokning";
 import { Behallare } from "@/komponenter/ui/Behallare";
 import { Gnista3D } from "@/komponenter/ui/Gnista3D";
 import { KnappLank } from "@/komponenter/ui/Knapp";
@@ -14,7 +15,8 @@ import { KnappLank } from "@/komponenter/ui/Knapp";
  * som låg här togs bort 2026-10-20.
  *
  * Under texten står det som sänker tröskeln (provperiod, ingen bindningstid),
- * och finns ett nummer kan besökaren ringa i stället.
+ * och finns ett nummer kan besökaren ringa i stället. Bredvid "Kom igång"
+ * finns "Boka uppstartsmöte" (2026-11-11), som öppnar kalendern i en panel.
  *
  * Till höger om rubrikens nedre rader svävar loggans gnista i 3D (Gnista3D,
  * 2026-11-10), i det varma skenet – samma gnista som flyger in i telefonen i
@@ -51,16 +53,18 @@ export function KomIgang() {
               {sajt.pris.ingenBindningstid && <Trygghet>{texter.pris.trygghet.bindning}</Trygghet>}
             </ul>
           </div>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+          {/* På mobil staplade i full bredd ("Kom igång" först, "Ring oss" sist), annars på en rad */}
+          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6">
             {telefon && (
               <a
                 href={telefonHref(telefon)}
-                className="py-2 font-semibold text-bg underline decoration-bg/30 underline-offset-[6px] transition-colors hover:decoration-bg"
+                className="py-2 font-semibold text-bg underline decoration-bg/30 underline-offset-[6px] transition-colors hover:decoration-bg max-sm:order-last max-sm:self-center"
               >
                 {texter.mobilKnappar.ring}
               </a>
             )}
-            <KnappLank href={komIgangHref()} variant="ljus" storlek="lg" pil>
+            <BokaMoteKnapp variant="kontur" storlek="lg" className="max-sm:w-full" />
+            <KnappLank href={komIgangHref()} variant="ljus" storlek="lg" pil className="max-sm:order-first max-sm:w-full">
               {komIgangEtikett()}
             </KnappLank>
           </div>

@@ -19,7 +19,9 @@
  *
  * Knappen går till betalningen (bekräftat pris + betallänk) eller till
  * registreringen. Finns ingen av dem visas en platshållare i stället för en
- * knapp som inte leder någonstans.
+ * knapp som inte leder någonstans. Under den finns "Boka uppstartsmöte"
+ * (2026-11-11) – som andra knapp, eller som den stora knappen när
+ * registreringen inte finns än, så att det alltid går att ta ett steg.
  *
  * Under priset står det som sänker tröskeln (provperiod, ingen bindningstid).
  * (Räknaren "Räkna själv" togs bort 2026-10-24.)
@@ -29,6 +31,7 @@ import { texter } from "@/innehall/texter";
 import { sajt } from "@/konfig/sajt";
 import { komIgangEtikett } from "@/lib/lankar";
 import { kronor, medlemspris } from "@/lib/pris";
+import { BokaMoteKnapp } from "@/komponenter/Bokning";
 import { KnappLank } from "@/komponenter/ui/Knapp";
 import { Platshallare } from "@/komponenter/ui/Platshallare";
 import { usePartner } from "@/komponenter/usePartner";
@@ -118,8 +121,8 @@ export function PrisKort() {
           {pris.ingenBindningstid && <Trygghet>{t.trygghet.bindning}</Trygghet>}
         </ul>
 
-        {/* Knappen – längst ner i spalten, i linje med listans slut */}
-        <div className="mt-auto pt-7">
+        {/* Knapparna – längst ner i spalten, i linje med listans slut */}
+        <div className="mt-auto flex flex-col gap-2.5 pt-7">
           {ctaHref ? (
             <KnappLank href={ctaHref} storlek="lg" pil className="w-full">
               {komIgangEtikett()}
@@ -127,6 +130,7 @@ export function PrisKort() {
           ) : (
             sajt.visaPlatshallare && <Platshallare text={t.saknarLank} />
           )}
+          <BokaMoteKnapp variant={ctaHref ? "sekundar" : "primar"} storlek="lg" className="w-full" />
         </div>
       </div>
 
