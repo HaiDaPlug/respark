@@ -19,6 +19,13 @@ describe("bokningsUrl", () => {
     expect(u.searchParams.get("primary_color")).toBe("86603f");
   });
 
+  it("behåller färgen som redan står i länken (från Calendlys inbäddningskod)", () => {
+    const u = new URL(bokningsUrl("https://calendly.com/exempel/30min?primary_color=ff9d5a", farger));
+    expect(u.searchParams.get("primary_color")).toBe("ff9d5a");
+    expect(u.searchParams.get("background_color")).toBe("faf8f5");
+    expect(u.searchParams.get("text_color")).toBe("292522");
+  });
+
   it("lämnar en ogiltig länk som den är", () => {
     expect(bokningsUrl("inte en länk", farger)).toBe("inte en länk");
   });

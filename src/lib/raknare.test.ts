@@ -14,7 +14,7 @@ describe("delaTal", () => {
 
   it("läser tusental med mellanslag eller hårt mellanslag", () => {
     expect(delaTal("1 200 kr")).toEqual({ fore: "", tal: 1200, efter: " kr" });
-    expect(delaTal("14 000")).toEqual({ fore: "", tal: 14000, efter: "" });
+    expect(delaTal("12 500")).toEqual({ fore: "", tal: 12500, efter: "" });
   });
 
   it("räknar inte decimaltal, intervall eller text utan tal", () => {

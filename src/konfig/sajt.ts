@@ -157,12 +157,13 @@ export const sajt = {
 
   /**
    * Uppstartsmötet som besökaren kan boka, i en panel med Calendly (samma
-   * upplägg och samma Calendly-möte som "Boka samtal" på khyte.se). Byt gärna
-   * till ett eget Calendly-möte för Respark, så att bekräftelsen i mejlet
-   * nämner Respark. url null = inga bokningsknappar visas.
+   * upplägg som "Boka samtal" på khyte.se). Länken är Hais Calendly-möte från
+   * hans inbäddningskod (2026-11-11), med hans orange knappfärg ff9d5a.
+   * Färgen i länken vinner över sidans färger (se lib/bokning.ts).
+   * url null = inga bokningsknappar visas.
    */
   uppstartsmote: {
-    url: "https://calendly.com/hai-khyteteam/30min" as string | null,
+    url: "https://calendly.com/hai-khyte/30min?primary_color=ff9d5a" as string | null,
     /** Mötets längd i minuter, som det står i Calendly. */
     minuter: 30,
   },
