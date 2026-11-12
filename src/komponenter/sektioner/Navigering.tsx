@@ -126,9 +126,11 @@ export function Navigering({ logga }: { logga: ReactNode }) {
           {/* Omslutande div: knappens egen display-klass skulle annars slå ut "hidden".
               "Boka möte" är bara en ikon mellan lg och xl, där texten inte får plats. */}
           <div className="hidden items-center gap-2 lg:flex">
-            <BokaMoteKnapp variant="sekundar" className="max-xl:w-11 max-xl:px-0">
-              <span className="max-xl:sr-only">{texter.bokning.kort}</span>
-            </BokaMoteKnapp>
+            {sajt.uppstartsmote.platser.meny && (
+              <BokaMoteKnapp variant="sekundar" className="max-xl:w-11 max-xl:px-0">
+                <span className="max-xl:sr-only">{texter.bokning.kort}</span>
+              </BokaMoteKnapp>
+            )}
             <KnappLank href={komIgangHref()}>{t.cta}</KnappLank>
           </div>
 
@@ -196,13 +198,15 @@ export function Navigering({ logga }: { logga: ReactNode }) {
                   <KnappLank href={komIgangHref()} storlek="lg" pil className="mt-2 w-full" onClick={ga}>
                     {t.cta}
                   </KnappLank>
-                  <BokaMoteKnapp
-                    variant="sekundar"
-                    storlek="lg"
-                    className="mt-2 w-full"
-                    vidOppning={stang}
-                    aterfokus={menyknapp}
-                  />
+                  {sajt.uppstartsmote.platser.meny && (
+                    <BokaMoteKnapp
+                      variant="sekundar"
+                      storlek="lg"
+                      className="mt-2 w-full"
+                      vidOppning={stang}
+                      aterfokus={menyknapp}
+                    />
+                  )}
                 </div>
               </Behallare>
             </m.div>

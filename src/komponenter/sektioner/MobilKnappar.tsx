@@ -2,8 +2,9 @@
 
 /**
  * Knappraden längst ner på mobil och surfplatta: "Ring oss" (när det finns ett
- * nummer), "Boka möte" (när det finns en bokningslänk, Bokning.tsx) och "Kom
- * igång". Med tre knappar är "Ring oss" en rund telefonikon, så att allt
+ * nummer), "Boka möte" (när det finns en bokningslänk och
+ * sajt.uppstartsmote.platser.mobilKnappar är på – av sedan 2026-11-12) och
+ * "Kom igång". Med tre knappar är "Ring oss" en rund telefonikon, så att allt
  * ryms på en smal telefon; namnet finns kvar för skärmläsare. Den syns när heron har scrollats förbi och
  * försvinner när avslutningen "Kom igång" kommer fram, så att den aldrig står
  * i vägen för samma knapp. Från lg finns knappen redan i menyn.
@@ -42,7 +43,7 @@ export function MobilKnappar() {
   const t = texter.mobilKnappar;
   const synlig = useSyncExternalStore(lyssna, borSynas, () => false);
   const telefon = kontaktTelefon();
-  const bokning = Boolean(sajt.uppstartsmote.url);
+  const bokning = Boolean(sajt.uppstartsmote.url) && sajt.uppstartsmote.platser.mobilKnappar;
 
   return (
     <div
@@ -64,9 +65,11 @@ export function MobilKnappar() {
               {t.ring}
             </a>
           ))}
-        <BokaMoteKnapp variant="sekundar" className="min-w-0 flex-1 px-3">
-          {texter.bokning.kort}
-        </BokaMoteKnapp>
+        {bokning && (
+          <BokaMoteKnapp variant="sekundar" className="min-w-0 flex-1 px-3">
+            {texter.bokning.kort}
+          </BokaMoteKnapp>
+        )}
         <KnappLank href={komIgangHref()} pil className="min-w-0 flex-1 px-3">
           {telefon || bokning ? t.komIgang : komIgangEtikett()}
         </KnappLank>

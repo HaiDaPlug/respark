@@ -47,6 +47,7 @@ export function PrisKort() {
 
   const betallank = partner?.betalningslank ?? sajt.lankar.betalning;
   const ctaHref = (pris.visning === "bekraftad" && betallank) || sajt.lankar.komIgang;
+  const visaBoka = Boolean(sajt.uppstartsmote.url) && sajt.uppstartsmote.platser.priskort;
 
   return (
     <div className="grid overflow-hidden rounded-[1.75rem] bg-surface shadow-djup ring-1 ring-line md:grid-cols-2">
@@ -121,17 +122,23 @@ export function PrisKort() {
           {pris.ingenBindningstid && <Trygghet>{t.trygghet.bindning}</Trygghet>}
         </ul>
 
-        {/* Knapparna – längst ner i spalten, i linje med listans slut */}
-        <div className="mt-auto flex flex-col gap-2.5 pt-7">
-          {ctaHref ? (
-            <KnappLank href={ctaHref} storlek="lg" pil className="w-full">
-              {komIgangEtikett()}
-            </KnappLank>
-          ) : (
-            sajt.visaPlatshallare && <Platshallare text={t.saknarLank} />
-          )}
-          <BokaMoteKnapp variant={ctaHref ? "sekundar" : "primar"} storlek="lg" className="w-full" />
-        </div>
+        {/*
+          Knapparna – längst ner i spalten, i linje med listans slut. "Boka
+          uppstartsmöte" bara när platser.priskort är på (av sedan 2026-11-12).
+          Finns ingen knapp alls visas ingen tom yta.
+        */}
+        {(ctaHref || visaBoka || sajt.visaPlatshallare) && (
+          <div className="mt-auto flex flex-col gap-2.5 pt-7">
+            {ctaHref ? (
+              <KnappLank href={ctaHref} storlek="lg" pil className="w-full">
+                {komIgangEtikett()}
+              </KnappLank>
+            ) : (
+              sajt.visaPlatshallare && <Platshallare text={t.saknarLank} />
+            )}
+            {visaBoka && <BokaMoteKnapp variant={ctaHref ? "sekundar" : "primar"} storlek="lg" className="w-full" />}
+          </div>
+        )}
       </div>
 
       {/* Det här ingår */}

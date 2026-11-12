@@ -16,7 +16,8 @@ import { KnappLank } from "@/komponenter/ui/Knapp";
  *
  * Under texten står det som sänker tröskeln (provperiod, ingen bindningstid),
  * och finns ett nummer kan besökaren ringa i stället. Bredvid "Kom igång"
- * finns "Boka uppstartsmöte" (2026-11-11), som öppnar kalendern i en panel.
+ * kan "Boka uppstartsmöte" stå (sajt.uppstartsmote.platser.avslutning, av
+ * sedan 2026-11-12).
  *
  * Till höger om rubrikens nedre rader svävar loggans gnista i 3D (Gnista3D,
  * 2026-11-10), i det varma skenet – samma gnista som flyger in i telefonen i
@@ -63,7 +64,9 @@ export function KomIgang() {
                 {texter.mobilKnappar.ring}
               </a>
             )}
-            <BokaMoteKnapp variant="kontur" storlek="lg" className="max-sm:w-full" />
+            {sajt.uppstartsmote.platser.avslutning && (
+              <BokaMoteKnapp variant="kontur" storlek="lg" className="max-sm:w-full" />
+            )}
             <KnappLank href={komIgangHref()} variant="ljus" storlek="lg" pil className="max-sm:order-first max-sm:w-full">
               {komIgangEtikett()}
             </KnappLank>

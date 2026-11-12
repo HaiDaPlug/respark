@@ -141,9 +141,10 @@ export const sajt = {
   /**
    * Bolaget som erbjuder tjänsten, längst ner i sidfoten ("En tjänst från …").
    * null = visas inte. Fyll bara i org.nr och adress när de är bekräftade.
+   * Namnet är avstängt sedan 2026-11-12 (sätt "Khyte" för att visa det igen).
    */
   foretag: {
-    namn: "Khyte" as string | null,
+    namn: null as string | null,
     /** Bolagets webbplats. Namnet blir en länk dit. */
     webbplats: "https://khyte.se" as string | null,
     orgnr: null as string | null,
@@ -196,6 +197,17 @@ export const sajt = {
     url: "https://calendly.com/hai-khyte/30min?primary_color=ff9d5a" as string | null,
     /** Mötets längd i minuter, som det står i Calendly. */
     minuter: 30,
+    /**
+     * Var knappen "Boka möte" visas. Sedan 2026-11-12 bara i menyn högst upp
+     * (och i mobilmenyn, som öppnas därifrån). Sätt true för att visa den igen.
+     */
+    platser: {
+      meny: true,
+      priskort: false,
+      avslutning: false,
+      team: false,
+      mobilKnappar: false,
+    },
   },
 
   lankar: {

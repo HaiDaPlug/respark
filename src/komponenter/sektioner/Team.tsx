@@ -22,7 +22,7 @@ import { Sektionsrubrik } from "@/komponenter/ui/Sektionsrubrik";
  *
  * Korten reser sig i 3D när de kommer fram, ett i taget (Avsloja). Under
  * korten kan besökaren boka ett uppstartsmöte (2026-11-11) – visas bara när
- * sajt.uppstartsmote.url finns.
+ * sajt.uppstartsmote.url finns och platser.team är på (av sedan 2026-11-12).
  */
 export function Team() {
   const t = texter.team;
@@ -106,7 +106,7 @@ export function Team() {
         </ul>
 
         {/* Hellre ses än ringa: boka ett uppstartsmöte */}
-        {sajt.uppstartsmote.url && (
+        {sajt.uppstartsmote.url && sajt.uppstartsmote.platser.team && (
           <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between lg:mt-10">
             <p className="text-lead text-ink-soft">{t2.teamRad}</p>
             <BokaMoteKnapp storlek="lg" />
