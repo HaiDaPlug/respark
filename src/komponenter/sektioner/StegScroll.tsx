@@ -23,8 +23,13 @@ import { Stegscen, useScrollLutning } from "@/komponenter/illustrationer/Stegsce
 import { useReduceradRorelse } from "@/komponenter/illustrationer/useKoppling";
 import { Stegnummer, Stegpanel } from "./StegDelar";
 
-/** Hur långt man scrollar per steg, i procent av skärmhöjden. Lägre = stegen byts snabbare. */
-const SCROLL_PER_STEG_VH = 38;
+/**
+ * Hur långt man scrollar per steg, i procent av skärmhöjden. Lägre = stegen
+ * byts snabbare. 60 sedan 2026-11-12 (förut 38): med 38 hann man inte se vad
+ * som stod på korten om man bläddrade snabbt. Gå inte mycket högre – då
+ * känns det som att sidan har fastnat.
+ */
+const SCROLL_PER_STEG_VH = 60;
 /** Samma som klassen top-24 på det fasta innehållet (6rem). */
 const STICKY_TOPP_PX = 96;
 
