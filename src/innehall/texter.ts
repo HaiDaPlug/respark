@@ -37,7 +37,7 @@ export const texter = {
     undertitel: "Fler återbesök för behandlare och salonger",
     titel: `${p} – Få tillbaka kunder som inte bokat på länge`,
     beskrivning:
-      "Automatiska sms-påminnelser för behandlare, kliniker och salonger. Kunder som inte bokat på länge får en personlig påminnelse, och du ser vilka som bokar efter utskicket. Fungerar med ditt nuvarande bokningssystem.",
+      "Automatiska sms-påminnelser för behandlare, kliniker och salonger. Kunder som inte bokat på länge får en personlig påminnelse, och du ser vilka som bokar efter utskicket. Du behåller ditt bokningssystem.",
   },
 
   meny: {
@@ -205,6 +205,8 @@ export const texter = {
   kundcase: {
     /** Rubriken i två delar; den andra får accentfärg. Gäller alla kundcase, inte en enskild kund. */
     rubrik: { fore: "Så gick det för", efter: "våra kunder." },
+    /** Rubrikens slut när det bara finns ett kundcase: kundens namn, inte "våra kunder". */
+    rubrikEn: (kund: string) => `${kund}.`,
     /** Rubrikerna i kortet: hur vi hjälpte kunden, och panelen med siffrorna. */
     ramar: { problem: "Problemet", losning: "Det vi gjorde", siffror: "I siffror" },
     /** En samlad platshållare som räknar upp det som saknas. */
@@ -276,7 +278,7 @@ export const texter = {
     lista: [
       {
         fraga: "Måste jag byta bokningssystem?",
-        svar: `Nej. Du bokar precis som i dag. ${p} använder bara listan över dina kunder.`,
+        svar: "Nej. Du behåller ditt bokningssystem och bokar precis som i dag.",
       },
       {
         fraga: "Blir inte kunderna störda?",
@@ -309,13 +311,17 @@ export const texter = {
         svar: `${sajt.pris.inkluderadeSms} sms ingår varje ${sajt.pris.period}. Blir det sms över sparas upp till ${sajt.pris.sparadeSms} till nästa ${sajt.pris.period}, och du kan köpa fler när du vill.`,
       },
       {
+        /**
+         * Ärligt om svar (2026-11-12): det finns ingen inkorg för svar i
+         * tjänsten. Ändra svaret om det byggs. Hur man tackar nej till fler
+         * sms är en egen fråga och läggs till när lösningen är bestämd.
+         */
         fraga: "Vad händer om en kund svarar på sms:et?",
-        svar: "Internt utkast: behöver bekräftas i produkten – vart svaren tar vägen och om du får dem i mobilen.",
-        utkast: true,
+        svar: `I dag kommer svaret inte fram till dig. ${p} har ingen inkorg, så du kan inte läsa eller svara på sms i ${p}. Därför ska sms:et säga hur kunden når dig, till exempel med en länk för att boka eller ditt telefonnummer.`,
       },
       {
         fraga: "Får jag skicka sms till mina kunder?",
-        svar: "Internt utkast: för befintliga kunder gäller ofta kundrelationsundantaget i marknadsföringslagen (19 §), om kunden har informerats och enkelt kan tacka nej i varje sms. Svaret ska granskas juridiskt och kopplas till integritetspolicyn innan det publiceras.",
+        svar: "Utkast: svaret skrivs när frågan är utredd.",
         utkast: true,
       },
       {
@@ -324,7 +330,7 @@ export const texter = {
       },
       {
         fraga: "Hur hanteras personuppgifter?",
-        svar: "Internt utkast: vi behöver ta fram ett tydligt upplägg för personuppgiftshantering, ansvarsfördelning och reglerna för marknadsförings-SMS. Svaret skrivs om och hänvisar till integritetspolicyn när den är klar.",
+        svar: "Utkast: svaret skrivs när integritetspolicyn är klar.",
         /** Utkast visas bara när visaPlatshallare är true. */
         utkast: true,
       },
@@ -378,5 +384,7 @@ export const texter = {
     integritet: "Integritetspolicy",
     villkor: "Användarvillkor",
     orgnr: (nummer: string) => `Org.nr ${nummer}`,
+    /** Före bolagets namn längst ner: "En tjänst från Khyte". */
+    tjanstFran: "En tjänst från",
   },
 };

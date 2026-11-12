@@ -6,6 +6,7 @@ import { Avsloja } from "@/komponenter/ui/Avsloja";
 import { Behallare } from "@/komponenter/ui/Behallare";
 import { Platshallare } from "@/komponenter/ui/Platshallare";
 import { Raknare } from "@/komponenter/ui/Raknare";
+import { Videospelare } from "@/komponenter/ui/Videospelare";
 
 /**
  * Kundcasen: hur det har gått för kunderna, beviset precis före priset. Varje
@@ -21,17 +22,24 @@ import { Raknare } from "@/komponenter/ui/Raknare";
  * Allt hämtas från sajt.kundcase – fyll bara i material som kunden har
  * godkänt. Det som saknas i ett case räknas upp i en platshållare på kortet
  * (när visaPlatshallare är på).
+ *
+ * Ärlighet (2026-11-12): under siffrorna står hur de räknades (matning), så
+ * att ingen tror att varje bokning bevisligen kom från ett sms. Finns bara ett
+ * case står kundens namn i rubriken i stället för "våra kunder". En riktig
+ * kundvideo visas i det stora kortet när kc.video är ifylld.
  */
 export function Kundcase() {
   const t = texter.kundcase;
   const [forsta, ...ovriga] = sajt.kundcase;
   if (!forsta) return null;
+  // Ett enda case: skriv kundens namn, så att rubriken inte låter som fler kunder.
+  const rubrikSlut = ovriga.length === 0 ? t.rubrikEn(forsta.kund) : t.rubrik.efter;
 
   return (
     <section aria-labelledby="kundcase-rubrik" className="py-20 sm:py-28">
       <Behallare>
         <h2 id="kundcase-rubrik" className="mx-auto max-w-[44rem] text-center text-h2 font-bold text-ink">
-          {t.rubrik.fore} <span className="text-accent-strong">{t.rubrik.efter}</span>
+          {t.rubrik.fore} <span className="text-accent-strong">{rubrikSlut}</span>
         </h2>
 
         <Avsloja className="mt-12 lg:mt-16">
@@ -70,16 +78,22 @@ function StortKort({ kc }: { kc: Case }) {
     <article className="grid gap-3 rounded-[2rem] bg-surface p-3 shadow-djup lg:grid-cols-12">
       <div className="p-4 pt-5 sm:p-7 lg:col-span-7 lg:row-start-1 lg:p-9 lg:pb-0">
         <Huvud kc={kc} />
-        <dl className="mt-7 grid gap-5 border-t border-line pt-6 sm:grid-cols-2 sm:gap-8">
-          <div>
-            <dt className="text-[0.85rem] font-semibold text-ink-soft">{t.ramar.problem}</dt>
-            <dd className="mt-1.5 text-ink">{kc.problem}</dd>
-          </div>
-          <div>
-            <dt className="text-[0.85rem] font-semibold text-ink-soft">{t.ramar.losning}</dt>
-            <dd className="mt-1.5 text-ink">{kc.losning}</dd>
-          </div>
-        </dl>
+        {(kc.problem || kc.losning) && (
+          <dl className="mt-7 grid gap-5 border-t border-line pt-6 sm:grid-cols-2 sm:gap-8">
+            {kc.problem && (
+              <div>
+                <dt className="text-[0.85rem] font-semibold text-ink-soft">{t.ramar.problem}</dt>
+                <dd className="mt-1.5 text-ink">{kc.problem}</dd>
+              </div>
+            )}
+            {kc.losning && (
+              <div>
+                <dt className="text-[0.85rem] font-semibold text-ink-soft">{t.ramar.losning}</dt>
+                <dd className="mt-1.5 text-ink">{kc.losning}</dd>
+              </div>
+            )}
+          </dl>
+        )}
       </div>
 
       {kc.resultat.length > 0 && (
@@ -97,7 +111,12 @@ function StortKort({ kc }: { kc: Case }) {
               </div>
             ))}
           </dl>
-          {gemensamPeriod && <p className="mt-auto pt-8 text-[0.85rem] text-ink-soft">{gemensamPeriod}</p>}
+          {(gemensamPeriod || kc.matning) && (
+            <div className="mt-auto space-y-2 pt-8 text-[0.85rem] text-ink-soft">
+              {gemensamPeriod && <p>{gemensamPeriod}</p>}
+              {kc.matning && <p>{kc.matning}</p>}
+            </div>
+          )}
         </div>
       )}
 
@@ -109,6 +128,16 @@ function StortKort({ kc }: { kc: Case }) {
           </blockquote>
           <Person citat={kc.citat} />
         </figure>
+      )}
+
+      {/* Kundens egen video, när den finns och kunden har godkänt den */}
+      {kc.video && (
+        <Videospelare
+          url={kc.video.url}
+          titel={kc.video.titel}
+          staende={kc.video.staende}
+          className={kc.video.staende ? "mx-auto w-full max-w-[22rem] lg:col-span-12" : "lg:col-span-12"}
+        />
       )}
 
       <Saknas kc={kc} className="px-4 pb-4 sm:px-7 sm:pb-7 lg:col-span-12" />

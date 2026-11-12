@@ -49,20 +49,44 @@ export type Kundresultat = {
 /**
  * Ett kundcase i sektionen Kundcase. Det första i listan visas stort, resten
  * som mindre kort under. Fyll bara i material som kunden har godkänt.
+ *
+ * En kort kundröst räcker också: kund, verksamhet, citat (och gärna logga),
+ * utan problem, lösning eller siffror. Påhitta aldrig namn, citat, siffror
+ * eller betyg.
  */
 export type Kundcase = {
   kund: string;
   /** Vad de gör och var, t.ex. "Osteopati i Borås". Står överst på kortet. */
   verksamhet: string;
-  /** Hur vi hjälpte dem, i en kort mening var (ELI5): problemet de hade och det vi gjorde. Bara det som är sant. */
-  problem: string;
-  losning: string;
+  /**
+   * Hur vi hjälpte dem, i en kort mening var (ELI5): problemet de hade och det
+   * vi gjorde. Bara det som är sant. Kan utelämnas för en kort kundröst.
+   */
+  problem?: string;
+  losning?: string;
   /** Logotyp i public/. Bara med tillåtelse. */
   logotyp: { src: string; alt: string; bredd: number; hojd: number } | null;
   /** Godkänt citat. null tills kunden har godkänt texten. Ändra aldrig orden i ett citat. */
   citat: { text: string; namn: string; roll: string; bild?: { src: string; alt: string } } | null;
   /** Verifierade resultat. Tom lista = inga siffror visas. */
   resultat: Kundresultat[];
+  /**
+   * Hur siffrorna räknades, i en eller två korta meningar under siffrorna.
+   * Säg vad som räknades – och att det inte bevisar att sms:et orsakade
+   * bokningen.
+   */
+  matning?: string;
+  /**
+   * Kundens egen video (YouTube, Vimeo eller mp4 i public/). Lägg bara in en
+   * riktig video som kunden har godkänt att vi visar. null = ingen video.
+   */
+  video?: {
+    url: string;
+    /** Beskriver videon för skärmläsare, t.ex. "Mattias berättar om Respark". */
+    titel: string;
+    /** true om videon är filmad på höjden (selfie med mobilen). */
+    staende?: boolean;
+  } | null;
 };
 
 /**
@@ -114,9 +138,14 @@ export const sajt = {
     { namn: "Hai", roll: "Grundare", bild: { src: "/team/hai.jpg", alt: "Hai" }, telefon: "070-099 68 38", epost: "hai@khyte.se" },
   ] as Teammedlem[],
 
-  /** Bolaget som säljer tjänsten, i sidfoten. null = visas inte. */
+  /**
+   * Bolaget som erbjuder tjänsten, längst ner i sidfoten ("En tjänst från …").
+   * null = visas inte. Fyll bara i org.nr och adress när de är bekräftade.
+   */
   foretag: {
-    namn: null as string | null,
+    namn: "Khyte" as string | null,
+    /** Bolagets webbplats. Namnet blir en länk dit. */
+    webbplats: "https://khyte.se" as string | null,
     orgnr: null as string | null,
   },
 
@@ -241,15 +270,19 @@ export const sajt = {
       resultat: [
         {
           varde: "36",
-          etikett: "bokningar inom 30 dagar efter att patienten fått ett SMS",
+          etikett: "bokningar från patienter som hade fått ett sms",
           period: "Mätt under 30 dagar.",
         },
         {
           varde: "358",
-          etikett: "patienter fick en uppföljning under samma 30 dagar",
+          etikett: "patienter fick ett sms under samma 30 dagar",
           period: "Mätt under 30 dagar.",
         },
       ],
+      matning:
+        "Så räknade vi: en bokning räknas om patienten hade fått ett sms och bokade inom 30 dagar efter det. Några hade kanske bokat ändå.",
+      /** Mattias video läggs här när den finns och han har godkänt den. */
+      video: null,
     },
   ] as Kundcase[],
 

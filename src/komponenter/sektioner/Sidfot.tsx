@@ -23,7 +23,7 @@ export async function Sidfot() {
   const lankKlass = "inline-block py-1 text-ink-soft transition-colors hover:text-ink";
   const telefon = kontaktTelefon();
   const lankar = texter.meny.lankar.filter((l) => visaKontakt() || l.href !== `/#${ankare.kontakt}`);
-  const foretag = [sajt.foretag.namn, sajt.foretag.orgnr && t.orgnr(sajt.foretag.orgnr)].filter(Boolean);
+  const { namn: foretag, webbplats, orgnr } = sajt.foretag;
 
   return (
     <footer className="bg-sand">
@@ -87,9 +87,23 @@ export async function Sidfot() {
       </Behallare>
 
       <Behallare className="border-t border-ink/10 py-5 text-[0.84rem] text-ink-soft">
+        {/* Vem som erbjuder tjänsten – öppet, med länk till bolaget och org.nr när det är bekräftat */}
         <p>
           © {ar} {sajt.produktnamn}
-          {foretag.length > 0 && <> · {foretag.join(" · ")}</>}
+          {foretag && (
+            <>
+              {" · "}
+              {t.tjanstFran}{" "}
+              {webbplats ? (
+                <a href={webbplats} className="text-ink underline-offset-4 hover:underline">
+                  {foretag}
+                </a>
+              ) : (
+                foretag
+              )}
+            </>
+          )}
+          {orgnr && <> · {t.orgnr(orgnr)}</>}
         </p>
       </Behallare>
 
