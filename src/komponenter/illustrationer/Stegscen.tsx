@@ -79,10 +79,17 @@ export function Stegscen({
         <AnimatePresence mode="wait">
           <div key={steg} className="relative transform-3d">
             <m.div
-              initial={reducerad ? { opacity: 0 } : { opacity: 0, rotateY: -28, scale: 0.94 }}
+              // Snabb vändning (2026-11-12, förut 0,38 s ut + 0,38 s in): det gamla
+              // kortet försvinner på 0,12 s och det nya vänds in på 0,26 s, så att
+              // texten går att läsa nästan direkt även när man scrollar snabbt.
+              initial={reducerad ? { opacity: 0 } : { opacity: 0, rotateY: -22, scale: 0.96 }}
               animate={{ opacity: 1, rotateY: 0, scale: 1 }}
-              exit={reducerad ? { opacity: 0 } : { opacity: 0, rotateY: 28, scale: 0.94 }}
-              transition={{ duration: 0.38, ease: mjuk }}
+              exit={
+                reducerad
+                  ? { opacity: 0, transition: { duration: 0.12 } }
+                  : { opacity: 0, rotateY: 22, scale: 0.96, transition: { duration: 0.12 } }
+              }
+              transition={{ duration: 0.26, ease: mjuk }}
             >
               <Vy />
             </m.div>

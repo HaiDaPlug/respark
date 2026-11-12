@@ -69,7 +69,7 @@ function Sak({ plats, synlig, svava, children }: { plats: Plats; synlig: boolean
     x: 0,
     y: 0,
     scale: 1,
-    transition: { duration: 0.7, delay: fordrojning, ease: mjuk },
+    transition: { duration: 0.5, delay: fordrojning, ease: mjuk },
   };
   return (
     <m.div
@@ -78,7 +78,8 @@ function Sak({ plats, synlig, svava, children }: { plats: Plats; synlig: boolean
       style={{ [sida]: `calc(${-ut}% * var(--ut, 1))`, top, z } as CSSProperties}
       initial={dold}
       animate={synlig ? syns : dold}
-      exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.25 } }}
+      // Lika snabbt ut som kortet (Stegscen), annars får kortbytet vänta på sakerna.
+      exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.12 } }}
     >
       <m.div
         initial={false}
@@ -104,18 +105,18 @@ const LISTA: Plats = { sida: "left", ut: 20, top: "26%", z: 110, fordrojning: 0.
  */
 const BUBBLOR: Array<Plats & { bredd: string; rader: number[] }> = [
   {
-    sida: "right", ut: 14, top: "76%", z: 120, fordrojning: 0.9, svav: 5.4, fran: { x: -40, y: 12 },
+    sida: "right", ut: 14, top: "76%", z: 120, fordrojning: 0.35, svav: 5.4, fran: { x: -40, y: 12 },
     bredd: "8.25rem", rader: [92, 74, 48],
   },
   {
-    sida: "right", ut: 22, top: "40%", z: 60, fordrojning: 1.15, svav: 6.3, fran: { x: -36, y: 12 },
+    sida: "right", ut: 22, top: "40%", z: 60, fordrojning: 0.5, svav: 6.3, fran: { x: -36, y: 12 },
     bredd: "6.5rem", rader: [84, 56],
   },
 ];
 
 /** Steg 3: en kalender med grön bock i fönstrets vänstra marginal, och gnistan vid nedre högra hörnet. */
-const KALENDER: Plats = { sida: "left", ut: 22, top: "30%", z: 100, fordrojning: 0.35, svav: 6, fran: { x: -44 } };
-const GNISTA: Plats = { sida: "right", ut: 7, top: "88%", z: 130, fordrojning: 0.9, svav: 5.2, fran: { x: 0, y: 14 } };
+const KALENDER: Plats = { sida: "left", ut: 22, top: "30%", z: 100, fordrojning: 0.2, svav: 6, fran: { x: -44 } };
+const GNISTA: Plats = { sida: "right", ut: 7, top: "88%", z: 130, fordrojning: 0.45, svav: 5.2, fran: { x: 0, y: 14 } };
 
 /** Raderna i ett "skelett": gråa streck i textens längd, utan text. */
 function Skelett({ rader, punkt = false }: { rader: number[]; punkt?: boolean }) {

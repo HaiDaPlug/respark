@@ -10,6 +10,11 @@
  * Inga produktord som "importera", "kolumner", "utskick" eller "uppföljning".
  * Texterna står i texter.saFungerarDet.vyer och kunderna i texter.exempel.kunder.
  *
+ * Texten syns direkt (2026-11-12): kunderna och raderna står där från
+ * början, så att man ser vad kortet visar även om man scrollar förbi snabbt.
+ * Bara små detaljer rör sig efteråt – strecket och "Klar" i steg 1,
+ * knapparna som slås på i steg 2 och de gröna bockarna i steg 3.
+ *
  * Kunderna är exempel – bilderna är märkta "Exempelvy" – och bilderna visar
  * inga resultatsiffror (antal sms, bokningar eller procent). Stegen 1 och 3
  * speglar varandra: samma kunder, först "Senast här i …", sedan "Bokade …".
@@ -19,16 +24,7 @@ import { CalendarDays, Check, ClipboardList, Hourglass } from "lucide-react";
 import { texter } from "@/innehall/texter";
 import { Avatar, Exempeletikett, Fonster } from "./Delar";
 
-const mjuk = [0.22, 1, 0.36, 1] as const;
 const enGang = { once: true, amount: 0.4 } as const;
-
-/** Raderna med kunder kommer in en i taget. */
-const rad = (i: number, start: number) => ({
-  initial: { opacity: 0, y: 6 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: enGang,
-  transition: { delay: start + i * 0.14, duration: 0.45, ease: mjuk },
-});
 
 /** Steg 1: listan från bokningssystemet läggs in, och kunderna finns på plats. */
 export function KunderVy() {
@@ -49,7 +45,7 @@ export function KunderVy() {
                 initial={{ scaleX: 0.04 }}
                 whileInView={{ scaleX: 1 }}
                 viewport={enGang}
-                transition={{ duration: 1.1, delay: 0.2, ease: [0.65, 0, 0.35, 1] }}
+                transition={{ duration: 0.6, delay: 0.1, ease: [0.65, 0, 0.35, 1] }}
               />
             </div>
             <m.span
@@ -57,7 +53,7 @@ export function KunderVy() {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={enGang}
-              transition={{ delay: 1.3, duration: 0.3 }}
+              transition={{ delay: 0.7, duration: 0.2 }}
             >
               <Check aria-hidden className="size-3.5" strokeWidth={3} />
               {t.klar}
@@ -69,13 +65,13 @@ export function KunderVy() {
       {/* Kunderna som kom med, och när de var hos dig senast */}
       <ul className="mt-3 space-y-2">
         {texter.exempel.kunder.map((kund, i) => (
-          <m.li key={kund.namn} {...rad(i, 1.4)} className="flex items-center gap-3 rounded-xl px-3 py-2.5 ring-1 ring-line">
+          <li key={kund.namn} className="flex items-center gap-3 rounded-xl px-3 py-2.5 ring-1 ring-line">
             <Avatar initialer={kund.initialer} framhavd={i === 0} stor />
             <div className="min-w-0">
               <p className="truncate text-[0.95rem] font-semibold text-ink">{kund.namn}</p>
               <p className="truncate text-[0.82rem] text-ink-soft">{t.senast(kund.senast)}</p>
             </div>
-          </m.li>
+          </li>
         ))}
       </ul>
     </Fonster>
@@ -97,7 +93,7 @@ export function NarVy() {
                 <Ikon aria-hidden className="size-5" />
               </span>
               <p className="min-w-0 flex-1 text-[0.95rem] leading-snug font-semibold text-ink">{val}</p>
-              <SlasPa fordrojning={0.35 + i * 0.4} />
+              <SlasPa fordrojning={0.2 + i * 0.25} />
             </li>
           );
         })}
@@ -151,7 +147,7 @@ export function BokadeVy() {
       <p className="text-[0.88rem] text-ink-soft">{t.text}</p>
       <ul className="mt-3 space-y-2">
         {texter.exempel.kunder.map((kund, i) => (
-          <m.li key={kund.namn} {...rad(i, 0.2)} className="flex items-center gap-3 rounded-xl px-3 py-2.5 ring-1 ring-line">
+          <li key={kund.namn} className="flex items-center gap-3 rounded-xl px-3 py-2.5 ring-1 ring-line">
             <Avatar initialer={kund.initialer} framhavd={i === 0} stor />
             <div className="min-w-0 flex-1">
               <p className="truncate text-[0.95rem] font-semibold text-ink">{kund.namn}</p>
@@ -163,11 +159,11 @@ export function BokadeVy() {
               initial={{ scale: 0 }}
               whileInView={{ scale: 1 }}
               viewport={enGang}
-              transition={{ delay: 0.45 + i * 0.14, type: "spring", stiffness: 420, damping: 18 }}
+              transition={{ delay: 0.15 + i * 0.1, type: "spring", stiffness: 420, damping: 18 }}
             >
               <Check aria-hidden className="size-4" strokeWidth={3} />
             </m.span>
-          </m.li>
+          </li>
         ))}
       </ul>
     </Fonster>
