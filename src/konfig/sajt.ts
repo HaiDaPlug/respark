@@ -93,9 +93,10 @@ export const sajt = {
   /**
    * Visar tydligt markerade platshållare för material som saknas (kundcitat,
    * logga, video, utkast i FAQ). Sätt false före lansering – då döljs allt
-   * som inte är ifyllt.
+   * som inte är ifyllt. false sedan 2026-11-12, eftersom sidan är live: sätt
+   * true tillfälligt (lokalt) för att se vad som saknas.
    */
-  visaPlatshallare: true,
+  visaPlatshallare: false,
 
   /** Kontaktadress som visas i sidfoten och vid frågorna. null = visas inte. Fyll bara i en riktig adress. */
   kontaktEpost: null as string | null,
