@@ -134,8 +134,8 @@ export const sajt = {
 
   /** Vi som står bakom tjänsten (sektionen Team). Namn, roll, bild och telefon fylls i när de finns. */
   team: [
-    { namn: "Erik", roll: "Grundare", bild: { src: "/team/erik.jpg", alt: "Erik" }, telefon: "070-932 07 12", epost: "erik@khyte.se" },
-    { namn: "Hai", roll: "Grundare", bild: { src: "/team/hai.jpg", alt: "Hai" }, telefon: "070-099 68 38", epost: "hai@khyte.se" },
+    { namn: "Erik", roll: "Medgrundare", bild: { src: "/team/erik.jpg", alt: "Erik" }, telefon: "070-932 07 12", epost: "erik@khyte.se" },
+    { namn: "Hai", roll: "Medgrundare", bild: { src: "/team/hai.jpg", alt: "Hai" }, telefon: "070-099 68 38", epost: "hai@khyte.se" },
   ] as Teammedlem[],
 
   /**
