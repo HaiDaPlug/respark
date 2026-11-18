@@ -62,7 +62,7 @@ export function Kundcase() {
   );
 }
 
-const SIFFRA = "font-display leading-[0.9] font-extrabold tracking-[-0.05em] text-accent-strong";
+const SIFFRA = "font-display leading-[0.9] font-extrabold tracking-[-0.05em] text-detalj";
 
 /**
  * Till vänster vem och hur, och under det citatet. Till höger en panel med

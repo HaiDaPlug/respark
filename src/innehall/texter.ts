@@ -43,6 +43,8 @@ export const texter = {
   meny: {
     lankar: [
       { etikett: "Så fungerar det", href: `/#${ankare.saFungerarDet}` },
+      /** Egen sida: varför Respark (test 2026-11-16, gren jamforelse; hette "Jämförelse" till 2026-11-17). */
+      { etikett: "Varför oss", href: "/varfor-oss" },
       { etikett: "Pris", href: `/#${ankare.pris}` },
       { etikett: "Vanliga frågor", href: `/#${ankare.fragor}` },
       { etikett: "Kontakt", href: `/#${ankare.kontakt}` },
@@ -374,6 +376,169 @@ export const texter = {
 
   /** Knappraden längst ner på mobilen (sektioner/MobilKnappar.tsx). */
   mobilKnappar: { komIgang: "Kom igång", ring: "Ring oss" },
+
+  /**
+   * JÄMFÖRELSESIDAN (/jamforelse, test 2026-11-16, omgjord 2026-11-17 efter
+   * ett underlag om positioneringen). Budskapet: ditt bokningssystem påminner om tider som
+   * redan är bokade – Respark hjälper kunden att boka nästa. Ordning:
+   * rubriken → tidslinjen (en påminnelse eller flera, och
+   * vad som händer när kunden bokar) → kundlistan och kalendern → det du får
+   * → jämförelsen → så gick det för kunden → frågor → kom igång.
+   *
+   * Ärlighet: vi pekar inte ut något bokningssystem och säger
+   * inte att andra saknar något – jämförelsen säger "Varierar". Tidslinjen
+   * visar hur det fungerar, inte hur många som bokar. Inget om funktioner som
+   * inte finns än (kampanjer till gamla kunder, fler kopplingar).
+   */
+  jamforelse: {
+    meta: {
+      titel: `Varför ${p}?`,
+      beskrivning:
+        "Ditt bokningssystem påminner om tider som redan är bokade. Respark hjälper kunden att boka nästa. Se skillnaden.",
+    },
+    /**
+     * Första skärmen (2026-11-17): rubriken säger vad som jämförs, och bilden
+     * visar Respark som kärnan med bokningssystemen i en bana runt omkring
+     * (jamforelse/Navet.tsx).
+     */
+    hero: {
+      rubrik: {
+        fore: "Ditt bokningssystem påminner om bokade tider.",
+        markerad: `${p} får kunden att boka igen.`,
+      },
+      text: `${p} fungerar med det system du redan har. Inget att byta.`,
+      /** Knappen som scrollar ner till scenen med kundlistan och kalendern. */
+      seHur: "Se hur det fungerar",
+    },
+
+    /** Banan med bokningssystem runt Respark (jamforelse/Navet.tsx). */
+    navet: {
+      kundlista: "Din kundlista",
+      /**
+       * Under bilden. Säger bara det som stämmer i dag (2026-11-18): kundlistan
+       * fungerar med alla system. Inget om att bokningar kommer in av sig
+       * själva via kopplingar – lägg bara till det när det är bekräftat.
+       */
+      forklaring: `Du tar ut en kundlista ur ditt bokningssystem och lägger in den i ${p}. Det kan alla bokningssystem.`,
+      fotnot: `Exempel på bokningssystem. ${p} har inget samarbete med företagen.`,
+      beskrivning: (system: string) =>
+        `${p} i mitten. Runt omkring snurrar bokningssystem, till exempel ${system}, och en kundlista. Små prickar går från dem in till ${p}.`,
+    },
+
+    /**
+     * Scenen med kundlistan och kalendern (jamforelse/KunderOchKalender.tsx),
+     * sedan 2026-11-16 i stället för telefonerna: ägarens sida, inte kundens.
+     * Kunderna i listan bleknar när de inte bokar, vaknar när sms:et går ut,
+     * och varje kund som bokar igen landar som en tid i kalendern.
+     */
+    scen: {
+      /** Ankaret som första skärmens knapp "Se hur det fungerar" pekar på. */
+      ankare: "sa-ser-det-ut",
+      rubrik: "Kunderna glider iväg. Kalendern fylls igen.",
+      text: "Så här ser det ut för dig. Scrolla, så går tiden.",
+      /** De tre delarna av berättelsen, i ordning. Den aktiva markeras. */
+      faser: ["Kunderna glömmer att boka", `${p} skickar sms`, "Lediga tider fylls"],
+      /** Samma tre delar, kortare, för mobilen (en rad var). */
+      faserKorta: ["Glömmer boka", "Sms går ut", "Tider fylls"],
+      lista: {
+        titel: "Dina kunder",
+        senast: (manad: string) => `Senast här i ${manad}`,
+      },
+      kalender: {
+        titel: "Din vecka",
+        dagar: ["Mån", "Tis", "Ons", "Tor", "Fre"],
+        tider: ["09", "11", "13", "15"],
+        bokad: "Bokad",
+        ledig: "Ledig",
+      },
+      /**
+       * Påhittade kunder. `kort` står i kalendern, `senast` i listan. `dag`
+       * och `tid` är rutan i kalendern (index i dagar/tider) som kunden
+       * bokar – får inte krocka med de redan bokade rutorna i komponenten.
+       * `bokar: false` = kunden får sms:et men bokar inte i exemplet (alla
+       * bokar inte, och bilden ska inte se ut som ett löfte).
+       */
+      kunder: [
+        { initialer: "AL", namn: "Anna Lindqvist", kort: "Anna L.", senast: "mars", dag: 0, tid: 1, bokar: true },
+        { initialer: "JB", namn: "Johan Berg", kort: "Johan B.", senast: "februari", dag: 2, tid: 3, bokar: false },
+        { initialer: "SK", namn: "Sara Karlsson", kort: "Sara K.", senast: "januari", dag: 1, tid: 3, bokar: true },
+        { initialer: "MN", namn: "Maria Nilsson", kort: "Maria N.", senast: "mars", dag: 4, tid: 2, bokar: true },
+        { initialer: "EH", namn: "Emil Holm", kort: "Emil H.", senast: "februari", dag: 3, tid: 0, bokar: false },
+      ],
+      exempelText: "Ett exempel. Du väljer själv när sms:en ska gå ut.",
+      beskrivning:
+        "Kundlistan till vänster och din vecka till höger. När tiden går bleknar kunderna som inte bokat. Sedan går ett sms ut till var och en. Några bokar igen: de lyser upp, och en ledig tid i veckan fylls med kundens namn.",
+    },
+
+    /**
+     * Själv eller med Respark (jamforelse/SjalvMotRespark.tsx, 2026-11-17).
+     * Jämför jobbet, inte funktioner: vad ägaren måste göra själv utan
+     * Respark (stämmer oavsett bokningssystem), mot att ställa in det en gång.
+     * Ersätter funktionstabellen ("Varierar") och "Det här gör Respark åt dig".
+     * Inget påstås om vad andra system kan eller inte kan.
+     */
+    sjalv: {
+      rubrik: "Du kan göra allt själv. Eller låta Respark göra det.",
+      text: "Bokningssystemet sköter tiderna som redan är bokade. Respark sköter resten.",
+      utan: {
+        etikett: `Utan ${p}`,
+        titel: "Du gör allt själv. Varje månad.",
+        steg: [
+          "Komma ihåg vilka som inte har bokat",
+          "Ta fram listan ur bokningssystemet",
+          "Skriva ett sms",
+          "Skicka det till alla på listan",
+          "Göra om allt nästa månad",
+          "Gissa vad som fungerade",
+        ],
+        tid: "Tar tid. Och det är lätt att glömma.",
+      },
+      med: {
+        etikett: `Med ${p}`,
+        titel: "Du ställer in det en gång.",
+        duGor: "Välj dagar och skriv ditt sms",
+        sedan: `Sedan sköter ${p} resten:`,
+        steg: [
+          "Hittar kunderna som inte har bokat",
+          "Skickar sms på dagarna du har valt",
+          "Visar vem som bokade, och vilken dag som fungerar bäst",
+          "Fungerar med ditt bokningssystem",
+        ],
+      },
+    },
+
+    /** Frågor för jämförelsesidan (samma Dragspel som startsidan). */
+    fragor: {
+      rubrik: "Frågor om skillnaden.",
+      lista: [
+        {
+          fraga: "Jag har redan Bokadirekt. Varför behöver jag Respark?",
+          svar: `Bokadirekt är bra på bokningar och påminnelser om bokade tider. ${p} är gjort för en annan sak: att kunder som inte har bokat igen ska göra det. Du kan använda båda.`,
+        },
+        {
+          fraga: "Måste jag byta bokningssystem?",
+          svar: "Nej. Du behåller ditt bokningssystem och bokar precis som i dag.",
+        },
+        {
+          fraga: "Fungerar det med mitt bokningssystem?",
+          svar: `Ja. Du tar ut en kundlista ur ditt bokningssystem och lägger in den i ${p}. Det kan alla bokningssystem. Undrar du något om just ditt system? Ring eller mejla oss.`,
+        },
+        {
+          fraga: "Är fler sms alltid bättre?",
+          svar: `Nej. Det viktiga är rätt sms på rätt dag. Olika dagar fungerar olika bra, och i ${p} ser du vilka som fungerar för dina kunder.`,
+        },
+        {
+          fraga: "Kan jag se vilka sms som fungerar bäst?",
+          svar: "Ja. Du ser vilka som bokade efter sms:et, och vilken dag sms:et gick ut.",
+        },
+        {
+          fraga: "Vad kostar det?",
+          svar: `${sajt.pris.ordinarie} kr i månaden ${sajt.pris.momstext}, med ${sajt.pris.inkluderadeSms} sms.`,
+        },
+      ],
+    },
+
+  },
 
   sidfot: {
     /** Slogan överst i sidfoten – svensk version av "Bring your customers back." */

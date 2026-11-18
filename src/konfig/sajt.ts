@@ -184,6 +184,14 @@ export const sajt = {
     accent: "#A98463",
     accentMork: "#86603F",
     framgang: "#2F6B4F",
+    /**
+     * Detaljfärgen (test 2026-11-17, gren jamforelse): små detaljer runt om
+     * på sidan – understrykningen i heron, stegens siffror och linjer,
+     * kundcasets siffror, ikonerna i fördelarna och kontaktuppgifterna. Aldrig
+     * hela sektioner. Satt till samma skogsgröna som framgang. Sätt
+     * "#86603F" (accentMork) för att se hur det var innan.
+     */
+    detalj: "#2F6B4F",
   },
 
   /**
@@ -301,5 +309,48 @@ export const sajt = {
   video: {
     /** YouTube-, Vimeo- eller mp4-länk till förklaringsvideon. null = sektionen visas inte. */
     url: null as string | null,
+  },
+
+  /**
+   * SIDAN "VARFÖR OSS" (/varfor-oss, test 2026-11-16, hette /jamforelse till 2026-11-17).
+   *
+   * Inget bokningssystem pekas ut i jämförelsen, och ingenting påstås saknas
+   * hos andra – det som skiljer sig mellan system står som "Varierar".
+   */
+  jamforelse: {
+
+    /**
+     * Bokningssystemen som snurrar runt Respark på första skärmen. Vanliga i
+     * branschen (skönhet, frisör, behandlare). Namnen står som TEXT.
+     *
+     * Loggor provades 2026-11-18 men togs bort samma dag: andra företags
+     * loggor kan ge intryck av samarbete, och EasyPractice (villkor 7.1.2),
+     * Fresha (användarvillkor), Mindbody (bara kunder/partner) och Cliniko
+     * (ingen antydd relation) kräver tillstånd eller förbjuder det. Filerna
+     * finns i git-historiken. Sätt `logga` igen bara med skriftligt tillstånd.
+     *
+     * Sidan påstår INTE att bokningar kommer in av sig själva från något
+     * system – bara att kundlistan fungerar med alla. `webhooks` är en intern
+     * anteckning om vad systemen själva erbjuder (lästa 2026-11-17) och visas
+     * inte: Bokadirekt (tillägg 199 kr/mån, API & Webhooks 399 kr/mån),
+     * EasyPractice, BokaMera och Mindbody har webhooks; Cliniko har API men
+     * inga webhooks; Timma, Cliento och Planway inget publikt API; Fresha bara
+     * en läskoppling för rapporter.
+     */
+    system: [
+      { namn: "Bokadirekt", webhooks: true, logga: null },
+      { namn: "EasyPractice", webhooks: true, logga: null },
+      { namn: "BokaMera", webhooks: true, logga: null },
+      { namn: "Timma", webhooks: false, logga: null },
+      { namn: "Cliento", webhooks: false, logga: null },
+      { namn: "Mindbody", webhooks: true, logga: null },
+      { namn: "Fresha", webhooks: false, logga: null },
+      { namn: "Cliniko", webhooks: false, logga: null },
+    ] as {
+      namn: string;
+      webhooks: boolean;
+      logga: { src: string; bredd: number; hojd: number } | null;
+      medNamn?: boolean;
+    }[],
   },
 };

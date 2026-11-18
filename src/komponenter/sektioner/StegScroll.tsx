@@ -115,7 +115,7 @@ function Framstegslinje({ framsteg, index, antal }: { framsteg: MotionValue<numb
   return (
     <m.span
       aria-hidden
-      className="absolute inset-x-0 -top-px h-0.5 origin-left bg-accent-strong"
+      className="absolute inset-x-0 -top-px h-0.5 origin-left bg-detalj"
       style={{ scaleX: fyllnad }}
     />
   );

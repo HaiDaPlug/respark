@@ -1,8 +1,8 @@
-import Link from "next/link";
 import { ArrowLeft, TriangleAlert } from "lucide-react";
 import { sajt } from "@/konfig/sajt";
 import { Behallare } from "@/komponenter/ui/Behallare";
 import { Ordmarke } from "@/komponenter/ui/Ordmarke";
+import { StartsidaLank } from "@/komponenter/ui/StartsidaLank";
 import { Sidfot } from "./Sidfot";
 
 /**
@@ -24,14 +24,14 @@ export function Juridiksida({
     <>
       <header className="border-b border-line">
         <Behallare className="flex h-16 items-center justify-between">
-          <Link href="/" className="rounded-lg">
+          <StartsidaLank className="rounded-lg">
             <Ordmarke />
             <span className="sr-only"> – till startsidan</span>
-          </Link>
-          <Link href="/" className="inline-flex items-center gap-1.5 text-[0.92rem] font-medium text-ink-soft hover:text-ink">
+          </StartsidaLank>
+          <StartsidaLank className="inline-flex items-center gap-1.5 text-[0.92rem] font-medium text-ink-soft hover:text-ink">
             <ArrowLeft aria-hidden className="size-4" />
             Till startsidan
-          </Link>
+          </StartsidaLank>
         </Behallare>
       </header>
 

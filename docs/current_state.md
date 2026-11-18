@@ -1,6 +1,6 @@
 # Respark – landningssida: nuläge
 
-Senast uppdaterad: 2026-11-11
+Senast uppdaterad: 2026-11-18
 
 One-page-landningssida för Respark: tidigare kunder får automatiska
 påminnelser, och verksamheten ser vilka som kommer tillbaka. Den här
@@ -136,6 +136,47 @@ inga nya bibliotek. Bara `transform` och `opacity` animeras.
 - **Batteri:** allt som loopar (telefonen och skuggan, de svävande sakerna, gnistan) går bara medan det syns och står still annars.
 - **Reducerad rörelse:** inget intro, ingen lutning efter musen, inget svävande och ingen vändning. Telefonen står i vilovinkeln och allt visar slutläget.
 - **Fallgropar:** `opacity` under 1, `overflow: hidden` och `filter` plattar till 3D för elementets barn – därför tonar fönstret själv och inte behållaren runt det, och de svävande sakerna ligger bredvid fönstret. Perspektivet måste ligga på närmaste förälder till det som vrids (eller hela vägen med `transform-3d`). Motion skriver över `transform` på elementet den animerar, så djup och skalning ligger på egna element.
+
+## Sidan "Varför oss" (i `main` och live sedan 2026-11-18)
+
+En egen sida på `/varfor-oss` ("Varför oss" i menyn; hette "Jämförelse" och
+låg på `/jamforelse` till 2026-11-17).
+Indexeras inte (`robots: noindex`). Komponenterna ligger kvar i
+`src/komponenter/jamforelse/` och texterna i `texter.jamforelse`.
+
+- **Ordning:** första skärmen → **Kunderna glider iväg. Kalendern fylls igen.** (`KunderOchKalender.tsx`) → **Du kan göra allt själv. Eller låta Respark göra det.** (`SjalvMotRespark.tsx`) → **Frågor om skillnaden** (`FragorJamforelse.tsx`) → samma avslutning, sidfot och mobilknappar som startsidan.
+- **Första skärmen:** "Ditt bokningssystem påminner om bokade tider." (grå) "Respark får kunden att boka igen." (brun), "Respark fungerar med det system du redan har. Inget att byta.", knapparna "Se hur det fungerar" (till kalenderscenen) och "Boka uppstartsmöte". Till höger **banan** (`Navet.tsx`): bara Resparks 3D-gnista i mitten och bokningssystemens namn i text plus "Din kundlista" som glider runt på en lutad ellips, med prickar som går in till kärnan. Platserna räknas per bildruta (`useAnimationFrame`) och sätts som transform/opacity. Systemen i `sajt.jamforelse.system`. Under bilden: "Du tar ut en kundlista ur ditt bokningssystem och lägger in den i Respark. Det kan alla bokningssystem." och "Exempel på bokningssystem. Respark har inget samarbete med företagen." **Ärlighet (2026-11-18):** sidan säger inte att bokningar kommer in av sig själva via kopplingar, och inte att sms:en slutar när kunden bokat – inget av det är bekräftat. Loggor provades och togs bort (kräver tillstånd).
+- **Kundlistan och kalendern:** scrollstyrd scen (200vh). Kunderna bleknar, får "Sms skickat", tre av fem bokar igen och landar som gröna tider i veckan i 3D.
+- **Själv eller med Respark:** jämför jobbet, inte funktioner. "Utan Respark – Du gör allt själv. Varje månad." (sex tomma rutor) mot "Med Respark – Du ställer in det en gång." (en svart rad och fem gröna bockar). Inget påstås om vad andra system kan.
+- **Borttaget 2026-11-17 (finns i git-historiken):** telefonscenen, "Två sms som gör två olika jobb", tidslinjen ("Alla bokar inte …" och sedan "Ett sms kommer ofta i fel stund."), forskningen om påminnelser, funktionstabellen med "Varierar", "Det här gör Respark åt dig", "Dina gamla kunder har inte försvunnit" (659 av 900) och rutorna "Vilken dag fungerade bäst?". 2026-11-18 även "Så gick det för Osteopaticentrum" (`SaGickDet.tsx`) – kundcaset finns kvar på startsidan. Inget från sidan ligger på startsidan.
+- **Verifierat:** `npm test`, `npm run lint`, `npm run build`, skärmbilder i 390 och 1440 px.
+- **Live sedan 2026-11-18** (indexeras inte). Lägg bara till påståenden om automatiska kopplingar eller att sms:en slutar när kunden har bokat när de är bekräftade. Bestäm vid lansering om sidan ska indexeras och läggas i `sitemap.ts`.
+
+## Gröna detaljer (live sedan 2026-11-18)
+
+Mer färg utan att något tar över: en ny detaljfärg `detalj` i
+`sajt.farger` (CSS-variabeln `--farg-detalj`, Tailwind `text-detalj` /
+`bg-detalj`), satt till samma skogsgröna som `framgang`. Används bara i små
+detaljer, aldrig på hela sektioner: understrykningen under "inte glömt" i
+heron, stegens siffror och linjen som fylls i "Så fungerar det" (desktop och
+mobil), kundcasets siffror (36 och 358), telefon- och mejlikonerna i teamet,
+och på sidan Varför oss linjen över berättelsens tre delar och siffrorna i
+kundcaset. Rubrikernas bruna och
+knapparnas svarta är orörda, och orange finns bara i gnistan. Sätt
+`detalj: "#86603F"` (accentMork) i `sajt.ts` för att se hur det var innan.
+Obs: efter ändringar i `globals.css` kan dev-servern behöva startas om.
+
+## Loggan går till heron (live sedan 2026-11-18)
+
+Loggan i menyn och länkarna till startsidan på juridiksidorna använder
+`StartsidaLank` (`src/komponenter/ui/StartsidaLank.tsx`). Förut hamnade man
+längst ner på startsidan när man kom från en annan sida (Next.js scrollade
+till fel element, troligen bokningspanelens `display: contents`-behållare),
+och på startsidan hände ingenting om man redan hade scrollat ner. Nu: på
+startsidan scrollar den upp till toppen; från en annan sida navigerar den
+med `scroll={false}` och ställer startsidan högst upp när den har monterats.
+Testat från startsidan, Varför oss, villkoren och integritetspolicyn i 1440
+och 390 px.
 
 ## Så styr du sidan
 

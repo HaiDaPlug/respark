@@ -79,7 +79,7 @@ export function Team() {
                             href={telefonHref(m.telefon)}
                             className="inline-flex items-center gap-2 py-1 font-semibold text-ink underline decoration-ink/25 underline-offset-[5px] transition-colors hover:decoration-ink"
                           >
-                            <Phone aria-hidden className="size-4 text-accent-strong" />
+                            <Phone aria-hidden className="size-4 text-detalj" />
                             {m.telefon}
                           </a>
                         )}
@@ -88,7 +88,7 @@ export function Team() {
                             href={`mailto:${m.epost}`}
                             className="inline-flex items-center gap-2 py-1 font-semibold text-ink underline decoration-ink/25 underline-offset-[5px] transition-colors hover:decoration-ink"
                           >
-                            <Mail aria-hidden className="size-4 text-accent-strong" />
+                            <Mail aria-hidden className="size-4 text-detalj" />
                             {t.mejla}
                           </a>
                         )}

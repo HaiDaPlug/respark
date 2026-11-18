@@ -7,7 +7,7 @@ export function Stegnummer({ nr, aktiv = true }: { nr: number; aktiv?: boolean }
     <span
       className={klass(
         "shrink-0 font-display text-[0.95rem] font-bold tabular-nums transition-colors duration-300",
-        aktiv ? "text-accent-strong" : "text-ink-soft",
+        aktiv ? "text-detalj" : "text-ink-soft",
       )}
     >
       {String(nr).padStart(2, "0")}

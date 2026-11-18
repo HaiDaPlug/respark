@@ -68,7 +68,7 @@ export function Hero() {
                 <path
                   d="M3 9.5C46 4.2 112 2.6 197 6.4"
                   fill="none"
-                  stroke="var(--farg-accent)"
+                  stroke="var(--farg-detalj)"
                   strokeWidth="6"
                   strokeLinecap="round"
                   vectorEffect="non-scaling-stroke"

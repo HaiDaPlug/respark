@@ -17,6 +17,7 @@
   --farg-accent: #a98463;
   --farg-accent-mork: #86603f;
   --farg-framgang: #2f6b4f;
+  --farg-detalj: #2f6b4f;
 }
 
 @theme inline {
@@ -52,6 +53,13 @@
   --color-framgang: var(--farg-framgang);
   --color-framgang-soft: color-mix(in oklab, var(--farg-framgang) 13%, var(--farg-yta));
   --color-framgang-ljus: color-mix(in oklab, var(--farg-framgang) 40%, white);
+
+  /*
+   * Detaljfärgen: små detaljer runt om på sidan (understrykning, stegens
+   * siffror och linjer, kundcasets siffror, ikoner). Aldrig stora ytor.
+   * Styrs av sajt.farger.detalj (grön sedan 2026-11-17).
+   */
+  --color-detalj: var(--farg-detalj);
 
   /* Primärknappen: nästan svart (textfärgen), lite ljusare vid hover */
   --color-knapp: var(--farg-text);

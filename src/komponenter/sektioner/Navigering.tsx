@@ -7,7 +7,6 @@
  * "Boka möte" (2026-11-11) står bredvid "Kom igång" och öppnar kalendern
  * (Bokning.tsx). I mobilmenyn stängs menyn först, sedan öppnas panelen.
  */
-import Link from "next/link";
 import { AnimatePresence, m } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { useEffect, useRef, useState, useSyncExternalStore, type MouseEvent, type ReactNode } from "react";
@@ -18,6 +17,7 @@ import { komIgangHref, visaKontakt } from "@/lib/lankar";
 import { Behallare } from "@/komponenter/ui/Behallare";
 import { BokaMoteKnapp } from "@/komponenter/Bokning";
 import { KnappLank } from "@/komponenter/ui/Knapp";
+import { StartsidaLank } from "@/komponenter/ui/StartsidaLank";
 
 function lyssnaPaScroll(andrad: () => void) {
   window.addEventListener("scroll", andrad, { passive: true });
@@ -94,10 +94,11 @@ export function Navigering({ logga }: { logga: ReactNode }) {
     >
       {/* intro-sist: på startsidan tonas menyn in sist, efter introt (src/lib/intro.ts) */}
       <Behallare className="intro-sist grid h-16 grid-cols-[1fr_auto] items-center lg:h-[4.5rem] lg:grid-cols-[1fr_auto_1fr]">
-        <Link href="/" className="-my-2 justify-self-start rounded-lg py-2" onClick={stang}>
+        {/* Loggan går alltid till heron högst upp på startsidan (StartsidaLank) */}
+        <StartsidaLank className="-my-2 justify-self-start rounded-lg py-2" onClick={stang}>
           {logga}
           <span className="sr-only"> – till startsidan</span>
-        </Link>
+        </StartsidaLank>
 
         <nav aria-label="Huvudmeny" className="hidden lg:block">
           <ul className="flex items-center gap-1">

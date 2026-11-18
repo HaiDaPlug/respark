@@ -54,7 +54,7 @@ export function StegTidslinje() {
       {/* Stegraden – fastnar under menyn (h-16) */}
       <div aria-hidden className="sticky top-16 z-20 -mx-5 border-b border-line bg-bg/90 px-5 py-3 backdrop-blur-md sm:-mx-8 sm:px-8">
         <div className="flex items-center justify-between gap-3 text-[0.78rem] font-semibold">
-          <span className="text-accent-strong">{t.stegAv(aktiv + 1, antal)}</span>
+          <span className="text-detalj">{t.stegAv(aktiv + 1, antal)}</span>
           <span className="truncate text-ink-soft">{t.steg[aktiv].titel}</span>
         </div>
         <div className="mt-2 grid gap-1.5" style={{ gridTemplateColumns: `repeat(${antal}, minmax(0, 1fr))` }}>
@@ -100,7 +100,7 @@ function Segment({ framsteg, index }: { framsteg: MotionValue<number>; index: nu
   const fyllnad = useTransform(framsteg, [index, index + 1], [0, 1]);
   return (
     <span className="relative h-1 overflow-hidden rounded-full bg-line-strong">
-      <m.span className="absolute inset-0 origin-left rounded-full bg-accent-strong" style={{ scaleX: fyllnad }} />
+      <m.span className="absolute inset-0 origin-left rounded-full bg-detalj" style={{ scaleX: fyllnad }} />
     </span>
   );
 }

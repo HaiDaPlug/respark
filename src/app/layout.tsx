@@ -50,6 +50,7 @@ const farger = {
   "--farg-accent": sajt.farger.accent,
   "--farg-accent-mork": sajt.farger.accentMork,
   "--farg-framgang": sajt.farger.framgang,
+  "--farg-detalj": sajt.farger.detalj,
 } as CSSProperties;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
