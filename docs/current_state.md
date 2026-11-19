@@ -1,6 +1,6 @@
 # Respark – landningssida: nuläge
 
-Senast uppdaterad: 2026-11-18
+Senast uppdaterad: 2026-11-19
 
 One-page-landningssida för Respark: tidigare kunder får automatiska
 påminnelser, och verksamheten ser vilka som kommer tillbaka. Den här
@@ -231,7 +231,33 @@ vanliga SaaS-sidor, och sidan behöver inga miljövariabler.
 
 **Verifierat 2026-11-11 (bokningen i menyn och knappraden):** tester, lint, `tsc`, bygget och axe (0 fel) gröna. Menyn fotad i 1024, 1280 och 1440 px, knappraden i 390 och 360 px (ryms utan sidledsscroll). Bokning via mobilmenyn provad: menyn stängs, panelen öppnas, Escape stänger och fokus går till menyknappen.
 
-**Inte testat:** riktig iPhone/Android, Safari på riktigt (bara WebKit i Playwright) och Firefox (särskilt sticky, scrollstyrningen och 3D-scenerna) och publicering på Vercel.
+**Inte testat:** riktig iPhone/Android, Safari på riktigt (bara WebKit i Playwright) och Firefox (särskilt sticky, scrollstyrningen och 3D-scenerna) Publiceringen på Vercel fungerar (kontrollerat 2026-11-19: startsidan och Varför oss svarar och visar senaste versionen).
+
+### Testlista för riktig iPhone och Android (2026-11-19)
+
+Testa i Safari på iPhone och Chrome på Android. Skriv ner modell och vad som händer.
+
+**Startsidan**
+1. Heron: syns telefonen och kundkortet hela, och hoppar inget när sidan laddas?
+2. "Så fungerar det": byts korten mjukt när man scrollar, utan att sidan fastnar eller hoppar?
+3. Kundcaset: räknas siffrorna upp?
+4. Priskortet: läsbart och rätt?
+5. Vanliga frågor: öppnas och stängs svaren?
+6. Mobilmenyn: öppnas och stängs den, och går "Boka möte" till Calendly?
+7. Loggan: scrolla ner och tryck på den – kommer man till toppen?
+8. Knapparna längst ner: skymmer de något?
+
+**Varför oss**
+9. Banan: snurrar namnen runt gnistan jämnt?
+10. Kalendern: bleknar kunderna och dyker de upp som gröna tider när man scrollar?
+11. Loggan: kommer man högst upp på startsidan?
+
+**Överallt**
+12. Går det att scrolla åt sidan? Det ska inte gå.
+13. Liggande telefon: ser sidan okej ut?
+14. Är text eller knappar för små, eller hamnar de under notchen?
+
+Resultat: inte testat än.
 
 ## Före publicering
 
