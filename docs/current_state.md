@@ -203,6 +203,17 @@ vanliga SaaS-sidor, och sidan behöver inga miljövariabler.
 
 ## Verifierat
 
+**Säkerhetsuppdatering 2026-11-19 (gren `sakerhet-next`):** Next.js och
+eslint-config-next 16.4.2 → 16.4.6 (exakt version). Rättar två kända
+cacheläckor (GHSA-mfr8-8qww-v76h, GHSA-vc7v-qv4w-wrv8) och tar bort
+säkerhetsstoppet i `npm run build`. `npm audit --omit=dev`: 0 sårbarheter.
+Kvar: en måttlig varning i lintverktyget (minimatch via typescript-eslint,
+som `package.json` låser till 8.71.2 under `overrides`). Den följer aldrig med
+till sidan. Rättningen (typescript-eslint 8.73.0) kom 2026-11-16 – höj
+låsningen när den har funnits ett par veckor. Verifierat: tester, lint, `tsc`,
+bygget, och produktionsläget i 1440 och 390 px (startsidan och Varför oss
+lika höga som live, inga konsolfel, ingen sidledsscroll).
+
 - `npm test` (förbund och medlemspris), `npm run lint`, `tsc` och `npm run build` utan fel. Allt förrenderas statiskt, även favicon, hemskärmsikon och delningsbild.
 - axe-core: 0 fel i desktop och mobil.
 - Klicktest i Chrome (Playwright): menylänkar, mobilmenyn (öppna, länk, Escape, scrollspärr), stegen (klick och Enter scrollar till rätt steg, `aria-current` följer med), frågorna, reducerad rörelse (scenerna står stilla i slutläget) och "Hoppa till innehållet" som första tabbstopp.
